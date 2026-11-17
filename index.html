@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richárd Atkári | Front-End Developer & UI Designer</title>
+
+    <!-- Dynamic Favicon -->
+    <link id="favicon" rel="icon" type="image/png" href="">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        studio: {
+                            lightbg: '#F8FAFC',
+                            lightcard: '#FFFFFF',
+                            darkbg: '#050B14',
+                            darkcard: '#0B1524',
+                            borderLight: '#D9E5F1',
+                            borderDark: '#1B2C42'
+                        },
+                        /* pontosannemaz Corp. Brand Blue Palette */
+                        pontnemaz: {
+                            50:  '#EEF6FD',
+                            100: '#D8EAF7',
+                            200: '#B5D4EF',
+                            300: '#7FB3E3',
+                            400: '#4E8FCF',
+                            500: '#0054A6',
+                            600: '#004A97',
+                            700: '#003B71',
+                            800: '#00294F',
+                            900: '#001A33'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Typography & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Subtle Architectural Dot Matrix */
+        .bg-dots {
+            background-size: 24px 24px;
+            background-image: radial-gradient(rgba(0, 84, 166, 0.08) 1px, transparent 1px);
+        }
+        .dark .bg-dots {
+            background-image: radial-gradient(rgba(127, 179, 227, 0.09) 1px, transparent 1px);
+        }
+
+        /* Bento Card Architecture */
+        .bento-card {
+            background: #FFFFFF;
+            border: 1px solid #D9E5F1;
+            box-shadow: 0 1px 3px rgba(0, 41, 79, 0.03), 0 8px 24px -12px rgba(0, 84, 166, 0.08);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+            position: relative;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .dark .bento-card {
+            background: #0B1524;
+            border: 1px solid #1B2C42;
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.65);
+        }
+        .bento-card:hover {
+            border-color: #0054A6;
+            box-shadow: 0 16px 32px -12px rgba(0, 84, 166, 0.18);
+        }
+        .dark .bento-card:hover {
+            border-color: #4E8FCF;
+            box-shadow: 0 16px 32px -12px rgba(0, 84, 166, 0.35);
+        }
+
+        /* Cursor Spotlight on Cards (positions set by JS) */
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(0, 84, 166, 0.10), transparent 65%);
+            pointer-events: none;
+        }
+        .dark .bento-card::before {
+            background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(78, 143, 207, 0.16), transparent 65%);
+        }
+        .bento-card:hover::before { opacity: 1; }
+
+        /* Typewriter Cursor */
+        .type-caret {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            margin-left: 6px;
+            vertical-align: -0.12em;
+            background: #0054A6;
+            animation: blink 1s steps(1) infinite;
+        }
+        .dark .type-caret { background: #7FB3E3; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #003B71, #0054A6, #7FB3E3);
+            z-index: 60;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 12px rgba(0, 84, 166, 0.5);
+        }
+
+        /* Mouse Trail Canvas */
+        #trail-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Skill Bars — animated from 0 by JS */
+        .skill-bar-fill {
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Click Ripple */
+        .ripple {
+            position: fixed;
+            width: 12px; height: 12px;
+            border-radius: 9999px;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(0, 84, 166, 0.35) 0%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple-expand 0.6s ease-out forwards;
+            z-index: 55;
+        }
+        .dark .ripple {
+            background: radial-gradient(circle, rgba(127, 179, 227, 0.4) 0%, transparent 70%);
+        }
+        @keyframes ripple-expand {
+            to { transform: translate(-50%, -50%) scale(14); opacity: 0; }
+        }
+
+        /* Toasts */
+        #toast-zone {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 70;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+        }
+        .toast {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 9999px;
+            background: #0054A6;
+            color: #FFFFFF;
+            box-shadow: 0 10px 30px -10px rgba(0, 84, 166, 0.5);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dark .toast { background: #4E8FCF; color: #001A33; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        /* Konami Canvas */
+        #konami-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 65;
+        }
+
+        /* In-page Terminal */
+        #terminal-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 340px;
+            max-width: calc(100vw - 40px);
+            z-index: 75;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(5, 11, 20, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(78, 143, 207, 0.4);
+            box-shadow: 0 20px 50px -12px rgba(0, 41, 79, 0.55);
+            opacity: 0;
+            transform: translateY(16px) scale(0.97);
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #terminal-panel.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        #terminal-output {
+            height: 220px;
+            overflow-y: auto;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            line-height: 1.7;
+            padding: 12px 14px;
+            color: #B5D4EF;
+        }
+        #terminal-output .t-cmd { color: #FFFFFF; }
+        #terminal-output .t-blue { color: #7FB3E3; }
+        #terminal-output .t-ok { color: #4ADE80; }
+        #terminal-output .t-dim { color: #4A6B8A; }
+        #terminal-input {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #FFFFFF;
+            flex: 1;
+        }
+        #terminal-input::placeholder { color: #4A6B8A; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #F8FAFC; }
+        .dark ::-webkit-scrollbar-track { background: #050B14; }
+        ::-webkit-scrollbar-thumb { background: #B5D4EF; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1B2C42; }
+        ::-webkit-scrollbar-thumb:hover { background: #0054A6; }
+    </style>
+</head>
+<body class="bg-studio-lightbg dark:bg-studio-darkbg text-zinc-900 dark:text-zinc-100 font-sans antialiased bg-dots min-h-screen selection:bg-pontnemaz-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Mouse Trail -->
+    <canvas id="trail-canvas"></canvas>
+
+    <!-- FLOATING PILL NAVIGATION -->
+    <header class="fixed top-5 left-0 w-full z-50 px-4 sm:px-6 pointer-events-none">
+        <nav class="max-w-5xl mx-auto pointer-events-auto bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-zinc-200/90 dark:border-zinc-800 rounded-full px-5 py-3 shadow-lg shadow-pontnemaz-900/5 dark:shadow-black/40 flex items-center justify-between">
+
+            <a href="#" class="flex items-center gap-2.5 group">
+                <span class="w-8 h-8 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 text-white dark:text-pontnemaz-900 font-mono font-bold text-xs flex items-center justify-center tracking-tighter group-hover:scale-105 transition-transform">
+                    RA
+                </span>
+                <span class="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">
+                    richardatkari<span class="text-pontnemaz-500 dark:text-pontnemaz-400">.hu</span>
+                </span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                <a href="#about" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">01. Philosophy</a>
+                <a href="#skills" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">02. Stack</a>
+                <a href="#projects" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">03. Showcase</a>
+            </div>
+
+            <div class="hidden md:flex items-center gap-2.5">
+                <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Téma váltása (Világos / Sötét)">
+                    <i id="theme-icon" class="fa-solid fa-moon text-xs"></i>
+                </button>
+                <button id="sfx-toggle" type="button" aria-label="Toggle Sound Effects" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Hang effektek (S)">
+                    <i id="sfx-icon" class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                <button id="terminal-toggle" type="button" aria-label="Toggle terminal" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Terminal (`)">
+                    <i class="fa-solid fa-terminal text-xs"></i>
+                </button>
+                <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="magnetic px-4 py-2 rounded-full bg-pontnemaz-500 text-white hover:bg-pontnemaz-600 dark:bg-pontnemaz-500 dark:hover:bg-pontnemaz-400 dark:hover:text-pontnemaz-900 font-mono text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-regular fa-copy"></i>
+                    <span id="copy-btn-text">business@richardatkari.hu</span>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2 md:hidden">
+                <button id="theme-toggle-mobile" type="button" aria-label="Toggle Dark Mode" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 flex items-center justify-center">
+                    <i class="theme-icon-mob fa-solid fa-moon text-xs"></i>
+                </button>
+                <button id="mobile-menu-btn" type="button" aria-label="Open Menu" class="w-8 h-8 flex items-center justify-center text-zinc-700 dark:text-zinc-200 text-lg focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden max-w-5xl mx-auto mt-2 pointer-events-auto bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 shadow-xl space-y-3 font-mono text-xs">
+            <a href="#about" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">01. Philosophy</a>
+            <a href="#skills" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">02. Stack</a>
+            <a href="#projects" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">03. Showcase</a>
+            <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="w-full text-left px-3 py-2.5 rounded-xl bg-pontnemaz-500/10 text-pontnemaz-600 dark:text-pontnemaz-300 font-bold flex items-center justify-between">
+                <span>business@richardatkari.hu</span>
+                <i class="fa-regular fa-copy"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO & BENTO OVERVIEW -->
+    <main class="pt-32 pb-20 px-4 sm:px-6 max-w-6xl mx-auto relative">
+
+        <canvas id="hero-particles" class="absolute inset-0 w-full h-[650px] pointer-events-none z-0 opacity-70"></canvas>
+
+        <div class="relative z-10 max-w-3xl mb-14 reveal-on-scroll">
+            <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-md bg-pontnemaz-500/10 border border-pontnemaz-500/20 text-pontnemaz-700 dark:text-pontnemaz-300 font-mono text-xs mb-6">
+                <span class="w-2 h-2 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 animate-pulse"></span>
+                Front-End Development &amp; UI Architecture
+            </div>
+
+            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.08] mb-6">
+                Richárd <span class="text-pontnemaz-600 dark:text-pontnemaz-400">Atkári.</span><br>
+                <span class="text-zinc-400 dark:text-zinc-500 text-3xl sm:text-5xl font-bold"><span id="typewriter"></span><span class="type-caret"></span></span>
+            </h1>
+
+            <p class="text-zinc-600 dark:text-zinc-400 text-lg sm:text-xl leading-relaxed max-w-2xl mb-8">
+                Crafting <strong class="text-zinc-900 dark:text-white font-semibold">pixel-perfect, responsive web interfaces</strong> with clean code, modern JavaScript frameworks, and meticulous attention to layout aesthetics and fluid micro-interactions.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="#skills" class="magnetic px-6 py-3.5 rounded-xl bg-pontnemaz-500 hover:bg-pontnemaz-600 dark:bg-pontnemaz-500 dark:hover:bg-pontnemaz-400 text-white dark:text-pontnemaz-900 font-semibold text-sm transition flex items-center gap-2.5 shadow-sm">
+                    <i class="fa-solid fa-layer-group"></i> Explore Stack
+                </a>
+                <a href="mailto:business@richardatkari.hu" class="magnetic px-6 py-3.5 rounded-xl bento-card text-zinc-800 dark:text-zinc-200 font-semibold text-sm flex items-center gap-2.5">
+                    <i class="fa-regular fa-paper-plane text-pontnemaz-500 dark:text-pontnemaz-400"></i> Send Email Direct
+                </a>
+                <button type="button" id="hero-terminal-btn" class="magnetic px-6 py-3.5 rounded-xl border border-pontnemaz-500/30 text-pontnemaz-700 dark:text-pontnemaz-300 hover:bg-pontnemaz-500/10 font-mono text-sm transition flex items-center gap-2.5">
+                    <i class="fa-solid fa-terminal"></i> Open terminal <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-pontnemaz-500/10 border border-pontnemaz-500/20">`</kbd>
+                </button>
+            </div>
+        </div>
+
+        <!-- BENTO GRID -->
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-on-scroll delay-100">
+
+            <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                <div class="bento-card p-6 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Architecture</div>
+                        <div class="text-xl font-bold text-zinc-900 dark:text-white">Component-Driven</div>
+                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Modular &amp; maintainable structure</div>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-500/10 text-pontnemaz-600 dark:text-pontnemaz-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                </div>
+
+                <div class="bento-card p-6 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Adaptability</div>
+                        <div class="text-xl font-bold text-zinc-900 dark:text-white">100% Responsive</div>
+                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Mobile-first fluid grid systems</div>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-400/10 text-pontnemaz-500 dark:text-pontnemaz-300 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-display"></i>
+                    </div>
+                </div>
+
+                <div class="bento-card p-6 rounded-2xl flex items-center justify-between sm:col-span-2 lg:col-span-1">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Interactivity</div>
+                        <div class="text-xl font-bold text-zinc-900 dark:text-white">Fluid DOM &amp; Motion</div>
+                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">60fps-class transitions &amp; clean state</div>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-900/5 dark:bg-white/10 text-pontnemaz-800 dark:text-white flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+
+                <!-- LIVE DEVICE TILE -->
+                <div class="bento-card p-6 rounded-2xl sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400">Your device &mdash; live</div>
+                        <span class="w-2 h-2 rounded-full bg-pontnemaz-500 animate-pulse"></span>
+                    </div>
+                    <div class="flex items-end justify-between gap-4">
+                        <div>
+                            <div class="text-3xl font-extrabold text-zinc-900 dark:text-white tabular-nums leading-none">
+                                <span id="tile-fps">&mdash;</span><span class="text-sm font-bold text-pontnemaz-500 dark:text-pontnemaz-400 ml-1">fps</span>
+                            </div>
+                            <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-mono" id="tile-meta">&mdash;</div>
+                        </div>
+                        <canvas id="tile-spark" class="w-28 h-10 opacity-90"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Window -->
+            <div class="lg:col-span-7 bento-card rounded-2xl overflow-hidden flex flex-col">
+                <div class="bg-pontnemaz-50 dark:bg-pontnemaz-900/40 px-5 py-3.5 border-b border-pontnemaz-100 dark:border-pontnemaz-800/60 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-200 dark:bg-pontnemaz-800"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-300 dark:bg-pontnemaz-700"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-500"></span>
+                        <span class="ml-2 font-mono text-xs text-zinc-500 dark:text-zinc-400">app/DeveloperProfile.tsx</span>
+                    </div>
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-pontnemaz-500/10 text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-500/20">
+                        Next.js 14 / React / TS
+                    </span>
+                </div>
+
+                <div class="p-6 sm:p-8 font-mono text-xs sm:text-sm bg-zinc-950 text-zinc-300 flex-1 flex flex-col justify-center leading-relaxed overflow-x-auto">
+                    <div><span class="text-pontnemaz-400">import</span> type { Metadata } <span class="text-pontnemaz-400">from</span> <span class="text-pontnemaz-300">'next'</span>;</div>
+                    <div class="mt-3"><span class="text-pontnemaz-400">export const</span> <span class="text-white font-bold">metadata</span>: Metadata = { <span class="text-pontnemaz-300">title</span>: <span class="text-pontnemaz-300">'Portfolio'</span> };</div>
+                    <div class="mt-3"><span class="text-pontnemaz-400">export default function</span> <span class="text-white font-bold">DeveloperProfile</span>() {</div>
+                    <div class="pl-5 text-zinc-400"><span class="text-pontnemaz-400">const</span> stack = [<span class="text-pontnemaz-300">'React'</span>, <span class="text-pontnemaz-300">'Next.js'</span>, <span class="text-pontnemaz-300">'Tailwind'</span>, <span class="text-pontnemaz-300">'UX'</span>];</div>
+                    <div class="mt-3 pl-5 text-zinc-500">// Server-rendered, fluid 60fps-class motion, pixel-perfect</div>
+                    <div class="pl-5"><span class="text-pontnemaz-400">return</span> (</div>
+                    <div class="pl-10 text-zinc-200">&lt;<span class="text-pontnemaz-400">Surface</span> <span class="text-pontnemaz-300">layout</span>=<span class="text-pontnemaz-300">"bento-grid"</span> <span class="text-pontnemaz-300">theme</span>=<span class="text-pontnemaz-300">"pontnemaz-blue"</span>&gt;</div>
+                    <div class="pl-14 text-white">&lt;<span class="text-pontnemaz-400">Identity</span> <span class="text-pontnemaz-300">name</span>=<span class="text-pontnemaz-300">"Richárd Atkári"</span> /&gt;</div>
+                    <div class="pl-10 text-zinc-200">&lt;/<span class="text-pontnemaz-400">Surface</span>&gt;</div>
+                    <div class="pl-5">);</div>
+                    <div>};</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 01 PHILOSOPHY -->
+    <section id="about" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 01. Design &amp; Code Philosophy</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Bridging Aesthetics and Functionality</h2>
+            </div>
+            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
+                Focused on writing modular, readable, and scalable front-end architecture with visual restraint.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-100">
+                <div class="flex items-center justify-between">
+                    <span class="font-mono text-xs text-zinc-400">01 / LAYOUT</span>
+                    <i class="fa-solid fa-wand-magic-sparkles text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Modern UI Layouts</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                    Designing sleek, minimalist layouts using Tailwind CSS, modern CSS Grid, Flexbox, and refined surface hierarchies for maximum visual clarity.
+                </p>
+            </div>
+
+            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-200">
+                <div class="flex items-center justify-between">
+                    <span class="font-mono text-xs text-zinc-400">02 / LOGIC</span>
+                    <i class="fa-solid fa-code text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Clean DOM Manipulation</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                    Writing performant Vanilla JavaScript and reactive component logic to handle state changes, smooth user interactions, and dynamic UI rendering effortlessly.
+                </p>
+            </div>
+
+            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-300">
+                <div class="flex items-center justify-between">
+                    <span class="font-mono text-xs text-zinc-400">03 / ADAPTIVE</span>
+                    <i class="fa-solid fa-mobile-screen text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Responsive &amp; Accessible</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                    Ensuring cross-browser compatibility, mobile-first responsiveness, and smooth fluid animations across all display sizes and device viewports.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 STACK -->
+    <section id="skills" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 02. Front-End Stack</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Skills &amp; Technologies</h2>
+            </div>
+            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
+                The core languages, frameworks, and workflow utilities powering my interfaces.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
+                        <i class="fa-brands fa-html5 text-pontnemaz-500 dark:text-pontnemaz-400"></i> Core Web Technologies
+                    </h3>
+                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Markup &amp; Styling</span>
+                </div>
+                <div class="space-y-4 text-xs font-mono">
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>HTML5 / Semantic Markup</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="95">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>CSS3 / Flexbox / CSS Grid</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="90">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Tailwind CSS &amp; Utility Frameworks</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="92">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="92"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
+                        <i class="fa-brands fa-js text-pontnemaz-400 dark:text-pontnemaz-300"></i> Programming &amp; Logic
+                    </h3>
+                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Interactivity</span>
+                </div>
+                <div class="space-y-4 text-xs font-mono">
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>JavaScript (ES6+ / DOM / Async)</span>
+                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="85">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>React &amp; Next.js Components</span>
+                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="78">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="78"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>TypeScript Fundamentals</span>
+                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="65">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="65"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-paintbrush text-pontnemaz-500 dark:text-pontnemaz-400"></i> UI/UX &amp; Design
+                    </h3>
+                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Aesthetics</span>
+                </div>
+                <div class="space-y-4 text-xs font-mono">
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Responsive &amp; Mobile-First Design</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="90">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Glassmorphism &amp; CSS Animations</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="88">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Figma to Code Implementation</span>
+                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="82">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="82"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-toolbox text-pontnemaz-700 dark:text-pontnemaz-300"></i> Workflow &amp; Tools
+                    </h3>
+                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Environment</span>
+                </div>
+                <div class="space-y-4 text-xs font-mono">
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Git &amp; Version Control</span>
+                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="80">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Vite / Webpack / NPM Bundlers</span>
+                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="75">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
+                            <span>Browser DevTools &amp; Performance Tuning</span>
+                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="85">0%</span>
+                        </div>
+                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 SHOWCASE -->
+    <section id="projects" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 03. Front-End Highlights</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Featured Web Interfaces</h2>
+            </div>
+            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
+                Showcasing clean UI architecture, dynamic themes, and responsive design.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-100">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between font-mono text-xs">
+                        <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold">01 // PORTFOLIO ARCHITECTURE</span>
+                        <span class="text-zinc-400">HTML5 / Tailwind / JS</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Minimalist Editorial Portfolio</h3>
+                    <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                        This very page &mdash; a high-performance portfolio featuring seamless light/dark persistence, mouse-reactive canvas particles, a glowing cursor trail, an in-page terminal, dynamic canvas favicons, and bento-grid design.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Tailwind CSS</span>
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Canvas API</span>
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Web Audio</span>
+                </div>
+            </article>
+
+            <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-200">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between font-mono text-xs">
+                        <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold">02 // INTERACTIVE COMPONENTS</span>
+                        <span class="text-zinc-400">React / Next.js / UX</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Dynamic UI Dashboard Shell</h3>
+                    <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+                        An interactive browser-based dashboard interface featuring live simulated metrics, custom copy-to-clipboard feedback animations, and smooth intersection-observer scroll reveals.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">ES6+</span>
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">UI State</span>
+                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Animations</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80 font-mono text-xs text-zinc-500 dark:text-zinc-400">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                &copy; Richárd Atkári — Front-End Developer &amp; UI Designer
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="mailto:business@richardatkari.hu" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-400 transition flex items-center gap-2">
+                    <i class="fa-solid fa-envelope"></i> business@richardatkari.hu
+                </a>
+                <span class="text-zinc-300 dark:text-zinc-700">|</span>
+                <span class="text-pontnemaz-600 dark:text-pontnemaz-400 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 inline-block animate-pulse"></span>
+                    Available for Projects
+                    <span id="live-clock" class="text-zinc-400 dark:text-zinc-500"></span>
+                </span>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-[10px] tracking-[0.3em] text-zinc-300 dark:text-zinc-700 select-none">
+            PSST: &uarr; &uarr; &darr; &darr; &larr; &rarr; &larr; &rarr; B A &mdash; or press ` for the terminal
+        </div>
+    </footer>
+
+    <!-- IN-PAGE TERMINAL -->
+    <div id="terminal-panel" role="dialog" aria-label="Interactive terminal">
+        <div class="flex items-center justify-between px-4 py-2.5 bg-pontnemaz-700/40 border-b border-pontnemaz-500/30">
+            <div class="flex items-center gap-2 font-mono text-[11px] text-pontnemaz-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-300"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-200"></span>
+                <span class="ml-2">guest@atkari — terminal</span>
+            </div>
+            <button id="terminal-close" type="button" aria-label="Close terminal" class="text-pontnemaz-300 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+        </div>
+        <div id="terminal-output"></div>
+        <div class="flex items-center gap-2 px-4 py-3 border-t border-pontnemaz-500/20">
+            <span class="font-mono text-xs text-pontnemaz-400 select-none">guest@atkari:~$</span>
+            <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help' and hit Enter">
+        </div>
+    </div>
+
+    <!-- INTERACTIVE LOGIC -->
+    <script>
+        // ============================================================
+        // 0. Dynamic Favicon (pontnemaz blue)
+        // ============================================================
+        function updateFavicon(isDark) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            ctx.clearRect(0, 0, 64, 64);
+            ctx.fillStyle = isDark ? '#0B1524' : '#0054A6';
+            ctx.beginPath();
+            if (ctx.roundRect) ctx.roundRect(2, 2, 60, 60, 16);
+            else ctx.rect(2, 2, 60, 60);
+            ctx.fill();
+
+            if (isDark) {
+                ctx.strokeStyle = '#4E8FCF';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = isDark ? '#7FB3E3' : '#FFFFFF';
+            ctx.font = 'bold 25px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('RA', 32, 34);
+
+            const link = document.getElementById('favicon');
+            if (link) link.href = canvas.toDataURL('image/png');
+        }
+
+        // ============================================================
+        // 1. Theme (persisted)
+        // ============================================================
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobBtn = document.getElementById('theme-toggle-mobile');
+
+        function applyTheme(isDark) {
+            document.documentElement.classList.toggle('dark', isDark);
+            const icon = document.getElementById('theme-icon');
+            const iconMob = document.querySelector('.theme-icon-mob');
+            if (icon) icon.className = isDark ? 'fa-solid fa-sun text-xs' : 'fa-solid fa-moon text-xs';
+            if (iconMob) iconMob.className = 'theme-icon-mob ' + (isDark ? 'fa-solid fa-sun text-xs' : 'fa-solid fa-moon text-xs');
+            localStorage.setItem('ra_frontend_theme', isDark ? 'dark' : 'light');
+            updateFavicon(isDark);
+        }
+
+        applyTheme(localStorage.getItem('ra_frontend_theme') === 'dark');
+
+        function handleThemeToggle() {
+            applyTheme(!document.documentElement.classList.contains('dark'));
+            sfx('whoosh');
+        }
+        if (themeToggleBtn) themeToggleBtn.addEventListener('click', handleThemeToggle);
+        if (themeToggleMobBtn) themeToggleMobBtn.addEventListener('click', handleThemeToggle);
+
+        // ============================================================
+        // 2. Scroll Reveal
+        // ============================================================
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+        // ============================================================
+        // 3. Typewriter Hero
+        // ============================================================
+        const typewriterEl = document.getElementById('typewriter');
+        if (typewriterEl) {
+            const phrases = [
+                'Front-End Developer.',
+                'UI/UX Enthusiast.',
+                'React & Next.js Builder.',
+                'Pixel-Perfectionist.'
+            ];
+            let phraseIndex = 0, charIndex = 0, deleting = false;
+
+            function typeLoop() {
+                const current = phrases[phraseIndex];
+                if (deleting) {
+                    charIndex--;
+                    typewriterEl.textContent = current.slice(0, charIndex);
+                } else {
+                    charIndex++;
+                    typewriterEl.textContent = current.slice(0, charIndex);
+                    if (charIndex % 3 === 0) sfx('tick');
+                }
+
+                let delay = deleting ? 45 : 85;
+                if (!deleting && charIndex === current.length) {
+                    delay = 2200;
+                    deleting = true;
+                } else if (deleting && charIndex === 0) {
+                    deleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    delay = 400;
+                }
+                setTimeout(typeLoop, delay);
+            }
+            typeLoop();
+        }
+
+        // ============================================================
+        // 4. Mouse-Reactive Particle Network (hero)
+        // ============================================================
+        const canvas = document.getElementById('hero-particles');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: -9999, y: -9999 };
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = 650;
+                initParticles();
+            }
+            window.addEventListener('resize', resizeCanvas);
+
+            canvas.parentElement.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+            canvas.parentElement.addEventListener('mouseleave', () => {
+                mouse.x = -9999;
+                mouse.y = -9999;
+            });
+
+            function initParticles() {
+                particles = [];
+                const count = Math.floor((canvas.width * canvas.height) / 24000);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 1.5 + 1
+                    });
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const isDark = document.documentElement.classList.contains('dark');
+                const dotColor = isDark ? 'rgba(78, 143, 207, 0.4)' : 'rgba(0, 84, 166, 0.24)';
+                const LINK_DIST = 110;
+                const MOUSE_DIST = 160;
+
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    let mdx = p.x - mouse.x, mdy = p.y - mouse.y;
+                    let mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
+                    if (mouseDist < MOUSE_DIST && mouseDist > 0.01) {
+                        const force = (MOUSE_DIST - mouseDist) / MOUSE_DIST;
+                        p.x += (mdx / mouseDist) * force * 1.4;
+                        p.y += (mdy / mouseDist) * force * 1.4;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = dotColor;
+                    ctx.fill();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        let p2 = particles[j];
+                        let dx = p.x - p2.x, dy = p.y - p2.y;
+                        let dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < LINK_DIST) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            const alpha = (isDark ? 0.16 : 0.09) * (1 - dist / LINK_DIST);
+                            ctx.strokeStyle = isDark
+                                ? `rgba(78, 143, 207, ${alpha})`
+                                : `rgba(0, 84, 166, ${alpha})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+
+                    if (mouseDist < MOUSE_DIST) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        const mAlpha = 0.35 * (1 - mouseDist / MOUSE_DIST);
+                        ctx.strokeStyle = isDark
+                            ? `rgba(127, 179, 227, ${mAlpha})`
+                            : `rgba(0, 84, 166, ${mAlpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            resizeCanvas();
+            animateParticles();
+        }
+
+        // ============================================================
+        // 5. Glowing Mouse Trail (whole page)
+        // ============================================================
+        const trailCanvas = document.getElementById('trail-canvas');
+        if (trailCanvas) {
+            const tCtx = trailCanvas.getContext('2d');
+            let trail = [];
+
+            function sizeTrail() {
+                trailCanvas.width = window.innerWidth;
+                trailCanvas.height = window.innerHeight;
+            }
+            sizeTrail();
+            window.addEventListener('resize', sizeTrail);
+
+            let lastTrail = 0;
+            document.addEventListener('mousemove', (e) => {
+                const now = performance.now();
+                if (now - lastTrail < 16) return;
+                lastTrail = now;
+                trail.push({
+                    x: e.clientX, y: e.clientY,
+                    life: 1,
+                    r: 2 + Math.random() * 2.5,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8
+                });
+                if (trail.length > 70) trail.shift();
+            });
+
+            function trailLoop() {
+                tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+                const isDark = document.documentElement.classList.contains('dark');
+                for (let i = trail.length - 1; i >= 0; i--) {
+                    const t = trail[i];
+                    t.life -= 0.028;
+                    t.x += t.vx;
+                    t.y += t.vy;
+                    if (t.life <= 0) { trail.splice(i, 1); continue; }
+                    tCtx.beginPath();
+                    tCtx.arc(t.x, t.y, t.r * t.life, 0, Math.PI * 2);
+                    tCtx.fillStyle = isDark
+                        ? `rgba(127, 179, 227, ${0.5 * t.life})`
+                        : `rgba(0, 84, 166, ${0.4 * t.life})`;
+                    tCtx.shadowColor = isDark ? 'rgba(78, 143, 207, 0.8)' : 'rgba(0, 84, 166, 0.6)';
+                    tCtx.shadowBlur = 8 * t.life;
+                    tCtx.fill();
+                    tCtx.shadowBlur = 0;
+                }
+                requestAnimationFrame(trailLoop);
+            }
+            trailLoop();
+        }
+
+        // ============================================================
+        // 6. 3D Tilt + Cursor Spotlight Cards
+        // ============================================================
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const px = x / rect.width;
+                const py = y / rect.height;
+
+                card.style.setProperty('--mx', (px * 100) + '%');
+                card.style.setProperty('--my', (py * 100) + '%');
+
+                const rotY = (px - 0.5) * 6;
+                const rotX = (0.5 - py) * 6;
+                card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-3px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.setProperty('--mx', '50%');
+                card.style.setProperty('--my', '50%');
+            });
+        });
+
+        // ============================================================
+        // 7. Animated Skill Bars + Counters
+        // ============================================================
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            const skillObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    skillsSection.querySelectorAll('.skill-bar-fill').forEach((bar, idx) => {
+                        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, idx * 90);
+                    });
+                    skillsSection.querySelectorAll('[data-counter]').forEach(counterEl => {
+                        const target = parseInt(counterEl.dataset.target, 10) || 0;
+                        let current = 0;
+                        const step = Math.max(1, Math.round(target / 40));
+                        const tick = () => {
+                            current = Math.min(current + step, target);
+                            counterEl.textContent = current + '%';
+                            if (current < target) requestAnimationFrame(tick);
+                        };
+                        tick();
+                    });
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.15 });
+            skillObserver.observe(skillsSection);
+        }
+
+        // ============================================================
+        // 8. Scroll Progress + Live Clock
+        // ============================================================
+        const scrollProgress = document.getElementById('scroll-progress');
+        function updateScrollProgress() {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+            if (scrollProgress) scrollProgress.style.width = progress + '%';
+        }
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        updateScrollProgress();
+
+        const liveClock = document.getElementById('live-clock');
+        function updateClock() {
+            if (!liveClock) return;
+            liveClock.textContent = '— ' + new Date().toLocaleTimeString('en-GB', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+        }
+        if (liveClock) {
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        // ============================================================
+        // 9. Live Device Readout (FPS sampler + sparkline + specs)
+        // ============================================================
+        let fpsSamples = [];
+        let lastFps = 0;
+        let fpsFrames = 0;
+        let fpsLast = performance.now();
+        const tileFps = document.getElementById('tile-fps');
+        const tileSpark = document.getElementById('tile-spark');
+        const tileMeta = document.getElementById('tile-meta');
+
+        function drawSparkline() {
+            if (!tileSpark) return;
+            const dpr = window.devicePixelRatio || 1;
+            const rect = tileSpark.getBoundingClientRect();
+            if (rect.width === 0) return;
+            tileSpark.width = rect.width * dpr;
+            tileSpark.height = rect.height * dpr;
+            const g = tileSpark.getContext('2d');
+            g.setTransform(dpr, 0, 0, dpr, 0, 0);
+            const w = rect.width, h = rect.height;
+            g.clearRect(0, 0, w, h);
+            if (fpsSamples.length < 2) return;
+
+            const max = Math.max(70, ...fpsSamples);
+            const stepX = w / (fpsSamples.length - 1);
+            g.beginPath();
+            g.moveTo(0, h);
+            fpsSamples.forEach((v, i) => g.lineTo(i * stepX, h - (v / max) * (h - 3) - 1.5));
+            g.lineTo(w, h);
+            g.closePath();
+            g.fillStyle = 'rgba(0, 84, 166, 0.12)';
+            g.fill();
+
+            g.beginPath();
+            fpsSamples.forEach((v, i) => {
+                const x = i * stepX, y = h - (v / max) * (h - 3) - 1.5;
+                i === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+            });
+            g.strokeStyle = '#0054A6';
+            g.lineWidth = 1.6;
+            g.lineJoin = 'round';
+            g.stroke();
+        }
+        window.addEventListener('resize', drawSparkline);
+
+        function fpsLoop(now) {
+            fpsFrames++;
+            if (now - fpsLast >= 500) {
+                lastFps = Math.round(fpsFrames * 1000 / (now - fpsLast));
+                fpsFrames = 0;
+                fpsLast = now;
+                fpsSamples.push(lastFps);
+                if (fpsSamples.length > 36) fpsSamples.shift();
+                if (tileFps) tileFps.textContent = lastFps;
+                drawSparkline();
+            }
+            requestAnimationFrame(fpsLoop);
+        }
+        requestAnimationFrame(fpsLoop);
+
+        function detectOS() {
+            if (navigator.userAgentData && navigator.userAgentData.platform) return navigator.userAgentData.platform;
+            const ua = navigator.userAgent;
+            if (/Windows NT 10/.test(ua)) return 'Win 10/11';
+            if (/Windows/.test(ua)) return 'Windows';
+            if (/Android/.test(ua)) return 'Android';
+            if (/iPhone|iPad|iPod/.test(ua)) return 'iOS';
+            if (/Mac OS X/.test(ua)) return 'macOS';
+            if (/Linux/.test(ua)) return 'Linux';
+            return 'Unknown OS';
+        }
+
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            let m;
+            if ((m = ua.match(/Edg\/([\d.]+)/))) return 'Edge ' + m[1].split('.')[0];
+            if ((m = ua.match(/OPR\/([\d.]+)/))) return 'Opera ' + m[1].split('.')[0];
+            if ((m = ua.match(/Firefox\/([\d.]+)/))) return 'Firefox ' + m[1].split('.')[0];
+            if ((m = ua.match(/Chrome\/([\d.]+)/))) return 'Chrome ' + m[1].split('.')[0];
+            if ((m = ua.match(/Version\/([\d.]+).*Safari/))) return 'Safari ' + m[1].split('.')[0];
+            return 'Unknown';
+        }
+
+        if (tileMeta) {
+            const updateTileMeta = () => {
+                tileMeta.textContent =
+                    screen.width + '\u00D7' + screen.height + ' \u00B7 ' +
+                    (navigator.hardwareConcurrency || '?') + ' threads \u00B7 ' +
+                    detectBrowser() + ' \u00B7 ' + detectOS();
+            };
+            updateTileMeta();
+            window.addEventListener('resize', updateTileMeta);
+        }
+
+        // ============================================================
+        // 10. Synthesized SFX Engine (Web Audio, zero files)
+        // ============================================================
+        let audioCtx = null;
+        let sfxOn = localStorage.getItem('ra_sfx') !== 'off';
+
+        function getAudioCtx() {
+            if (!audioCtx) {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (AC) audioCtx = new AC();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+
+        function sfx(name) {
+            if (!sfxOn) return;
+            const ctx = getAudioCtx();
+            if (!ctx) return;
+            const t = ctx.currentTime;
+
+            const tone = (type, freq, start, dur, gain, sweepTo) => {
+                const osc = ctx.createOscillator();
+                const g = ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, t + start);
+                if (sweepTo) osc.frequency.exponentialRampToValueAtTime(sweepTo, t + start + dur);
+                g.gain.setValueAtTime(gain, t + start);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + start + dur);
+                osc.connect(g).connect(ctx.destination);
+                osc.start(t + start);
+                osc.stop(t + start + dur + 0.02);
+            };
+
+            switch (name) {
+                case 'tick':  tone('sine', 1400, 0, 0.03, 0.02); break;
+                case 'blip':  tone('sine', 900, 0, 0.06, 0.05, 1400); break;
+                case 'click': tone('square', 320, 0, 0.07, 0.06, 180); break;
+                case 'key':   tone('sine', 700, 0, 0.04, 0.04, 1100); break;
+                case 'chime':
+                    tone('sine', 880, 0, 0.18, 0.07);
+                    tone('sine', 1318, 0.09, 0.22, 0.06);
+                    break;
+                case 'success':
+                    tone('sine', 660, 0, 0.12, 0.06);
+                    tone('sine', 880, 0.1, 0.12, 0.06);
+                    tone('sine', 1320, 0.2, 0.25, 0.07);
+                    break;
+                case 'whoosh': {
+                    const dur = 0.25;
+                    const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+                    const src = ctx.createBufferSource();
+                    src.buffer = buffer;
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.setValueAtTime(300, t);
+                    filter.frequency.exponentialRampToValueAtTime(2400, t + dur);
+                    filter.Q.value = 1.2;
+                    const g = ctx.createGain();
+                    g.gain.setValueAtTime(0.08, t);
+                    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+                    src.connect(filter).connect(g).connect(ctx.destination);
+                    src.start(t);
+                    break;
+                }
+            }
+        }
+
+        const sfxToggle = document.getElementById('sfx-toggle');
+
+        function updateSfxIcons() {
+            const icon = sfxOn ? 'fa-solid fa-volume-high text-xs' : 'fa-solid fa-volume-xmark text-xs';
+            const el = document.getElementById('sfx-icon');
+            if (el) el.className = icon;
+        }
+        updateSfxIcons();
+
+        function handleSfxToggle() {
+            sfxOn = !sfxOn;
+            localStorage.setItem('ra_sfx', sfxOn ? 'on' : 'off');
+            updateSfxIcons();
+            if (sfxOn) {
+                sfx('blip');
+                toast('Sound effects ON — press S to mute', 'fa-volume-high');
+            } else {
+                toast('Sound effects OFF', 'fa-volume-xmark');
+            }
+        }
+        if (sfxToggle) sfxToggle.addEventListener('click', handleSfxToggle);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 's' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const tag = (e.target.tagName || '').toLowerCase();
+                if (tag !== 'input' && tag !== 'textarea') handleSfxToggle();
+            }
+        });
+
+        // ============================================================
+        // 11. Toast Notification System
+        // ============================================================
+        function toast(message, iconClass) {
+            let zone = document.getElementById('toast-zone');
+            if (!zone) {
+                zone = document.createElement('div');
+                zone.id = 'toast-zone';
+                document.body.appendChild(zone);
+            }
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `<i class="fa-solid ${iconClass || 'fa-circle-info'}"></i><span></span>`;
+            t.querySelector('span').textContent = message;
+            zone.appendChild(t);
+            requestAnimationFrame(() => t.classList.add('show'));
+            setTimeout(() => {
+                t.classList.remove('show');
+                setTimeout(() => t.remove(), 350);
+            }, 2400);
+        }
+
+        // ============================================================
+        // 12. Click Ripple + Hover Blips + Magnetic Buttons
+        // ============================================================
+        document.addEventListener('pointerdown', (e) => {
+            const r = document.createElement('span');
+            r.className = 'ripple';
+            r.style.left = e.clientX + 'px';
+            r.style.top = e.clientY + 'px';
+            document.body.appendChild(r);
+            setTimeout(() => r.remove(), 650);
+            sfx('click');
+        });
+
+        document.querySelectorAll('nav a, .magnetic, #theme-toggle, #sfx-toggle, #terminal-toggle, #mobile-menu-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => sfx('blip'));
+        });
+
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width / 2);
+                const dy = e.clientY - (rect.top + rect.height / 2);
+                btn.style.transform = `translate(${dx * 0.15}px, ${dy * 0.25}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+        // ============================================================
+        // 13. Konami Code Easter Egg — pontnemaz Blue Rain
+        // ============================================================
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            const tag = (e.target.tagName || '').toLowerCase();
+            if (tag === 'input' || tag === 'textarea') return;
+            const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+            if (key === konamiSequence[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiSequence.length) {
+                    konamiIndex = 0;
+                    triggerKonami();
+                }
+            } else {
+                konamiIndex = (key === konamiSequence[0]) ? 1 : 0;
+            }
+        });
+
+        function triggerKonami() {
+            sfx('success');
+            toast('pontnemaz MODE ACTIVATED', 'fa-bolt');
+
+            const c = document.createElement('canvas');
+            c.id = 'konami-canvas';
+            document.body.appendChild(c);
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+            const cx = c.getContext('2d');
+
+            const colors = ['#0054A6', '#003B71', '#004A97', '#4E8FCF', '#7FB3E3', '#B5D4EF'];
+            const confetti = [];
+            for (let i = 0; i < 160; i++) {
+                confetti.push({
+                    x: Math.random() * c.width,
+                    y: -20 - Math.random() * c.height * 0.5,
+                    w: 5 + Math.random() * 6,
+                    h: 8 + Math.random() * 8,
+                    vy: 2 + Math.random() * 3.5,
+                    vx: (Math.random() - 0.5) * 2,
+                    rot: Math.random() * Math.PI,
+                    vr: (Math.random() - 0.5) * 0.2,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+
+            const start = performance.now();
+            function rain(now) {
+                cx.clearRect(0, 0, c.width, c.height);
+                const elapsed = now - start;
+                for (const p of confetti) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.02;
+                    p.rot += p.vr;
+                    cx.save();
+                    cx.translate(p.x, p.y);
+                    cx.rotate(p.rot);
+                    cx.fillStyle = p.color;
+                    cx.globalAlpha = Math.max(0, 1 - elapsed / 4200);
+                    cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    cx.restore();
+                }
+                if (elapsed < 4400) requestAnimationFrame(rain);
+                else c.remove();
+            }
+            requestAnimationFrame(rain);
+        }
+
+        // ============================================================
+        // 14. Copy Email to Clipboard
+        // ============================================================
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+
+            const btnText = document.getElementById('copy-btn-text');
+            if (btnText) {
+                const originalText = btnText.textContent;
+                btnText.textContent = 'Copied!';
+                setTimeout(() => {
+                    btnText.textContent = originalText;
+                }, 2000);
+            }
+
+            sfx('chime');
+            toast('Email copied to clipboard', 'fa-check');
+        }
+
+        // ============================================================
+        // 15. Mobile Menu
+        // ============================================================
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+
+        // ============================================================
+        // 16. In-Page Terminal (press ` or use nav/hero buttons)
+        // ============================================================
+        const terminalPanel = document.getElementById('terminal-panel');
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+        let terminalOpen = false;
+        let terminalWelcomed = false;
+
+        function tPrint(html, cls) {
+            const line = document.createElement('div');
+            if (cls) line.className = cls;
+            line.innerHTML = html;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function terminalToggle(force) {
+            terminalOpen = (force !== undefined) ? force : !terminalOpen;
+            terminalPanel.classList.toggle('open', terminalOpen);
+            if (terminalOpen) {
+                sfx('blip');
+                if (!terminalWelcomed) {
+                    terminalWelcomed = true;
+                    tPrint('<span class="t-blue">pontnemaz terminal v1.0</span> — type <span class="t-cmd">help</span> for commands', 't-dim');
+                }
+                setTimeout(() => terminalInput.focus(), 120);
+            } else {
+                terminalInput.blur();
+            }
+        }
+
+        const terminalCommands = {
+            help: () => {
+                tPrint('<span class="t-blue">Available commands:</span>');
+                tPrint('  <span class="t-cmd">about</span>    — who I am');
+                tPrint('  <span class="t-cmd">skills</span>   — my stack');
+                tPrint('  <span class="t-cmd">email</span>    — copy my email address');
+                tPrint('  <span class="t-cmd">theme</span>    — toggle light / dark');
+                tPrint('  <span class="t-cmd">fps</span>      — current page framerate');
+                tPrint('  <span class="t-cmd">device</span>   — screen, cores, browser, OS');
+                tPrint('  <span class="t-cmd">konami</span>   — you will see');
+                tPrint('  <span class="t-cmd">clear</span>    — clear the terminal');
+                tPrint('  <span class="t-cmd">exit</span>     — close the terminal');
+            },
+            about: () => {
+                tPrint('Richárd Atkári — <span class="t-blue">IT Administration Technician</span> with front-end development skills.');
+                tPrint('<span class="t-dim">Keeping systems running. Building interfaces that flow.</span>');
+            },
+            skills: () => {
+                tPrint('HTML5 · CSS3 · Tailwind · JavaScript (ES6+) · React · Next.js · TypeScript · Git');
+            },
+            email: () => {
+                copyToClipboard('business@richardatkari.hu');
+                tPrint('<span class="t-ok">✓ business@richardatkari.hu copied to clipboard</span>');
+            },
+            theme: () => {
+                handleThemeToggle();
+                const mode = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                tPrint('Theme switched to <span class="t-blue">' + mode + '</span>');
+            },
+            fps: () => {
+                tPrint('Current framerate: <span class="t-blue">' + lastFps + ' fps</span> <span class="t-dim">(measured live via requestAnimationFrame)</span>');
+            },
+            device: () => {
+                tPrint('Screen: <span class="t-blue">' + screen.width + '×' + screen.height + '</span> @ DPR ' + (window.devicePixelRatio || 1));
+                tPrint('CPU threads: <span class="t-blue">' + (navigator.hardwareConcurrency || '?') + '</span> · Browser: <span class="t-blue">' + detectBrowser() + '</span>');
+                tPrint('OS: <span class="t-blue">' + detectOS() + '</span> · Language: <span class="t-blue">' + (navigator.language || '?') + '</span>');
+            },
+            konami: () => {
+                tPrint('<span class="t-blue">pontnemaz blue rain incoming…</span>');
+                setTimeout(triggerKonami, 300);
+            },
+            clear: () => { terminalOutput.innerHTML = ''; },
+            exit: () => { terminalToggle(false); tPrint(''); }
+        };
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const raw = terminalInput.value.trim();
+                terminalInput.value = '';
+                if (!raw) return;
+                tPrint('<span class="t-dim">guest@atkari:~$</span> <span class="t-cmd">' + raw.replace(/[<>&]/g, '') + '</span>');
+                sfx('key');
+                const cmd = raw.toLowerCase();
+                if (terminalCommands[cmd]) {
+                    terminalCommands[cmd]();
+                } else {
+                    tPrint('<span class="t-dim">command not found: ' + cmd.replace(/[<>&]/g, '') + ' — try \'help\'</span>');
+                }
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const tag = (e.target.tagName || '').toLowerCase();
+            if (tag === 'input' || tag === 'textarea') return;
+            if (e.key === '`' || e.key === '~') {
+                e.preventDefault();
+                terminalToggle();
+            }
+            if (e.key === 'Escape' && terminalOpen) {
+                terminalToggle(false);
+            }
+        });
+
+        const terminalToggleBtn = document.getElementById('terminal-toggle');
+        if (terminalToggleBtn) terminalToggleBtn.addEventListener('click', () => terminalToggle());
+        const heroTerminalBtn = document.getElementById('hero-terminal-btn');
+        if (heroTerminalBtn) heroTerminalBtn.addEventListener('click', () => terminalToggle(true));
+        const terminalCloseBtn = document.getElementById('terminal-close');
+        if (terminalCloseBtn) terminalCloseBtn.addEventListener('click', () => terminalToggle(false));
+    </script>
+</body>
+</html>
