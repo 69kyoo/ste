@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Richárd Atkári | Front-End Developer & UI Designer</title>
 
+    <!-- ============================================================
+         SOCIAL MEDIA LINK-PREVIEW EMBEDS (Open Graph + Twitter Card)
+         When you host the page, replace "og-image.png" with the FULL
+         absolute URL (e.g. https://yourdomain.com/og-image.png) —
+         social platforms only fetch absolute image URLs.
+         ============================================================ -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="richardatkari.hu">
+    <meta property="og:title" content="Richárd Atkári — Front-End Developer & UI Designer">
+    <meta property="og:description" content="IT Administration Technician building pixel-perfect, responsive web interfaces with modern JavaScript, React & clean UI architecture. Live interactive demos inside.">
+    <meta property="og:image" content="og-image.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Richárd Atkári — Front-End Developer & UI Designer">
+    <meta name="twitter:description" content="IT Administration Technician building pixel-perfect, responsive web interfaces with modern JavaScript, React & clean UI architecture.">
+    <meta name="twitter:image" content="og-image.png">
+    <meta name="theme-color" content="#0054A6">
+
     <!-- Dynamic Favicon -->
     <link id="favicon" rel="icon" type="image/png" href="">
 
@@ -25,7 +45,7 @@
                             borderDark: '#1B2C42'
                         },
                         /* pontosannemaz Corp. Brand Blue Palette */
-                        pontnemaz: {
+                        ocean: {
                             50:  '#EEF6FD',
                             100: '#D8EAF7',
                             200: '#B5D4EF',
@@ -219,7 +239,7 @@
             z-index: 65;
         }
 
-        /* In-page Terminal */
+        /* In-page Terminal (fixed to the screen, bottom-right) */
         #terminal-panel {
             position: fixed;
             bottom: 20px;
@@ -231,6 +251,7 @@
             overflow: hidden;
             background: rgba(5, 11, 20, 0.92);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(78, 143, 207, 0.4);
             box-shadow: 0 20px 50px -12px rgba(0, 41, 79, 0.55);
             opacity: 0;
@@ -244,13 +265,14 @@
             pointer-events: auto;
         }
         #terminal-output {
-            height: 220px;
+            height: 210px;
             overflow-y: auto;
             font-family: 'Space Mono', monospace;
             font-size: 11px;
             line-height: 1.7;
             padding: 12px 14px;
             color: #B5D4EF;
+            background: #050B14;
         }
         #terminal-output .t-cmd { color: #FFFFFF; }
         #terminal-output .t-blue { color: #7FB3E3; }
@@ -276,7 +298,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #0054A6; }
     </style>
 </head>
-<body class="bg-studio-lightbg dark:bg-studio-darkbg text-zinc-900 dark:text-zinc-100 font-sans antialiased bg-dots min-h-screen selection:bg-pontnemaz-500 selection:text-white relative overflow-x-hidden">
+<body class="bg-studio-lightbg dark:bg-studio-darkbg text-zinc-900 dark:text-zinc-100 font-sans antialiased bg-dots min-h-screen selection:bg-ocean-500 selection:text-white relative overflow-x-hidden">
 
     <!-- Scroll Progress -->
     <div id="scroll-progress"></div>
@@ -286,34 +308,34 @@
 
     <!-- FLOATING PILL NAVIGATION -->
     <header class="fixed top-5 left-0 w-full z-50 px-4 sm:px-6 pointer-events-none">
-        <nav class="max-w-5xl mx-auto pointer-events-auto bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-zinc-200/90 dark:border-zinc-800 rounded-full px-5 py-3 shadow-lg shadow-pontnemaz-900/5 dark:shadow-black/40 flex items-center justify-between">
+        <nav class="max-w-5xl mx-auto pointer-events-auto bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-zinc-200/90 dark:border-zinc-800 rounded-full px-5 py-3 shadow-lg shadow-ocean-900/5 dark:shadow-black/40 flex items-center justify-between">
 
             <a href="#" class="flex items-center gap-2.5 group">
-                <span class="w-8 h-8 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 text-white dark:text-pontnemaz-900 font-mono font-bold text-xs flex items-center justify-center tracking-tighter group-hover:scale-105 transition-transform">
+                <span class="w-8 h-8 rounded-full bg-ocean-500 dark:bg-ocean-400 text-white dark:text-ocean-900 font-mono font-bold text-xs flex items-center justify-center tracking-tighter group-hover:scale-105 transition-transform">
                     RA
                 </span>
                 <span class="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">
-                    richardatkari<span class="text-pontnemaz-500 dark:text-pontnemaz-400">.hu</span>
+                    richardatkari<span class="text-ocean-500 dark:text-ocean-400">.hu</span>
                 </span>
             </a>
 
             <div class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                <a href="#about" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">01. Philosophy</a>
-                <a href="#skills" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">02. Stack</a>
-                <a href="#projects" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-300 transition">03. Showcase</a>
+                <a href="#about" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">01. Philosophy</a>
+                <a href="#skills" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">02. Stack</a>
+                <a href="#projects" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">03. Showcase</a>
             </div>
 
             <div class="hidden md:flex items-center gap-2.5">
-                <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Téma váltása (Világos / Sötét)">
+                <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Téma váltása (Világos / Sötét)">
                     <i id="theme-icon" class="fa-solid fa-moon text-xs"></i>
                 </button>
-                <button id="sfx-toggle" type="button" aria-label="Toggle Sound Effects" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Hang effektek (S)">
+                <button id="sfx-toggle" type="button" aria-label="Toggle Sound Effects" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Hang effektek (S)">
                     <i id="sfx-icon" class="fa-solid fa-volume-high text-xs"></i>
                 </button>
-                <button id="terminal-toggle" type="button" aria-label="Toggle terminal" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-pontnemaz-500 dark:hover:border-pontnemaz-400 transition flex items-center justify-center" title="Terminal (`)">
+                <button id="terminal-toggle" type="button" aria-label="Toggle terminal" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Terminal (`)">
                     <i class="fa-solid fa-terminal text-xs"></i>
                 </button>
-                <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="magnetic px-4 py-2 rounded-full bg-pontnemaz-500 text-white hover:bg-pontnemaz-600 dark:bg-pontnemaz-500 dark:hover:bg-pontnemaz-400 dark:hover:text-pontnemaz-900 font-mono text-xs font-bold transition flex items-center gap-2">
+                <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="magnetic px-4 py-2 rounded-full bg-ocean-500 text-white hover:bg-ocean-600 dark:bg-ocean-500 dark:hover:bg-ocean-400 dark:hover:text-ocean-900 font-mono text-xs font-bold transition flex items-center gap-2">
                     <i class="fa-regular fa-copy"></i>
                     <span id="copy-btn-text">business@richardatkari.hu</span>
                 </button>
@@ -330,10 +352,10 @@
         </nav>
 
         <div id="mobile-menu" class="hidden md:hidden max-w-5xl mx-auto mt-2 pointer-events-auto bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 shadow-xl space-y-3 font-mono text-xs">
-            <a href="#about" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">01. Philosophy</a>
-            <a href="#skills" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">02. Stack</a>
-            <a href="#projects" class="block py-1.5 px-2 rounded-lg hover:bg-pontnemaz-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">03. Showcase</a>
-            <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="w-full text-left px-3 py-2.5 rounded-xl bg-pontnemaz-500/10 text-pontnemaz-600 dark:text-pontnemaz-300 font-bold flex items-center justify-between">
+            <a href="#about" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">01. Philosophy</a>
+            <a href="#skills" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">02. Stack</a>
+            <a href="#projects" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">03. Showcase</a>
+            <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="w-full text-left px-3 py-2.5 rounded-xl bg-ocean-500/10 text-ocean-600 dark:text-ocean-300 font-bold flex items-center justify-between">
                 <span>business@richardatkari.hu</span>
                 <i class="fa-regular fa-copy"></i>
             </button>
@@ -346,13 +368,13 @@
         <canvas id="hero-particles" class="absolute inset-0 w-full h-[650px] pointer-events-none z-0 opacity-70"></canvas>
 
         <div class="relative z-10 max-w-3xl mb-14 reveal-on-scroll">
-            <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-md bg-pontnemaz-500/10 border border-pontnemaz-500/20 text-pontnemaz-700 dark:text-pontnemaz-300 font-mono text-xs mb-6">
-                <span class="w-2 h-2 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 animate-pulse"></span>
+            <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-md bg-ocean-500/10 border border-ocean-500/20 text-ocean-700 dark:text-ocean-300 font-mono text-xs mb-6">
+                <span class="w-2 h-2 rounded-full bg-ocean-500 dark:bg-ocean-400 animate-pulse"></span>
                 Front-End Development &amp; UI Architecture
             </div>
 
             <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.08] mb-6">
-                Richárd <span class="text-pontnemaz-600 dark:text-pontnemaz-400">Atkári.</span><br>
+                Richárd <span class="text-ocean-600 dark:text-ocean-400">Atkári.</span><br>
                 <span class="text-zinc-400 dark:text-zinc-500 text-3xl sm:text-5xl font-bold"><span id="typewriter"></span><span class="type-caret"></span></span>
             </h1>
 
@@ -361,14 +383,14 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-4">
-                <a href="#skills" class="magnetic px-6 py-3.5 rounded-xl bg-pontnemaz-500 hover:bg-pontnemaz-600 dark:bg-pontnemaz-500 dark:hover:bg-pontnemaz-400 text-white dark:text-pontnemaz-900 font-semibold text-sm transition flex items-center gap-2.5 shadow-sm">
+                <a href="#skills" class="magnetic px-6 py-3.5 rounded-xl bg-ocean-500 hover:bg-ocean-600 dark:bg-ocean-500 dark:hover:bg-ocean-400 text-white dark:text-ocean-900 font-semibold text-sm transition flex items-center gap-2.5 shadow-sm">
                     <i class="fa-solid fa-layer-group"></i> Explore Stack
                 </a>
                 <a href="mailto:business@richardatkari.hu" class="magnetic px-6 py-3.5 rounded-xl bento-card text-zinc-800 dark:text-zinc-200 font-semibold text-sm flex items-center gap-2.5">
-                    <i class="fa-regular fa-paper-plane text-pontnemaz-500 dark:text-pontnemaz-400"></i> Send Email Direct
+                    <i class="fa-regular fa-paper-plane text-ocean-500 dark:text-ocean-400"></i> Send Email Direct
                 </a>
-                <button type="button" id="hero-terminal-btn" class="magnetic px-6 py-3.5 rounded-xl border border-pontnemaz-500/30 text-pontnemaz-700 dark:text-pontnemaz-300 hover:bg-pontnemaz-500/10 font-mono text-sm transition flex items-center gap-2.5">
-                    <i class="fa-solid fa-terminal"></i> Open terminal <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-pontnemaz-500/10 border border-pontnemaz-500/20">`</kbd>
+                <button type="button" id="hero-terminal-btn" class="magnetic px-6 py-3.5 rounded-xl border border-ocean-500/30 text-ocean-700 dark:text-ocean-300 hover:bg-ocean-500/10 font-mono text-sm transition flex items-center gap-2.5">
+                    <i class="fa-solid fa-terminal"></i> Open terminal <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-ocean-500/10 border border-ocean-500/20">`</kbd>
                 </button>
             </div>
         </div>
@@ -383,7 +405,7 @@
                         <div class="text-xl font-bold text-zinc-900 dark:text-white">Component-Driven</div>
                         <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Modular &amp; maintainable structure</div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-500/10 text-pontnemaz-600 dark:text-pontnemaz-400 flex items-center justify-center text-lg">
+                    <div class="w-12 h-12 rounded-xl bg-ocean-500/10 text-ocean-600 dark:text-ocean-400 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-cubes"></i>
                     </div>
                 </div>
@@ -394,7 +416,7 @@
                         <div class="text-xl font-bold text-zinc-900 dark:text-white">100% Responsive</div>
                         <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Mobile-first fluid grid systems</div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-400/10 text-pontnemaz-500 dark:text-pontnemaz-300 flex items-center justify-center text-lg">
+                    <div class="w-12 h-12 rounded-xl bg-ocean-400/10 text-ocean-500 dark:text-ocean-300 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-display"></i>
                     </div>
                 </div>
@@ -405,58 +427,73 @@
                         <div class="text-xl font-bold text-zinc-900 dark:text-white">Fluid DOM &amp; Motion</div>
                         <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">60fps-class transitions &amp; clean state</div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-pontnemaz-900/5 dark:bg-white/10 text-pontnemaz-800 dark:text-white flex items-center justify-center text-lg">
+                    <div class="w-12 h-12 rounded-xl bg-ocean-900/5 dark:bg-white/10 text-ocean-800 dark:text-white flex items-center justify-center text-lg">
                         <i class="fa-solid fa-bolt"></i>
-                    </div>
-                </div>
-
-                <!-- LIVE DEVICE TILE -->
-                <div class="bento-card p-6 rounded-2xl sm:col-span-2 lg:col-span-1">
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400">Your device &mdash; live</div>
-                        <span class="w-2 h-2 rounded-full bg-pontnemaz-500 animate-pulse"></span>
-                    </div>
-                    <div class="flex items-end justify-between gap-4">
-                        <div>
-                            <div class="text-3xl font-extrabold text-zinc-900 dark:text-white tabular-nums leading-none">
-                                <span id="tile-fps">&mdash;</span><span class="text-sm font-bold text-pontnemaz-500 dark:text-pontnemaz-400 ml-1">fps</span>
-                            </div>
-                            <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-mono" id="tile-meta">&mdash;</div>
-                        </div>
-                        <canvas id="tile-spark" class="w-28 h-10 opacity-90"></canvas>
                     </div>
                 </div>
             </div>
 
             <!-- Code Window -->
             <div class="lg:col-span-7 bento-card rounded-2xl overflow-hidden flex flex-col">
-                <div class="bg-pontnemaz-50 dark:bg-pontnemaz-900/40 px-5 py-3.5 border-b border-pontnemaz-100 dark:border-pontnemaz-800/60 flex items-center justify-between">
+                <div class="bg-ocean-50 dark:bg-ocean-900/40 px-5 py-3.5 border-b border-ocean-100 dark:border-ocean-800/60 flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-200 dark:bg-pontnemaz-800"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-300 dark:bg-pontnemaz-700"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-500"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-200 dark:bg-ocean-800"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-300 dark:bg-ocean-700"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-500"></span>
                         <span class="ml-2 font-mono text-xs text-zinc-500 dark:text-zinc-400">app/DeveloperProfile.tsx</span>
                     </div>
-                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-pontnemaz-500/10 text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-500/20">
+                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-ocean-500/10 text-ocean-700 dark:text-ocean-300 border border-ocean-500/20">
                         Next.js 14 / React / TS
                     </span>
                 </div>
 
                 <div class="p-6 sm:p-8 font-mono text-xs sm:text-sm bg-zinc-950 text-zinc-300 flex-1 flex flex-col justify-center leading-relaxed overflow-x-auto">
-                    <div><span class="text-pontnemaz-400">import</span> type { Metadata } <span class="text-pontnemaz-400">from</span> <span class="text-pontnemaz-300">'next'</span>;</div>
-                    <div class="mt-3"><span class="text-pontnemaz-400">export const</span> <span class="text-white font-bold">metadata</span>: Metadata = { <span class="text-pontnemaz-300">title</span>: <span class="text-pontnemaz-300">'Portfolio'</span> };</div>
-                    <div class="mt-3"><span class="text-pontnemaz-400">export default function</span> <span class="text-white font-bold">DeveloperProfile</span>() {</div>
-                    <div class="pl-5 text-zinc-400"><span class="text-pontnemaz-400">const</span> stack = [<span class="text-pontnemaz-300">'React'</span>, <span class="text-pontnemaz-300">'Next.js'</span>, <span class="text-pontnemaz-300">'Tailwind'</span>, <span class="text-pontnemaz-300">'UX'</span>];</div>
+                    <div><span class="text-ocean-400">import</span> type { Metadata } <span class="text-ocean-400">from</span> <span class="text-ocean-300">'next'</span>;</div>
+                    <div class="mt-3"><span class="text-ocean-400">export const</span> <span class="text-white font-bold">metadata</span>: Metadata = { <span class="text-ocean-300">title</span>: <span class="text-ocean-300">'Portfolio'</span> };</div>
+                    <div class="mt-3"><span class="text-ocean-400">export default function</span> <span class="text-white font-bold">DeveloperProfile</span>() {</div>
+                    <div class="pl-5 text-zinc-400"><span class="text-ocean-400">const</span> stack = [<span class="text-ocean-300">'React'</span>, <span class="text-ocean-300">'Next.js'</span>, <span class="text-ocean-300">'Tailwind'</span>, <span class="text-ocean-300">'UX'</span>];</div>
                     <div class="mt-3 pl-5 text-zinc-500">// Server-rendered, fluid 60fps-class motion, pixel-perfect</div>
-                    <div class="pl-5"><span class="text-pontnemaz-400">return</span> (</div>
-                    <div class="pl-10 text-zinc-200">&lt;<span class="text-pontnemaz-400">Surface</span> <span class="text-pontnemaz-300">layout</span>=<span class="text-pontnemaz-300">"bento-grid"</span> <span class="text-pontnemaz-300">theme</span>=<span class="text-pontnemaz-300">"pontnemaz-blue"</span>&gt;</div>
-                    <div class="pl-14 text-white">&lt;<span class="text-pontnemaz-400">Identity</span> <span class="text-pontnemaz-300">name</span>=<span class="text-pontnemaz-300">"Richárd Atkári"</span> /&gt;</div>
-                    <div class="pl-10 text-zinc-200">&lt;/<span class="text-pontnemaz-400">Surface</span>&gt;</div>
+                    <div class="pl-5"><span class="text-ocean-400">return</span> (</div>
+                    <div class="pl-10 text-zinc-200">&lt;<span class="text-ocean-400">Surface</span> <span class="text-ocean-300">layout</span>=<span class="text-ocean-300">"bento-grid"</span> <span class="text-ocean-300">theme</span>=<span class="text-ocean-300">"ocean-blue"</span>&gt;</div>
+                    <div class="pl-14 text-white">&lt;<span class="text-ocean-400">Identity</span> <span class="text-ocean-300">name</span>=<span class="text-ocean-300">"Richárd Atkári"</span> /&gt;</div>
+                    <div class="pl-10 text-zinc-200">&lt;/<span class="text-ocean-400">Surface</span>&gt;</div>
                     <div class="pl-5">);</div>
                     <div>};</div>
                 </div>
             </div>
 
+        </div>
+
+        <!-- INTERACTIVE EMBEDS DECK (all live embeds, in the header) -->
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 reveal-on-scroll delay-200">
+
+            <!-- Embed 1: Live device readout -->
+            <div class="bento-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="font-mono text-xs uppercase tracking-wider text-zinc-400">Your device &mdash; live</div>
+                    <span class="w-2 h-2 rounded-full bg-ocean-500 animate-pulse"></span>
+                </div>
+                <div class="flex items-end justify-between gap-4">
+                    <div>
+                        <div class="text-3xl font-extrabold text-zinc-900 dark:text-white tabular-nums leading-none">
+                            <span id="tile-fps">&mdash;</span><span class="text-sm font-bold text-ocean-500 dark:text-ocean-400 ml-1">fps</span>
+                        </div>
+                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-mono" id="tile-meta">&mdash;</div>
+                    </div>
+                    <canvas id="tile-spark" class="w-28 h-10 opacity-90"></canvas>
+                </div>
+                <div class="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 text-[11px] font-mono text-zinc-400" id="tile-specs">&mdash;</div>
+            </div>
+
+            <!-- Embed 2: Interactive ball pit -->
+            <div class="bento-card rounded-2xl overflow-hidden flex flex-col">
+                <div class="flex items-center justify-between px-5 py-3 bg-ocean-50 dark:bg-ocean-900/40 border-b border-ocean-100 dark:border-ocean-800/60">
+                    <div class="font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Interactive ball pit</div>
+                    <button id="demo-reset" type="button" class="px-2.5 py-1 rounded-md border border-ocean-500/20 text-[10px] font-mono text-ocean-700 dark:text-ocean-300 hover:bg-ocean-500/10 transition-colors">Reset</button>
+                </div>
+                <canvas id="ballpit" class="w-full block cursor-crosshair" style="height: 240px;"></canvas>
+                <div class="px-5 py-2.5 text-[11px] font-mono text-zinc-400 border-t border-zinc-100 dark:border-zinc-800">Click to add balls &middot; move cursor to stir &middot; vanilla JS physics</div>
+            </div>
         </div>
     </main>
 
@@ -464,7 +501,7 @@
     <section id="about" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
             <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 01. Design &amp; Code Philosophy</span>
+                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 01. Design &amp; Code Philosophy</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Bridging Aesthetics and Functionality</h2>
             </div>
             <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
@@ -476,7 +513,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-100">
                 <div class="flex items-center justify-between">
                     <span class="font-mono text-xs text-zinc-400">01 / LAYOUT</span>
-                    <i class="fa-solid fa-wand-magic-sparkles text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles text-ocean-500 dark:text-ocean-400"></i>
                 </div>
                 <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Modern UI Layouts</h3>
                 <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
@@ -487,7 +524,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-200">
                 <div class="flex items-center justify-between">
                     <span class="font-mono text-xs text-zinc-400">02 / LOGIC</span>
-                    <i class="fa-solid fa-code text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                    <i class="fa-solid fa-code text-ocean-500 dark:text-ocean-400"></i>
                 </div>
                 <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Clean DOM Manipulation</h3>
                 <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
@@ -498,7 +535,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-300">
                 <div class="flex items-center justify-between">
                     <span class="font-mono text-xs text-zinc-400">03 / ADAPTIVE</span>
-                    <i class="fa-solid fa-mobile-screen text-pontnemaz-500 dark:text-pontnemaz-400"></i>
+                    <i class="fa-solid fa-mobile-screen text-ocean-500 dark:text-ocean-400"></i>
                 </div>
                 <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Responsive &amp; Accessible</h3>
                 <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
@@ -512,7 +549,7 @@
     <section id="skills" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
             <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 02. Front-End Stack</span>
+                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 02. Front-End Stack</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Skills &amp; Technologies</h2>
             </div>
             <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
@@ -524,7 +561,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
                 <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
                     <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-brands fa-html5 text-pontnemaz-500 dark:text-pontnemaz-400"></i> Core Web Technologies
+                        <i class="fa-brands fa-html5 text-ocean-500 dark:text-ocean-400"></i> Core Web Technologies
                     </h3>
                     <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Markup &amp; Styling</span>
                 </div>
@@ -532,28 +569,28 @@
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>HTML5 / Semantic Markup</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="95">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="95">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="95"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="95"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>CSS3 / Flexbox / CSS Grid</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="90">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="90">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="90"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="90"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Tailwind CSS &amp; Utility Frameworks</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="92">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="92">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="92"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="92"></div>
                         </div>
                     </div>
                 </div>
@@ -562,7 +599,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
                 <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
                     <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-brands fa-js text-pontnemaz-400 dark:text-pontnemaz-300"></i> Programming &amp; Logic
+                        <i class="fa-brands fa-js text-ocean-400 dark:text-ocean-300"></i> Programming &amp; Logic
                     </h3>
                     <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Interactivity</span>
                 </div>
@@ -570,28 +607,28 @@
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>JavaScript (ES6+ / DOM / Async)</span>
-                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="85">0%</span>
+                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="85">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="85"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="85"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>React &amp; Next.js Components</span>
-                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="78">0%</span>
+                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="78">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="78"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="78"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>TypeScript Fundamentals</span>
-                            <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold" data-counter data-target="65">0%</span>
+                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="65">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-400 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="65"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="65"></div>
                         </div>
                     </div>
                 </div>
@@ -600,7 +637,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
                 <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
                     <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-solid fa-paintbrush text-pontnemaz-500 dark:text-pontnemaz-400"></i> UI/UX &amp; Design
+                        <i class="fa-solid fa-paintbrush text-ocean-500 dark:text-ocean-400"></i> UI/UX &amp; Design
                     </h3>
                     <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Aesthetics</span>
                 </div>
@@ -608,28 +645,28 @@
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Responsive &amp; Mobile-First Design</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="90">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="90">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="90"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="90"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Glassmorphism &amp; CSS Animations</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="88">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="88">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="88"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="88"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Figma to Code Implementation</span>
-                            <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold" data-counter data-target="82">0%</span>
+                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="82">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-500 dark:bg-pontnemaz-400 h-1.5 rounded-full" data-width="82"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="82"></div>
                         </div>
                     </div>
                 </div>
@@ -638,7 +675,7 @@
             <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
                 <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
                     <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-solid fa-toolbox text-pontnemaz-700 dark:text-pontnemaz-300"></i> Workflow &amp; Tools
+                        <i class="fa-solid fa-toolbox text-ocean-700 dark:text-ocean-300"></i> Workflow &amp; Tools
                     </h3>
                     <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Environment</span>
                 </div>
@@ -646,28 +683,28 @@
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Git &amp; Version Control</span>
-                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="80">0%</span>
+                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="80">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="80"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="80"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Vite / Webpack / NPM Bundlers</span>
-                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="75">0%</span>
+                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="75">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="75"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="75"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
                             <span>Browser DevTools &amp; Performance Tuning</span>
-                            <span class="text-pontnemaz-700 dark:text-white font-bold" data-counter data-target="85">0%</span>
+                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="85">0%</span>
                         </div>
-                        <div class="w-full bg-pontnemaz-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-pontnemaz-600 dark:bg-pontnemaz-300 h-1.5 rounded-full" data-width="85"></div>
+                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
+                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="85"></div>
                         </div>
                     </div>
                 </div>
@@ -679,7 +716,7 @@
     <section id="projects" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
             <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-pontnemaz-500 dark:text-pontnemaz-400 block mb-2">// 03. Front-End Highlights</span>
+                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 03. Front-End Highlights</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Featured Web Interfaces</h2>
             </div>
             <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
@@ -691,7 +728,7 @@
             <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-100">
                 <div class="space-y-4">
                     <div class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-pontnemaz-600 dark:text-pontnemaz-400 font-bold">01 // PORTFOLIO ARCHITECTURE</span>
+                        <span class="text-ocean-600 dark:text-ocean-400 font-bold">01 // PORTFOLIO ARCHITECTURE</span>
                         <span class="text-zinc-400">HTML5 / Tailwind / JS</span>
                     </div>
                     <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Minimalist Editorial Portfolio</h3>
@@ -700,16 +737,16 @@
                     </p>
                 </div>
                 <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Tailwind CSS</span>
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Canvas API</span>
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Web Audio</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Tailwind CSS</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Canvas API</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Web Audio</span>
                 </div>
             </article>
 
             <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-200">
                 <div class="space-y-4">
                     <div class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-pontnemaz-500 dark:text-pontnemaz-300 font-bold">02 // INTERACTIVE COMPONENTS</span>
+                        <span class="text-ocean-500 dark:text-ocean-300 font-bold">02 // INTERACTIVE COMPONENTS</span>
                         <span class="text-zinc-400">React / Next.js / UX</span>
                     </div>
                     <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Dynamic UI Dashboard Shell</h3>
@@ -718,9 +755,9 @@
                     </p>
                 </div>
                 <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">ES6+</span>
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">UI State</span>
-                    <span class="px-3 py-1 rounded-md bg-pontnemaz-50 dark:bg-zinc-800/80 text-xs font-mono text-pontnemaz-700 dark:text-pontnemaz-300 border border-pontnemaz-100 dark:border-transparent">Animations</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">ES6+</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">UI State</span>
+                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Animations</span>
                 </div>
             </article>
         </div>
@@ -733,12 +770,12 @@
                 &copy; Richárd Atkári — Front-End Developer &amp; UI Designer
             </div>
             <div class="flex items-center gap-6">
-                <a href="mailto:business@richardatkari.hu" class="hover:text-pontnemaz-600 dark:hover:text-pontnemaz-400 transition flex items-center gap-2">
+                <a href="mailto:business@richardatkari.hu" class="hover:text-ocean-600 dark:hover:text-ocean-400 transition flex items-center gap-2">
                     <i class="fa-solid fa-envelope"></i> business@richardatkari.hu
                 </a>
                 <span class="text-zinc-300 dark:text-zinc-700">|</span>
-                <span class="text-pontnemaz-600 dark:text-pontnemaz-400 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-pontnemaz-500 dark:bg-pontnemaz-400 inline-block animate-pulse"></span>
+                <span class="text-ocean-600 dark:text-ocean-400 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-ocean-500 dark:bg-ocean-400 inline-block animate-pulse"></span>
                     Available for Projects
                     <span id="live-clock" class="text-zinc-400 dark:text-zinc-500"></span>
                 </span>
@@ -749,22 +786,22 @@
         </div>
     </footer>
 
-    <!-- IN-PAGE TERMINAL -->
+    <!-- IN-PAGE TERMINAL (fixed overlay) -->
     <div id="terminal-panel" role="dialog" aria-label="Interactive terminal">
-        <div class="flex items-center justify-between px-4 py-2.5 bg-pontnemaz-700/40 border-b border-pontnemaz-500/30">
-            <div class="flex items-center gap-2 font-mono text-[11px] text-pontnemaz-200">
-                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-400"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-300"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-pontnemaz-200"></span>
+        <div class="flex items-center justify-between px-4 py-2.5 bg-ocean-700/40 border-b border-ocean-500/30">
+            <div class="flex items-center gap-2 font-mono text-[11px] text-ocean-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-ocean-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-ocean-300"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-ocean-200"></span>
                 <span class="ml-2">guest@atkari — terminal</span>
             </div>
-            <button id="terminal-close" type="button" aria-label="Close terminal" class="text-pontnemaz-300 hover:text-white transition-colors">
+            <button id="terminal-close" type="button" aria-label="Close terminal" class="text-ocean-300 hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark text-xs"></i>
             </button>
         </div>
         <div id="terminal-output"></div>
-        <div class="flex items-center gap-2 px-4 py-3 border-t border-pontnemaz-500/20">
-            <span class="font-mono text-xs text-pontnemaz-400 select-none">guest@atkari:~$</span>
+        <div class="flex items-center gap-2 px-4 py-3 border-t border-ocean-500/20">
+            <span class="font-mono text-xs text-ocean-400 select-none">guest@atkari:~$</span>
             <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help' and hit Enter">
         </div>
     </div>
@@ -772,7 +809,7 @@
     <!-- INTERACTIVE LOGIC -->
     <script>
         // ============================================================
-        // 0. Dynamic Favicon (pontnemaz blue)
+        // 0. Dynamic Favicon (ocean blue)
         // ============================================================
         function updateFavicon(isDark) {
             const canvas = document.createElement('canvas');
@@ -1212,6 +1249,109 @@
         }
 
         // ============================================================
+        // 9b. Interactive Ball Pit (vanilla JS physics, header deck)
+        // ============================================================
+        const ballpit = document.getElementById('ballpit');
+        if (ballpit) {
+            const bpCtx = ballpit.getContext('2d');
+            let balls = [];
+            let bpMouse = { x: -9999, y: -9999 };
+            const BP_COLORS = ['#0054A6', '#003B71', '#4E8FCF', '#7FB3E3', '#B5D4EF'];
+            const MAX_BALLS = 70;
+
+            function bpSize() {
+                const dpr = window.devicePixelRatio || 1;
+                const rect = ballpit.getBoundingClientRect();
+                ballpit.width = rect.width * dpr;
+                ballpit.height = rect.height * dpr;
+                bpCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                balls.forEach(b => {
+                    b.x = Math.min(Math.max(b.r, b.x), rect.width - b.r);
+                    b.y = Math.min(Math.max(b.r, b.y), rect.height - b.r);
+                });
+            }
+            window.addEventListener('resize', bpSize);
+
+            function bpAdd(x, y, silent) {
+                if (balls.length >= MAX_BALLS) balls.shift();
+                const r = 6 + Math.random() * 10;
+                balls.push({
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 2,
+                    r: r,
+                    color: BP_COLORS[Math.floor(Math.random() * BP_COLORS.length)]
+                });
+                if (!silent) sfx('blip');
+            }
+
+            ballpit.addEventListener('pointerdown', (e) => {
+                const rect = ballpit.getBoundingClientRect();
+                bpAdd(e.clientX - rect.left, e.clientY - rect.top);
+            });
+            ballpit.addEventListener('pointermove', (e) => {
+                const rect = ballpit.getBoundingClientRect();
+                bpMouse.x = e.clientX - rect.left;
+                bpMouse.y = e.clientY - rect.top;
+            });
+            ballpit.addEventListener('pointerleave', () => {
+                bpMouse.x = -9999;
+                bpMouse.y = -9999;
+            });
+
+            const demoResetBtn = document.getElementById('demo-reset');
+            if (demoResetBtn) demoResetBtn.addEventListener('click', () => {
+                balls = [];
+                bpSeed();
+                sfx('whoosh');
+                toast('Ball pit reset', 'fa-rotate-left');
+            });
+
+            function bpSeed() {
+                const rect = ballpit.getBoundingClientRect();
+                for (let i = 0; i < 10; i++) {
+                    bpAdd(rect.width * (0.15 + Math.random() * 0.7), rect.height * (0.1 + Math.random() * 0.3), true);
+                }
+            }
+
+            function bpLoop() {
+                const rect = ballpit.getBoundingClientRect();
+                bpCtx.clearRect(0, 0, rect.width, rect.height);
+                const gravity = 0.32;
+                const damp = 0.72;
+
+                for (const b of balls) {
+                    b.vy += gravity;
+                    b.x += b.vx;
+                    b.y += b.vy;
+
+                    if (b.x < b.r) { b.x = b.r; b.vx = Math.abs(b.vx) * damp; }
+                    if (b.x > rect.width - b.r) { b.x = rect.width - b.r; b.vx = -Math.abs(b.vx) * damp; }
+                    if (b.y < b.r) { b.y = b.r; b.vy = Math.abs(b.vy) * damp; }
+                    if (b.y > rect.height - b.r) { b.y = rect.height - b.r; b.vy = -Math.abs(b.vy) * damp; b.vx *= 0.985; }
+
+                    const dx = b.x - bpMouse.x, dy = b.y - bpMouse.y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 90 && d > 0.01) {
+                        const f = (90 - d) / 90 * 1.6;
+                        b.vx += (dx / d) * f;
+                        b.vy += (dy / d) * f;
+                    }
+
+                    bpCtx.beginPath();
+                    bpCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                    bpCtx.fillStyle = b.color;
+                    bpCtx.fill();
+                }
+                requestAnimationFrame(bpLoop);
+            }
+
+            bpSize();
+            bpSeed();
+            bpLoop();
+        }
+
+        // ============================================================
         // 10. Synthesized SFX Engine (Web Audio, zero files)
         // ============================================================
         let audioCtx = null;
@@ -1362,7 +1502,7 @@
         });
 
         // ============================================================
-        // 13. Konami Code Easter Egg — pontnemaz Blue Rain
+        // 13. Konami Code Easter Egg — ocean Blue Rain
         // ============================================================
         const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
         let konamiIndex = 0;
@@ -1384,7 +1524,7 @@
 
         function triggerKonami() {
             sfx('success');
-            toast('pontnemaz MODE ACTIVATED', 'fa-bolt');
+            toast('ocean MODE ACTIVATED', 'fa-bolt');
 
             const c = document.createElement('canvas');
             c.id = 'konami-canvas';
@@ -1498,7 +1638,7 @@
                 sfx('blip');
                 if (!terminalWelcomed) {
                     terminalWelcomed = true;
-                    tPrint('<span class="t-blue">pontnemaz terminal v1.0</span> — type <span class="t-cmd">help</span> for commands', 't-dim');
+                    tPrint('<span class="t-blue">ocean terminal v1.0</span> — type <span class="t-cmd">help</span> for commands', 't-dim');
                 }
                 setTimeout(() => terminalInput.focus(), 120);
             } else {
@@ -1544,7 +1684,7 @@
                 tPrint('OS: <span class="t-blue">' + detectOS() + '</span> · Language: <span class="t-blue">' + (navigator.language || '?') + '</span>');
             },
             konami: () => {
-                tPrint('<span class="t-blue">pontnemaz blue rain incoming…</span>');
+                tPrint('<span class="t-blue">ocean blue rain incoming…</span>');
                 setTimeout(triggerKonami, 300);
             },
             clear: () => { terminalOutput.innerHTML = ''; },
