@@ -1,1730 +1,818 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richárd Atkári | Front-End Developer & UI Designer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Richard Atkari — Frontend developer &amp; creative designer</title>
+<meta name="description" content="Richard Atkari — an aspiring frontend developer, creative designer and technology enthusiast building digital experiences.">
+<link rel="canonical" href="https://richardatkari.hu/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Richard Atkari">
+<meta property="og:url" content="https://richardatkari.hu/">
+<meta property="og:title" content="Richard Atkari — Designing the codes">
+<meta property="og:description" content="Aspiring frontend developer, creative designer and technology enthusiast.">
+<meta property="og:image" content="https://richardatkari.hu/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2f1d0e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%236b5ce7'/%3E%3Cpath d='M22 46V18h13a9 9 0 0 1 2 17.8L44 46h-6l-6-9h-4v9zm6-14h7a4 4 0 0 0 0-8h-7z' fill='%23fff'/%3E%3C/svg%3E">
+<script>
+var d=document.documentElement;d.classList.add('js');
+try{d.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){d.dataset.theme='light'}
+</script>
+<style>
+:root{
+  --bg:#f7f8fc;
+  --surf:rgba(255,255,255,.86);
+  --ink:#161822;
+  --mute:#596075;
+  --line:rgba(22,24,34,.1);
+  --acc:#6854f5;
+  --acc2:#ec6aa8;
+  --acc3:#4ba3ff;
+  --glow-a:rgba(244,132,188,.24);
+  --glow-b:rgba(139,124,255,.24);
+  --glow-c:rgba(92,182,255,.22);
+  --glass:rgba(255,255,255,.66);
+  --rim:rgba(255,255,255,.92);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --smooth:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(1.25rem,5vw,4rem);
+  --pointer-x:50%;
+  --pointer-y:35%;
+  --scroll-light:0;
+  color-scheme:light
+}
+[data-theme=dark]{
+  --bg:#050506;
+  --surf:#151517;
+  --ink:#f5f5f7;
+  --mute:#a1a1a6;
+  --line:rgba(255,255,255,.14);
+  --acc:#f0a06a;
+  --acc2:#f0a06a;
+  --acc3:#8c82e8;
+  --glow-a:transparent;
+  --glow-b:transparent;
+  --glow-c:transparent;
+  --glass:rgba(44,44,48,.55);
+  --rim:rgba(255,255,255,.2);
+  color-scheme:dark
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:6rem;-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;background:transparent;color:var(--ink);font:400 1.0625rem/1.58 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;overflow-x:hidden;transition:background .75s var(--ease),color .65s var(--ease);-webkit-font-smoothing:antialiased}
 
-    <!-- ============================================================
-         SOCIAL MEDIA LINK-PREVIEW EMBEDS (Open Graph + Twitter Card)
-         When you host the page, replace "og-image.png" with the FULL
-         absolute URL (e.g. https://yourdomain.com/og-image.png) —
-         social platforms only fetch absolute image URLs.
-         ============================================================ -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="richardatkari.hu">
-    <meta property="og:title" content="Richárd Atkári — Front-End Developer & UI Designer">
-    <meta property="og:description" content="IT Administration Technician building pixel-perfect, responsive web interfaces with modern JavaScript, React & clean UI architecture. Live interactive demos inside.">
-    <meta property="og:image" content="og-image.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Richárd Atkári — Front-End Developer & UI Designer">
-    <meta name="twitter:description" content="IT Administration Technician building pixel-perfect, responsive web interfaces with modern JavaScript, React & clean UI architecture.">
-    <meta name="twitter:image" content="og-image.png">
-    <meta name="theme-color" content="#0054A6">
+/* Gentle Apple-style pastel mesh backdrop in light mode */
+body::before{content:"";position:fixed;inset:-15%;z-index:0;pointer-events:none;opacity:1;background:
+  radial-gradient(circle at 18% 22%,var(--glow-a),transparent 46%),
+  radial-gradient(circle at 82% 28%,var(--glow-c),transparent 48%),
+  radial-gradient(circle at 52% 78%,var(--glow-b),transparent 52%),
+  linear-gradient(180deg,rgba(255,255,255,.45),rgba(244,246,255,.65));
+  filter:blur(48px);transition:opacity .75s var(--ease),background .75s var(--ease)}
+[data-theme=dark] body::before{opacity:0;pointer-events:none}
 
-    <!-- Dynamic Favicon -->
-    <link id="favicon" rel="icon" type="image/png" href="">
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.72}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+button{font:inherit;color:inherit;background:none;border:0}
+h1,h2,h3,p{margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        studio: {
-                            lightbg: '#F8FAFC',
-                            lightcard: '#FFFFFF',
-                            darkbg: '#050B14',
-                            darkcard: '#0B1524',
-                            borderLight: '#D9E5F1',
-                            borderDark: '#1B2C42'
-                        },
-                        /* pontosannemaz Corp. Brand Blue Palette */
-                        ocean: {
-                            50:  '#EEF6FD',
-                            100: '#D8EAF7',
-                            200: '#B5D4EF',
-                            300: '#7FB3E3',
-                            400: '#4E8FCF',
-                            500: '#0054A6',
-                            600: '#004A97',
-                            700: '#003B71',
-                            800: '#00294F',
-                            900: '#001A33'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        mono: ['"Space Mono"', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
+/* Liquid glass nav */
+.nav{position:fixed;z-index:60;top:max(.8rem,env(safe-area-inset-top));left:50%;translate:-50% 0;display:flex;align-items:center;gap:.25rem;padding:.35rem;border-radius:999px;background:var(--glass);border:1px solid var(--rim);backdrop-filter:blur(24px) saturate(1.85);-webkit-backdrop-filter:blur(24px) saturate(1.85);box-shadow:0 12px 42px rgba(38,44,80,.08),inset 0 1px 0 var(--rim);transition:box-shadow .55s var(--ease),background .55s var(--ease),border-color .55s var(--ease);max-width:calc(100vw - 1.5rem)}
+[data-theme=dark] .nav{box-shadow:0 10px 40px rgba(0,0,0,.1),inset 0 1px 0 var(--rim)}
+[data-theme=dark] .nav.sc{box-shadow:0 14px 50px rgba(0,0,0,.22),inset 0 1px 0 var(--rim)}
+.nav.sc{box-shadow:0 16px 52px rgba(38,44,80,.16),inset 0 1px 0 var(--rim)}
+.brand{white-space:nowrap;font-weight:700;letter-spacing:-.02em;padding:.5rem .95rem;border-radius:999px;transition:background .4s var(--ease),color .4s var(--ease),transform .45s var(--ease)}
+.brand:hover{background:color-mix(in srgb,var(--acc) 8%,transparent)}
+.links{position:relative;display:flex;list-style:none;margin:0;padding:0}
+.links a{position:relative;z-index:1;display:block;padding:.5rem .85rem;font-size:.9rem;border-radius:999px;color:var(--mute);transition:color .4s var(--ease),transform .45s var(--ease)}
+.links a:hover,.links a.on{color:var(--ink)}
+.ind{position:absolute;top:0;left:0;height:100%;border-radius:999px;background:var(--surf);box-shadow:0 2px 10px rgba(38,44,80,.1);transition:transform .55s var(--ease),width .55s var(--ease),background .5s var(--ease);opacity:.95}
+.ib{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;transition:background .4s var(--ease),transform .45s var(--ease)}
+.ib:hover{background:color-mix(in srgb,var(--acc) 10%,var(--line))}
+.ib svg,.ct svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ease)}
+.ib:hover svg{transform:scale(1.06)}
+.sun{display:none}[data-theme=dark] .sun{display:block}[data-theme=dark] .moon{display:none}
+#snd[aria-pressed=true] .off{display:none}#snd[aria-pressed=false] .wv{display:none}
+#mb{display:none}
+.sheet{display:none}
 
-    <!-- Typography & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+/* Hero */
+.hero{position:relative;height:100svh;min-height:680px;overflow:hidden;isolation:isolate;perspective:1200px}
+.nm{position:absolute;left:0;right:0;top:10.5svh;z-index:4;text-align:center;font-size:clamp(4rem,12.4vw,13rem);font-weight:700;letter-spacing:-.055em;line-height:.9;white-space:nowrap;color:var(--ink);text-shadow:0 12px 42px color-mix(in srgb,var(--bg) 65%,transparent);transform-style:preserve-3d}
+.nm span{display:inline-block;transition:transform .7s var(--ease),text-shadow .6s var(--ease)}
+:root:not([data-theme=dark]) .nm{color:#161822;text-shadow:0 8px 30px rgba(255,255,255,.8)}
+[data-theme=dark] .nm{color:var(--ink);text-shadow:0 12px 42px color-mix(in srgb,var(--bg) 55%,transparent)}
+.ph{position:absolute;bottom:0;left:50%;z-index:3;translate:-50% 0;height:min(78svh,900px);will-change:transform;filter:drop-shadow(0 24px 48px rgba(45,42,95,.16));transform-style:preserve-3d;transition:transform .65s var(--ease)}
+[data-theme=dark] .ph{filter:drop-shadow(0 24px 48px rgba(0,0,0,.18))}
+.ph img{height:100%;width:auto;display:block;transform:translateZ(34px);-webkit-mask-image:linear-gradient(#000 76%,transparent);mask-image:linear-gradient(#000 76%,transparent)}
+.hl,.hr{position:absolute;z-index:5;bottom:clamp(2.5rem,8svh,5rem);width:min(24vw,22rem);text-shadow:0 2px 18px color-mix(in srgb,var(--bg) 65%,transparent);transition:transform .6s var(--ease)}
+.hl{left:var(--pad)}.hr{right:var(--pad)}
+.hl p{font-size:clamp(1.5rem,2.3vw,2.2rem);line-height:1.12;letter-spacing:-.03em;font-weight:600}
+.hr p{color:var(--mute);margin-bottom:1.4rem;font-size:1rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;position:relative;overflow:hidden;padding:.92rem 1.55rem;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),box-shadow .5s var(--ease),background .45s var(--ease),color .45s var(--ease)}
+:root:not([data-theme=dark]) .btn{background:linear-gradient(135deg,#5b48f5 0%,#8c5cf6 52%,#e45e9f 100%);color:#fff;box-shadow:0 10px 26px rgba(107,84,245,.24)}
+[data-theme=dark] .btn{background:var(--ink);color:var(--bg);box-shadow:none}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);translate:-120% 0;transition:translate .95s var(--ease)}
+.btn:hover::after{translate:120% 0}
+.btn:hover{box-shadow:0 16px 38px color-mix(in srgb,var(--acc) 36%,transparent)}
+.btn svg{width:1.1rem;height:1.1rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ease);animation:nudge 2.6s var(--ease) infinite}
+.btn:hover svg{transform:translateY(2px)}
+.hero::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(560px circle at var(--pointer-x) var(--pointer-y),color-mix(in srgb,var(--acc2) 16%,transparent),color-mix(in srgb,var(--acc3) 10%,transparent) 45%,transparent 72%),linear-gradient(180deg,transparent 65%,color-mix(in srgb,var(--bg) 32%,transparent));transition:opacity .5s var(--ease)}
+[data-theme=dark] .hero::after{background:radial-gradient(ellipse at var(--pointer-x) var(--pointer-y),rgba(218,145,102,.13),transparent 34%),linear-gradient(180deg,transparent 65%,color-mix(in srgb,var(--bg) 28%,transparent));mix-blend-mode:screen}
+.cue{position:absolute;z-index:2;left:50%;bottom:1rem;width:1px;height:38px;background:var(--line);overflow:hidden}
+.cue::after{content:"";position:absolute;left:0;width:1px;height:14px;background:linear-gradient(180deg,var(--acc2),var(--acc));animation:cue 2.2s ease-in-out infinite}
+[data-theme=dark] .cue::after{background:var(--acc)}
+@keyframes cue{from{top:-14px}to{top:38px}}
+@keyframes nudge{50%{transform:translateY(3px)}}
+@keyframes up{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(52px) scale(.975)}to{opacity:1;transform:none}}
+.js .nm span{animation:up 1.35s var(--ease) both}.js .nm span+span{animation-delay:.12s}
+.js .ph img{animation:rise 1.6s var(--ease) .25s both}
+.js .hl,.js .hr{animation:up 1.25s var(--ease) .65s both}
 
-    <style>
-        body {
-            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+/* Ambient & 3D hero */
+#ambientCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:1}
+[data-theme=dark] #ambientCanvas{mix-blend-mode:screen}
+main,footer{position:relative;z-index:2}
+.hero-scene{position:absolute;z-index:1;left:50%;top:53%;width:min(74vw,790px);height:min(74vw,790px);max-height:90svh;aspect-ratio:1;translate:-50% -50%;pointer-events:none;opacity:.72;filter:saturate(1.2) contrast(1.06);mask-image:radial-gradient(closest-side,#000 58%,transparent 100%)}
+#hero3d{position:relative;z-index:1;display:block;width:100%;height:100%}
+.hero-core-fallback{position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.95),color-mix(in srgb,var(--acc2) 38%,transparent) 26%,color-mix(in srgb,var(--acc3) 26%,transparent) 54%,transparent 74%);box-shadow:0 0 100px color-mix(in srgb,var(--acc) 22%,transparent);animation:core-breathe 8s var(--ease) infinite}
+[data-theme=dark] .hero-core-fallback{background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.95),rgba(255,175,112,.48) 12%,rgba(185,91,54,.28) 28%,rgba(101,77,178,.2) 52%,transparent 72%);box-shadow:0 0 100px rgba(210,112,63,.24),0 0 180px rgba(105,87,190,.12),inset 0 0 45px rgba(255,255,255,.18)}
+@keyframes core-breathe{50%{transform:scale(1.06);opacity:.75}}
+.scroll-progress{position:fixed;z-index:80;top:0;left:0;width:100%;height:3px;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--acc3),var(--acc),var(--acc2));box-shadow:0 0 14px color-mix(in srgb,var(--acc) 45%,transparent);pointer-events:none;transition:transform .12s linear}
+[data-theme=dark] .scroll-progress{background:var(--acc);box-shadow:0 0 14px var(--acc)}
 
-        /* Subtle Architectural Dot Matrix */
-        .bg-dots {
-            background-size: 24px 24px;
-            background-image: radial-gradient(rgba(0, 84, 166, 0.08) 1px, transparent 1px);
-        }
-        .dark .bg-dots {
-            background-image: radial-gradient(rgba(127, 179, 227, 0.09) 1px, transparent 1px);
-        }
+/* Sections */
+.sec{position:relative;padding:clamp(5rem,12vw,10rem) var(--pad)}
+.sec::before{content:"";position:absolute;inset:8% 0 auto;height:48%;pointer-events:none;opacity:.42;background:radial-gradient(ellipse at var(--pointer-x) 50%,color-mix(in srgb,var(--acc2) 14%,transparent),color-mix(in srgb,var(--acc3) 10%,transparent) 42%,transparent 65%);transform:translateY(calc(var(--section-shift,0)*1px));transition:transform .55s var(--ease)}
+[data-theme=dark] .sec::before{opacity:.34;background:radial-gradient(ellipse at var(--pointer-x) 50%,rgba(190,116,79,.09),transparent 58%)}
+.w{max-width:1180px;margin:auto}
+.h2{font-size:clamp(2.2rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.04em;font-weight:700;max-width:16ch;margin-bottom:clamp(2rem,5vw,4rem)}
+.mk{display:block;overflow:hidden;padding-bottom:.08em}
+.mk>span{display:block}
+.js .mk>span{transform:translate3d(0,110%,0);transition:transform 1.05s var(--ease)}
+.js .mk.in>span{transform:translate3d(0,0,0)}
+.js .rv{opacity:0;transform:translate3d(0,34px,0) scale(.985);filter:blur(3px);transition:opacity .9s var(--ease) var(--d,0s),transform 1s var(--ease) var(--d,0s),filter .9s var(--ease) var(--d,0s)}
+.js .rv.in{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
 
-        /* Bento Card Architecture */
-        .bento-card {
-            background: #FFFFFF;
-            border: 1px solid #D9E5F1;
-            box-shadow: 0 1px 3px rgba(0, 41, 79, 0.03), 0 8px 24px -12px rgba(0, 84, 166, 0.08);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-        .dark .bento-card {
-            background: #0B1524;
-            border: 1px solid #1B2C42;
-            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.65);
-        }
-        .bento-card:hover {
-            border-color: #0054A6;
-            box-shadow: 0 16px 32px -12px rgba(0, 84, 166, 0.18);
-        }
-        .dark .bento-card:hover {
-            border-color: #4E8FCF;
-            box-shadow: 0 16px 32px -12px rgba(0, 84, 166, 0.35);
-        }
+.abt{display:grid;grid-template-columns:5fr 6fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.pn{position:relative;overflow:hidden;border-radius:34px;aspect-ratio:4/5;border:1px solid var(--rim);background:linear-gradient(155deg,rgba(255,255,255,.88),color-mix(in srgb,var(--acc3) 10%,transparent) 55%,color-mix(in srgb,var(--acc2) 14%,transparent));box-shadow:0 22px 65px rgba(42,46,92,.1),inset 0 1px 0 var(--rim);transform-style:preserve-3d;will-change:transform;transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .45s var(--ease)}
+[data-theme=dark] .pn{border-color:var(--line);background:linear-gradient(165deg,var(--surf),transparent 80%);box-shadow:0 22px 65px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.25)}
+.pn::before{content:"";position:absolute;width:85%;aspect-ratio:1;left:7.5%;top:5%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--acc2) 28%,transparent),color-mix(in srgb,var(--acc3) 18%,transparent) 55%,transparent)}
+[data-theme=dark] .pn::before{width:80%;left:10%;top:6%;background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 38%,transparent),transparent)}
+.pn:hover{border-color:color-mix(in srgb,var(--acc) 45%,var(--rim));box-shadow:0 32px 85px rgba(42,46,92,.18),0 0 48px color-mix(in srgb,var(--acc) 16%,transparent)}
+[data-theme=dark] .pn:hover{border-color:color-mix(in srgb,var(--acc) 55%,var(--line));box-shadow:0 32px 85px rgba(0,0,0,.2),0 0 45px color-mix(in srgb,var(--acc) 17%,transparent)}
+.pn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;scale:1.08;will-change:transform;transition:transform .65s var(--ease)}
+.lead{font-size:clamp(1.5rem,2.9vw,2.4rem);line-height:1.16;letter-spacing:-.028em;font-weight:600;margin-bottom:1.6rem}
+.abt p:not(.lead){color:var(--mute);max-width:52ch;margin-bottom:1rem}
 
-        /* Cursor Spotlight on Cards (positions set by JS) */
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
-                rgba(0, 84, 166, 0.10), transparent 65%);
-            pointer-events: none;
-        }
-        .dark .bento-card::before {
-            background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
-                rgba(78, 143, 207, 0.16), transparent 65%);
-        }
-        .bento-card:hover::before { opacity: 1; }
+.grp{display:grid;grid-template-columns:minmax(0,15rem) 1fr;gap:1rem 2rem;padding:1.6rem 0;border-top:1px solid var(--line);transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),border-color .45s var(--ease),box-shadow .5s var(--ease)}
+.grp:hover{border-color:color-mix(in srgb,var(--acc) 48%,var(--line))}
+.grp h3{font-size:1.05rem;font-weight:600;transition:color .4s var(--ease)}
+.grp:hover h3{color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:.65rem}
 
-        /* Typewriter Cursor */
-        .type-caret {
-            display: inline-block;
-            width: 3px;
-            height: 1em;
-            margin-left: 6px;
-            vertical-align: -0.12em;
-            background: #0054A6;
-            animation: blink 1s steps(1) infinite;
-        }
-        .dark .type-caret { background: #7FB3E3; }
-        @keyframes blink { 50% { opacity: 0; } }
+.chip,.row{position:relative;background:radial-gradient(160px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--acc2) 18%,transparent),color-mix(in srgb,var(--acc3) 12%,transparent) 50%,transparent 75%)}
+[data-theme=dark] .chip,[data-theme=dark] .row{background:radial-gradient(140px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%)}
+.chip{padding:.62rem 1.15rem;border-radius:999px;border:1px solid var(--line);background-color:color-mix(in srgb,var(--surf) 78%,transparent);font-size:1rem;transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease),background-color .4s var(--ease),color .4s var(--ease)}
+[data-theme=dark] .chip{background-color:transparent}
+.chip:hover{border-color:color-mix(in srgb,var(--acc) 65%,transparent);color:var(--ink);box-shadow:0 12px 30px color-mix(in srgb,var(--acc) 16%,transparent)}
+[data-theme=dark] .chip:hover{border-color:var(--acc)}
 
-        /* Scroll Progress Bar */
-        #scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            width: 0%;
-            background: linear-gradient(90deg, #003B71, #0054A6, #7FB3E3);
-            z-index: 60;
-            transition: width 0.08s linear;
-            box-shadow: 0 0 12px rgba(0, 84, 166, 0.5);
-        }
+.note{color:var(--mute);margin-top:1.5rem;max-width:60ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(2rem,6vw,6rem)}
+.cols h3{font-size:1.05rem;font-weight:600;padding-bottom:1rem}
+.row{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;padding:1.15rem .2rem;border-top:1px solid var(--line);font-size:1.25rem;letter-spacing:-.015em;font-weight:500;transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),padding .5s var(--ease),box-shadow .5s var(--ease),border-color .4s var(--ease),color .4s var(--ease)}
+.row small{color:var(--mute);font-size:.9rem;font-weight:400;text-align:right;transition:color .4s var(--ease),transform .45s var(--ease)}
+.row:hover{padding-left:.95rem;border-top-color:color-mix(in srgb,var(--acc) 45%,var(--line));box-shadow:inset 2px 0 var(--acc),0 10px 28px color-mix(in srgb,var(--acc) 10%,transparent)}
+[data-theme=dark] .row:hover{padding-left:.8rem;box-shadow:inset 2px 0 var(--acc)}
+.row:hover small{color:var(--acc);transform:translateX(-3px)}
+[data-theme=dark] .row:hover small{color:var(--mute);transform:none}
 
-        /* Mouse Trail Canvas */
-        #trail-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 40;
-        }
+.lang{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;padding:1.8rem 0;border-top:1px solid var(--line);transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),border-color .45s var(--ease),box-shadow .5s var(--ease)}
+.lang:hover{border-color:color-mix(in srgb,var(--acc) 48%,var(--line))}
+.lang b{font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.04em}
+.lang span{color:var(--mute)}
+.sc6{display:flex;gap:5px;margin-top:.75rem}
+.sc6 i{width:2.2rem;height:5px;border-radius:999px;background:var(--line);transition:background .7s var(--ease) var(--d),transform .45s var(--ease)}
+.in .sc6 i.f,.sc6.in i.f{background:linear-gradient(90deg,var(--acc3),var(--acc),var(--acc2))}
+[data-theme=dark] .in .sc6 i.f,[data-theme=dark] .sc6.in i.f{background:var(--acc)}
+.lang:hover .sc6 i.f{transform:scaleY(1.25)}
 
-        /* Scroll Reveal Animations */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
+.ctw{display:block;font-size:clamp(1.6rem,6.2vw,5.2rem);font-weight:700;letter-spacing:-.045em;line-height:1.05;overflow-wrap:anywhere;margin-bottom:3rem;width:fit-content;transition:color .45s var(--ease),transform .5s var(--ease)}
+.ctw:hover{color:var(--acc);transform:translateX(4px)}
+[data-theme=dark] .ctw:hover{transform:none}
+.soc{display:flex;flex-wrap:wrap;gap:.85rem}
+.ct{display:inline-flex;align-items:center;gap:.7rem;padding:.82rem 1.35rem .82rem 1.05rem;border-radius:999px;background:var(--glass);border:1px solid var(--rim);backdrop-filter:blur(18px) saturate(1.7);-webkit-backdrop-filter:blur(18px) saturate(1.7);box-shadow:0 6px 24px rgba(38,44,80,.06);transform-style:preserve-3d;will-change:transform;transition:transform .5s var(--ease),border-color .4s var(--ease),box-shadow .5s var(--ease),background .4s var(--ease)}
+[data-theme=dark] .ct{box-shadow:none}
+a.ct:hover{border-color:color-mix(in srgb,var(--acc) 60%,var(--rim));box-shadow:0 14px 34px color-mix(in srgb,var(--acc) 18%,transparent)}
+[data-theme=dark] a.ct:hover{border-color:var(--acc);box-shadow:none}
+.ct:hover svg{transform:scale(1.1)}
+.ct[aria-disabled=true]{opacity:.52;cursor:not-allowed;border-style:dashed}
+.ct em{font-style:normal;color:var(--mute);font-size:.85rem}
 
-        /* Skill Bars — animated from 0 by JS */
-        .skill-bar-fill {
-            width: 0%;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+footer{padding:2rem var(--pad) calc(2rem + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--mute);font-size:.9rem}
+footer a{transition:color .4s var(--ease)}
+footer a:hover{color:var(--acc)}
 
-        /* Click Ripple */
-        .ripple {
-            position: fixed;
-            width: 12px; height: 12px;
-            border-radius: 9999px;
-            pointer-events: none;
-            background: radial-gradient(circle, rgba(0, 84, 166, 0.35) 0%, transparent 70%);
-            transform: translate(-50%, -50%) scale(0);
-            animation: ripple-expand 0.6s ease-out forwards;
-            z-index: 55;
-        }
-        .dark .ripple {
-            background: radial-gradient(circle, rgba(127, 179, 227, 0.4) 0%, transparent 70%);
-        }
-        @keyframes ripple-expand {
-            to { transform: translate(-50%, -50%) scale(14); opacity: 0; }
-        }
+/* --- Ultra-Smooth Custom Cursor --- */
+.cursor-dot,
+.cursor-ring{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  border-radius:50%;
+  opacity:0;
+  z-index:2147483647;
+  will-change:transform,opacity
+}
+.cursor-dot{
+  width:7px;
+  height:7px;
+  margin:-3.5px 0 0 -3.5px;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  box-shadow:0 0 14px color-mix(in srgb,var(--acc) 65%,transparent);
+  transition:opacity .28s var(--ease),width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)
+}
+[data-theme=dark] .cursor-dot{
+  background:#ffb17b;
+  box-shadow:0 0 12px rgba(255,145,83,.8)
+}
+.cursor-ring{
+  width:38px;
+  height:38px;
+  margin:-19px 0 0 -19px;
+  border:1.5px solid color-mix(in srgb,var(--acc) 68%,var(--acc2) 32%);
+  background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--acc2) 12%,transparent),color-mix(in srgb,var(--acc3) 8%,transparent));
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  box-shadow:0 8px 24px color-mix(in srgb,var(--acc) 12%,transparent);
+  transition:opacity .32s var(--ease),width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .4s var(--ease),border-color .4s var(--ease),box-shadow .45s var(--ease)
+}
+[data-theme=dark] .cursor-ring{
+  width:34px;
+  height:34px;
+  margin:-17px 0 0 -17px;
+  border:1.5px solid rgba(255,174,119,.9);
+  background:rgba(255,153,93,.045);
+  box-shadow:0 0 18px rgba(220,125,75,.15)
+}
 
-        /* Toasts */
-        #toast-zone {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 70;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            pointer-events: none;
-        }
-        .toast {
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            padding: 10px 18px;
-            border-radius: 9999px;
-            background: #0054A6;
-            color: #FFFFFF;
-            box-shadow: 0 10px 30px -10px rgba(0, 84, 166, 0.5);
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .dark .toast { background: #4E8FCF; color: #001A33; }
-        .toast.show { opacity: 1; transform: translateY(0); }
+@media (hover:hover) and (pointer:fine){
+ html.has-custom-cursor,
+ html.has-custom-cursor body,
+ html.has-custom-cursor a,
+ html.has-custom-cursor button,
+ html.has-custom-cursor [role="button"],
+ html.has-custom-cursor .chip,
+ html.has-custom-cursor .row{
+  cursor:none !important
+ }
+ html.has-custom-cursor .ct[aria-disabled="true"]{
+  cursor:not-allowed !important
+ }
+ body.cursor-visible .cursor-dot,
+ body.cursor-visible .cursor-ring{
+  opacity:1
+ }
+}
 
-        /* Konami Canvas */
-        #konami-canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 65;
-        }
+body.cursor-hover .cursor-dot{
+  width:9px;
+  height:9px;
+  margin:-4.5px 0 0 -4.5px;
+  background:var(--acc2);
+  box-shadow:0 0 18px color-mix(in srgb,var(--acc2) 75%,transparent)
+}
+[data-theme=dark] body.cursor-hover .cursor-dot{
+  width:7px;
+  height:7px;
+  margin:-3.5px 0 0 -3.5px;
+  background:#ffb17b;
+  box-shadow:0 0 14px rgba(255,165,105,.9)
+}
+body.cursor-hover .cursor-ring{
+  width:58px;
+  height:58px;
+  margin:-29px 0 0 -29px;
+  border-color:color-mix(in srgb,var(--acc2) 75%,var(--acc3) 25%);
+  background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--acc2) 18%,transparent),color-mix(in srgb,var(--acc3) 14%,transparent));
+  box-shadow:0 12px 32px color-mix(in srgb,var(--acc) 22%,transparent)
+}
+[data-theme=dark] body.cursor-hover .cursor-ring{
+  width:54px;
+  height:54px;
+  margin:-27px 0 0 -27px;
+  border-color:#ffc39c;
+  background:rgba(255,153,93,.13);
+  box-shadow:0 0 22px rgba(255,165,105,.22)
+}
 
-        /* In-page Terminal (fixed to the screen, bottom-right) */
-        #terminal-panel {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 340px;
-            max-width: calc(100vw - 40px);
-            z-index: 75;
-            border-radius: 14px;
-            overflow: hidden;
-            background: rgba(5, 11, 20, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(78, 143, 207, 0.4);
-            box-shadow: 0 20px 50px -12px rgba(0, 41, 79, 0.55);
-            opacity: 0;
-            transform: translateY(16px) scale(0.97);
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #terminal-panel.open {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-        }
-        #terminal-output {
-            height: 210px;
-            overflow-y: auto;
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            line-height: 1.7;
-            padding: 12px 14px;
-            color: #B5D4EF;
-            background: #050B14;
-        }
-        #terminal-output .t-cmd { color: #FFFFFF; }
-        #terminal-output .t-blue { color: #7FB3E3; }
-        #terminal-output .t-ok { color: #4ADE80; }
-        #terminal-output .t-dim { color: #4A6B8A; }
-        #terminal-input {
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #FFFFFF;
-            flex: 1;
-        }
-        #terminal-input::placeholder { color: #4A6B8A; }
+body.cursor-down .cursor-dot{
+  width:5px;
+  height:5px;
+  margin:-2.5px 0 0 -2.5px
+}
+body.cursor-down .cursor-ring{
+  width:26px;
+  height:26px;
+  margin:-13px 0 0 -13px;
+  background:color-mix(in srgb,var(--acc) 22%,transparent)
+}
+[data-theme=dark] body.cursor-down .cursor-ring{
+  width:24px;
+  height:24px;
+  margin:-12px 0 0 -12px;
+  background:rgba(255,153,93,.18)
+}
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 7px; }
-        ::-webkit-scrollbar-track { background: #F8FAFC; }
-        .dark ::-webkit-scrollbar-track { background: #050B14; }
-        ::-webkit-scrollbar-thumb { background: #B5D4EF; border-radius: 9999px; }
-        .dark ::-webkit-scrollbar-thumb { background: #1B2C42; }
-        ::-webkit-scrollbar-thumb:hover { background: #0054A6; }
-    </style>
+@media (pointer:coarse),(hover:none){
+  .cursor-dot,.cursor-ring{display:none !important;opacity:0 !important}
+}
+
+
+/* Elegant bilingual control and restrained text transition */
+.lang-toggle{width:36px;min-width:36px;padding:0;border-radius:50%;display:grid;place-items:center}
+.lang-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease),color .35s var(--ease)}
+.lang-toggle:hover svg{transform:rotate(-8deg) scale(1.08)}
+.lang-toggle[aria-pressed="true"] svg{color:var(--acc)}
+html.lang-changing [data-i18n]{animation:languageTextIn .62s var(--ease) both}
+@keyframes languageTextIn{0%{opacity:.18;transform:translateY(7px);filter:blur(3px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+@media (max-width:760px){.lang-toggle{width:36px;min-width:36px}}
+@media (prefers-reduced-motion:reduce){html.lang-changing [data-i18n]{animation:none}}
+
+@media (max-width:1000px){
+ .hero{height:auto;min-height:unset;padding-top:5rem;display:flex;flex-direction:column;align-items:center;padding-bottom:3rem}
+ .nm{position:relative;top:auto !important;left:auto;right:auto;width:100%;font-size:clamp(2.35rem,10.5vw,5.4rem) !important;line-height:.95;margin-bottom:1.25rem;padding-inline:.15rem;white-space:normal;text-align:center;transform-style:flat}.nm span{display:inline}
+ .ph{position:relative;left:auto !important;right:auto !important;bottom:auto;translate:none !important;height:auto !important;width:min(80vw,420px);margin:0 auto !important;transform-style:flat}
+ .ph img{width:100%;height:auto;transform:none !important}
+ .hl,.hr{position:relative;inset:auto;width:100%;max-width:520px;padding:0 var(--pad);bottom:auto;text-shadow:none}.hl{margin-top:1rem}.hr{margin-top:1rem}
+ .hero-scene{top:42% !important;width:min(105vw,680px) !important;height:min(105vw,680px) !important}
+ .cue{display:none}
+ .abt,.cols,.grp{grid-template-columns:1fr}
+ .pn{max-width:480px}
+}
+@media (max-width:760px){
+ .links,.brand{display:none}
+ #mb{display:grid}
+ .nav{gap:.2rem}
+ .sheet{display:block;position:fixed;z-index:55;top:4.6rem;left:.75rem;right:.75rem;padding:.6rem;border-radius:26px;background:var(--glass);border:1px solid var(--rim);backdrop-filter:blur(26px) saturate(1.85);-webkit-backdrop-filter:blur(26px) saturate(1.85);opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);transition:.45s var(--ease)}
+ .sheet.open{opacity:1;visibility:visible;transform:none}
+ .sheet a{display:block;padding:.95rem 1.1rem;border-radius:16px;font-size:1.15rem;font-weight:500;transition:background .35s var(--ease)}
+ .sheet a.on{background:var(--surf)}
+ #ambientCanvas{opacity:.48 !important}
+ .hero-scene{opacity:.42 !important}
+ .ph{width:min(82vw,390px) !important;margin-top:0 !important}
+ .js .rv{filter:none;transform:translateY(22px)}
+ .pn,.grp,.lang,.row,.chip,.ct,.btn{will-change:auto}
+}
+@media (prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation:none !important;transition-duration:.01ms !important}
+ .js .rv,.js .mk>span{opacity:1 !important;transform:none !important;filter:none !important}
+ .hero::after,#ambientCanvas{display:none !important}
+ .hero-core-fallback{animation:none}.hero-scene{opacity:.35 !important}
+}
+</style>
 </head>
-<body class="bg-studio-lightbg dark:bg-studio-darkbg text-zinc-900 dark:text-zinc-100 font-sans antialiased bg-dots min-h-screen selection:bg-ocean-500 selection:text-white relative overflow-x-hidden">
-
-    <!-- Scroll Progress -->
-    <div id="scroll-progress"></div>
-
-    <!-- Mouse Trail -->
-    <canvas id="trail-canvas"></canvas>
-
-    <!-- FLOATING PILL NAVIGATION -->
-    <header class="fixed top-5 left-0 w-full z-50 px-4 sm:px-6 pointer-events-none">
-        <nav class="max-w-5xl mx-auto pointer-events-auto bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-zinc-200/90 dark:border-zinc-800 rounded-full px-5 py-3 shadow-lg shadow-ocean-900/5 dark:shadow-black/40 flex items-center justify-between">
-
-            <a href="#" class="flex items-center gap-2.5 group">
-                <span class="w-8 h-8 rounded-full bg-ocean-500 dark:bg-ocean-400 text-white dark:text-ocean-900 font-mono font-bold text-xs flex items-center justify-center tracking-tighter group-hover:scale-105 transition-transform">
-                    RA
-                </span>
-                <span class="font-bold text-sm tracking-tight text-zinc-900 dark:text-white">
-                    richardatkari<span class="text-ocean-500 dark:text-ocean-400">.hu</span>
-                </span>
-            </a>
-
-            <div class="hidden md:flex items-center gap-7 text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                <a href="#about" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">01. Philosophy</a>
-                <a href="#skills" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">02. Stack</a>
-                <a href="#projects" class="hover:text-ocean-600 dark:hover:text-ocean-300 transition">03. Showcase</a>
-            </div>
-
-            <div class="hidden md:flex items-center gap-2.5">
-                <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Téma váltása (Világos / Sötét)">
-                    <i id="theme-icon" class="fa-solid fa-moon text-xs"></i>
-                </button>
-                <button id="sfx-toggle" type="button" aria-label="Toggle Sound Effects" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Hang effektek (S)">
-                    <i id="sfx-icon" class="fa-solid fa-volume-high text-xs"></i>
-                </button>
-                <button id="terminal-toggle" type="button" aria-label="Toggle terminal" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:border-ocean-500 dark:hover:border-ocean-400 transition flex items-center justify-center" title="Terminal (`)">
-                    <i class="fa-solid fa-terminal text-xs"></i>
-                </button>
-                <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="magnetic px-4 py-2 rounded-full bg-ocean-500 text-white hover:bg-ocean-600 dark:bg-ocean-500 dark:hover:bg-ocean-400 dark:hover:text-ocean-900 font-mono text-xs font-bold transition flex items-center gap-2">
-                    <i class="fa-regular fa-copy"></i>
-                    <span id="copy-btn-text">business@richardatkari.hu</span>
-                </button>
-            </div>
-
-            <div class="flex items-center gap-2 md:hidden">
-                <button id="theme-toggle-mobile" type="button" aria-label="Toggle Dark Mode" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 flex items-center justify-center">
-                    <i class="theme-icon-mob fa-solid fa-moon text-xs"></i>
-                </button>
-                <button id="mobile-menu-btn" type="button" aria-label="Open Menu" class="w-8 h-8 flex items-center justify-center text-zinc-700 dark:text-zinc-200 text-lg focus:outline-none">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-
-        <div id="mobile-menu" class="hidden md:hidden max-w-5xl mx-auto mt-2 pointer-events-auto bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 shadow-xl space-y-3 font-mono text-xs">
-            <a href="#about" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">01. Philosophy</a>
-            <a href="#skills" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">02. Stack</a>
-            <a href="#projects" class="block py-1.5 px-2 rounded-lg hover:bg-ocean-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300">03. Showcase</a>
-            <button type="button" onclick="copyToClipboard('business@richardatkari.hu')" class="w-full text-left px-3 py-2.5 rounded-xl bg-ocean-500/10 text-ocean-600 dark:text-ocean-300 font-bold flex items-center justify-between">
-                <span>business@richardatkari.hu</span>
-                <i class="fa-regular fa-copy"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- HERO & BENTO OVERVIEW -->
-    <main class="pt-32 pb-20 px-4 sm:px-6 max-w-6xl mx-auto relative">
-
-        <canvas id="hero-particles" class="absolute inset-0 w-full h-[650px] pointer-events-none z-0 opacity-70"></canvas>
-
-        <div class="relative z-10 max-w-3xl mb-14 reveal-on-scroll">
-            <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-md bg-ocean-500/10 border border-ocean-500/20 text-ocean-700 dark:text-ocean-300 font-mono text-xs mb-6">
-                <span class="w-2 h-2 rounded-full bg-ocean-500 dark:bg-ocean-400 animate-pulse"></span>
-                Front-End Development &amp; UI Architecture
-            </div>
-
-            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.08] mb-6">
-                Richárd <span class="text-ocean-600 dark:text-ocean-400">Atkári.</span><br>
-                <span class="text-zinc-400 dark:text-zinc-500 text-3xl sm:text-5xl font-bold"><span id="typewriter"></span><span class="type-caret"></span></span>
-            </h1>
-
-            <p class="text-zinc-600 dark:text-zinc-400 text-lg sm:text-xl leading-relaxed max-w-2xl mb-8">
-                Crafting <strong class="text-zinc-900 dark:text-white font-semibold">pixel-perfect, responsive web interfaces</strong> with clean code, modern JavaScript frameworks, and meticulous attention to layout aesthetics and fluid micro-interactions.
-            </p>
-
-            <div class="flex flex-wrap items-center gap-4">
-                <a href="#skills" class="magnetic px-6 py-3.5 rounded-xl bg-ocean-500 hover:bg-ocean-600 dark:bg-ocean-500 dark:hover:bg-ocean-400 text-white dark:text-ocean-900 font-semibold text-sm transition flex items-center gap-2.5 shadow-sm">
-                    <i class="fa-solid fa-layer-group"></i> Explore Stack
-                </a>
-                <a href="mailto:business@richardatkari.hu" class="magnetic px-6 py-3.5 rounded-xl bento-card text-zinc-800 dark:text-zinc-200 font-semibold text-sm flex items-center gap-2.5">
-                    <i class="fa-regular fa-paper-plane text-ocean-500 dark:text-ocean-400"></i> Send Email Direct
-                </a>
-                <button type="button" id="hero-terminal-btn" class="magnetic px-6 py-3.5 rounded-xl border border-ocean-500/30 text-ocean-700 dark:text-ocean-300 hover:bg-ocean-500/10 font-mono text-sm transition flex items-center gap-2.5">
-                    <i class="fa-solid fa-terminal"></i> Open terminal <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-ocean-500/10 border border-ocean-500/20">`</kbd>
-                </button>
-            </div>
-        </div>
-
-        <!-- BENTO GRID -->
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-on-scroll delay-100">
-
-            <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                <div class="bento-card p-6 rounded-2xl flex items-center justify-between">
-                    <div>
-                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Architecture</div>
-                        <div class="text-xl font-bold text-zinc-900 dark:text-white">Component-Driven</div>
-                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Modular &amp; maintainable structure</div>
-                    </div>
-                    <div class="w-12 h-12 rounded-xl bg-ocean-500/10 text-ocean-600 dark:text-ocean-400 flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-cubes"></i>
-                    </div>
-                </div>
-
-                <div class="bento-card p-6 rounded-2xl flex items-center justify-between">
-                    <div>
-                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Adaptability</div>
-                        <div class="text-xl font-bold text-zinc-900 dark:text-white">100% Responsive</div>
-                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Mobile-first fluid grid systems</div>
-                    </div>
-                    <div class="w-12 h-12 rounded-xl bg-ocean-400/10 text-ocean-500 dark:text-ocean-300 flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-display"></i>
-                    </div>
-                </div>
-
-                <div class="bento-card p-6 rounded-2xl flex items-center justify-between sm:col-span-2 lg:col-span-1">
-                    <div>
-                        <div class="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-1">Interactivity</div>
-                        <div class="text-xl font-bold text-zinc-900 dark:text-white">Fluid DOM &amp; Motion</div>
-                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">60fps-class transitions &amp; clean state</div>
-                    </div>
-                    <div class="w-12 h-12 rounded-xl bg-ocean-900/5 dark:bg-white/10 text-ocean-800 dark:text-white flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Code Window -->
-            <div class="lg:col-span-7 bento-card rounded-2xl overflow-hidden flex flex-col">
-                <div class="bg-ocean-50 dark:bg-ocean-900/40 px-5 py-3.5 border-b border-ocean-100 dark:border-ocean-800/60 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-200 dark:bg-ocean-800"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-300 dark:bg-ocean-700"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-ocean-500"></span>
-                        <span class="ml-2 font-mono text-xs text-zinc-500 dark:text-zinc-400">app/DeveloperProfile.tsx</span>
-                    </div>
-                    <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-ocean-500/10 text-ocean-700 dark:text-ocean-300 border border-ocean-500/20">
-                        Next.js 14 / React / TS
-                    </span>
-                </div>
-
-                <div class="p-6 sm:p-8 font-mono text-xs sm:text-sm bg-zinc-950 text-zinc-300 flex-1 flex flex-col justify-center leading-relaxed overflow-x-auto">
-                    <div><span class="text-ocean-400">import</span> type { Metadata } <span class="text-ocean-400">from</span> <span class="text-ocean-300">'next'</span>;</div>
-                    <div class="mt-3"><span class="text-ocean-400">export const</span> <span class="text-white font-bold">metadata</span>: Metadata = { <span class="text-ocean-300">title</span>: <span class="text-ocean-300">'Portfolio'</span> };</div>
-                    <div class="mt-3"><span class="text-ocean-400">export default function</span> <span class="text-white font-bold">DeveloperProfile</span>() {</div>
-                    <div class="pl-5 text-zinc-400"><span class="text-ocean-400">const</span> stack = [<span class="text-ocean-300">'React'</span>, <span class="text-ocean-300">'Next.js'</span>, <span class="text-ocean-300">'Tailwind'</span>, <span class="text-ocean-300">'UX'</span>];</div>
-                    <div class="mt-3 pl-5 text-zinc-500">// Server-rendered, fluid 60fps-class motion, pixel-perfect</div>
-                    <div class="pl-5"><span class="text-ocean-400">return</span> (</div>
-                    <div class="pl-10 text-zinc-200">&lt;<span class="text-ocean-400">Surface</span> <span class="text-ocean-300">layout</span>=<span class="text-ocean-300">"bento-grid"</span> <span class="text-ocean-300">theme</span>=<span class="text-ocean-300">"ocean-blue"</span>&gt;</div>
-                    <div class="pl-14 text-white">&lt;<span class="text-ocean-400">Identity</span> <span class="text-ocean-300">name</span>=<span class="text-ocean-300">"Richárd Atkári"</span> /&gt;</div>
-                    <div class="pl-10 text-zinc-200">&lt;/<span class="text-ocean-400">Surface</span>&gt;</div>
-                    <div class="pl-5">);</div>
-                    <div>};</div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- INTERACTIVE EMBEDS DECK (all live embeds, in the header) -->
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 reveal-on-scroll delay-200">
-
-            <!-- Embed 1: Live device readout -->
-            <div class="bento-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="font-mono text-xs uppercase tracking-wider text-zinc-400">Your device &mdash; live</div>
-                    <span class="w-2 h-2 rounded-full bg-ocean-500 animate-pulse"></span>
-                </div>
-                <div class="flex items-end justify-between gap-4">
-                    <div>
-                        <div class="text-3xl font-extrabold text-zinc-900 dark:text-white tabular-nums leading-none">
-                            <span id="tile-fps">&mdash;</span><span class="text-sm font-bold text-ocean-500 dark:text-ocean-400 ml-1">fps</span>
-                        </div>
-                        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-mono" id="tile-meta">&mdash;</div>
-                    </div>
-                    <canvas id="tile-spark" class="w-28 h-10 opacity-90"></canvas>
-                </div>
-                <div class="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 text-[11px] font-mono text-zinc-400" id="tile-specs">&mdash;</div>
-            </div>
-
-            <!-- Embed 2: Interactive ball pit -->
-            <div class="bento-card rounded-2xl overflow-hidden flex flex-col">
-                <div class="flex items-center justify-between px-5 py-3 bg-ocean-50 dark:bg-ocean-900/40 border-b border-ocean-100 dark:border-ocean-800/60">
-                    <div class="font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Interactive ball pit</div>
-                    <button id="demo-reset" type="button" class="px-2.5 py-1 rounded-md border border-ocean-500/20 text-[10px] font-mono text-ocean-700 dark:text-ocean-300 hover:bg-ocean-500/10 transition-colors">Reset</button>
-                </div>
-                <canvas id="ballpit" class="w-full block cursor-crosshair" style="height: 240px;"></canvas>
-                <div class="px-5 py-2.5 text-[11px] font-mono text-zinc-400 border-t border-zinc-100 dark:border-zinc-800">Click to add balls &middot; move cursor to stir &middot; vanilla JS physics</div>
-            </div>
-        </div>
-    </main>
-
-    <!-- 01 PHILOSOPHY -->
-    <section id="about" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
-            <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 01. Design &amp; Code Philosophy</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Bridging Aesthetics and Functionality</h2>
-            </div>
-            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
-                Focused on writing modular, readable, and scalable front-end architecture with visual restraint.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-100">
-                <div class="flex items-center justify-between">
-                    <span class="font-mono text-xs text-zinc-400">01 / LAYOUT</span>
-                    <i class="fa-solid fa-wand-magic-sparkles text-ocean-500 dark:text-ocean-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Modern UI Layouts</h3>
-                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-                    Designing sleek, minimalist layouts using Tailwind CSS, modern CSS Grid, Flexbox, and refined surface hierarchies for maximum visual clarity.
-                </p>
-            </div>
-
-            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-200">
-                <div class="flex items-center justify-between">
-                    <span class="font-mono text-xs text-zinc-400">02 / LOGIC</span>
-                    <i class="fa-solid fa-code text-ocean-500 dark:text-ocean-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Clean DOM Manipulation</h3>
-                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-                    Writing performant Vanilla JavaScript and reactive component logic to handle state changes, smooth user interactions, and dynamic UI rendering effortlessly.
-                </p>
-            </div>
-
-            <div class="bento-card p-8 rounded-2xl space-y-4 reveal-on-scroll delay-300">
-                <div class="flex items-center justify-between">
-                    <span class="font-mono text-xs text-zinc-400">03 / ADAPTIVE</span>
-                    <i class="fa-solid fa-mobile-screen text-ocean-500 dark:text-ocean-400"></i>
-                </div>
-                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Responsive &amp; Accessible</h3>
-                <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-                    Ensuring cross-browser compatibility, mobile-first responsiveness, and smooth fluid animations across all display sizes and device viewports.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 02 STACK -->
-    <section id="skills" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
-            <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 02. Front-End Stack</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Skills &amp; Technologies</h2>
-            </div>
-            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
-                The core languages, frameworks, and workflow utilities powering my interfaces.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
-                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
-                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-brands fa-html5 text-ocean-500 dark:text-ocean-400"></i> Core Web Technologies
-                    </h3>
-                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Markup &amp; Styling</span>
-                </div>
-                <div class="space-y-4 text-xs font-mono">
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>HTML5 / Semantic Markup</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="95">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="95"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>CSS3 / Flexbox / CSS Grid</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="90">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="90"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Tailwind CSS &amp; Utility Frameworks</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="92">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="92"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
-                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
-                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-brands fa-js text-ocean-400 dark:text-ocean-300"></i> Programming &amp; Logic
-                    </h3>
-                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Interactivity</span>
-                </div>
-                <div class="space-y-4 text-xs font-mono">
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>JavaScript (ES6+ / DOM / Async)</span>
-                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="85">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="85"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>React &amp; Next.js Components</span>
-                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="78">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="78"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>TypeScript Fundamentals</span>
-                            <span class="text-ocean-500 dark:text-ocean-300 font-bold" data-counter data-target="65">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-400 dark:bg-ocean-300 h-1.5 rounded-full" data-width="65"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-100">
-                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
-                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-solid fa-paintbrush text-ocean-500 dark:text-ocean-400"></i> UI/UX &amp; Design
-                    </h3>
-                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Aesthetics</span>
-                </div>
-                <div class="space-y-4 text-xs font-mono">
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Responsive &amp; Mobile-First Design</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="90">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="90"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Glassmorphism &amp; CSS Animations</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="88">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="88"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Figma to Code Implementation</span>
-                            <span class="text-ocean-600 dark:text-ocean-400 font-bold" data-counter data-target="82">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-500 dark:bg-ocean-400 h-1.5 rounded-full" data-width="82"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bento-card p-8 rounded-2xl space-y-6 reveal-on-scroll delay-200">
-                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
-                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2.5">
-                        <i class="fa-solid fa-toolbox text-ocean-700 dark:text-ocean-300"></i> Workflow &amp; Tools
-                    </h3>
-                    <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Environment</span>
-                </div>
-                <div class="space-y-4 text-xs font-mono">
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Git &amp; Version Control</span>
-                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="80">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="80"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Vite / Webpack / NPM Bundlers</span>
-                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="75">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="75"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-1.5 text-zinc-700 dark:text-zinc-300">
-                            <span>Browser DevTools &amp; Performance Tuning</span>
-                            <span class="text-ocean-700 dark:text-white font-bold" data-counter data-target="85">0%</span>
-                        </div>
-                        <div class="w-full bg-ocean-50 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
-                            <div class="skill-bar-fill bg-ocean-600 dark:bg-ocean-300 h-1.5 rounded-full" data-width="85"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 03 SHOWCASE -->
-    <section id="projects" class="py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-on-scroll">
-            <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-ocean-500 dark:text-ocean-400 block mb-2">// 03. Front-End Highlights</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">Featured Web Interfaces</h2>
-            </div>
-            <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-md">
-                Showcasing clean UI architecture, dynamic themes, and responsive design.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-            <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-100">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-ocean-600 dark:text-ocean-400 font-bold">01 // PORTFOLIO ARCHITECTURE</span>
-                        <span class="text-zinc-400">HTML5 / Tailwind / JS</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Minimalist Editorial Portfolio</h3>
-                    <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-                        This very page &mdash; a high-performance portfolio featuring seamless light/dark persistence, mouse-reactive canvas particles, a glowing cursor trail, an in-page terminal, dynamic canvas favicons, and bento-grid design.
-                    </p>
-                </div>
-                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Tailwind CSS</span>
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Canvas API</span>
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Web Audio</span>
-                </div>
-            </article>
-
-            <article class="bento-card p-8 rounded-2xl flex flex-col justify-between space-y-6 reveal-on-scroll delay-200">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-ocean-500 dark:text-ocean-300 font-bold">02 // INTERACTIVE COMPONENTS</span>
-                        <span class="text-zinc-400">React / Next.js / UX</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Dynamic UI Dashboard Shell</h3>
-                    <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
-                        An interactive browser-based dashboard interface featuring live simulated metrics, custom copy-to-clipboard feedback animations, and smooth intersection-observer scroll reveals.
-                    </p>
-                </div>
-                <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap gap-2">
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">ES6+</span>
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">UI State</span>
-                    <span class="px-3 py-1 rounded-md bg-ocean-50 dark:bg-zinc-800/80 text-xs font-mono text-ocean-700 dark:text-ocean-300 border border-ocean-100 dark:border-transparent">Animations</span>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="py-12 px-4 sm:px-6 max-w-6xl mx-auto border-t border-zinc-200/80 dark:border-zinc-800/80 font-mono text-xs text-zinc-500 dark:text-zinc-400">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-                &copy; Richárd Atkári — Front-End Developer &amp; UI Designer
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="mailto:business@richardatkari.hu" class="hover:text-ocean-600 dark:hover:text-ocean-400 transition flex items-center gap-2">
-                    <i class="fa-solid fa-envelope"></i> business@richardatkari.hu
-                </a>
-                <span class="text-zinc-300 dark:text-zinc-700">|</span>
-                <span class="text-ocean-600 dark:text-ocean-400 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-ocean-500 dark:bg-ocean-400 inline-block animate-pulse"></span>
-                    Available for Projects
-                    <span id="live-clock" class="text-zinc-400 dark:text-zinc-500"></span>
-                </span>
-            </div>
-        </div>
-        <div class="mt-8 text-center text-[10px] tracking-[0.3em] text-zinc-300 dark:text-zinc-700 select-none">
-            PSST: &uarr; &uarr; &darr; &darr; &larr; &rarr; &larr; &rarr; B A &mdash; or press ` for the terminal
-        </div>
-    </footer>
-
-    <!-- IN-PAGE TERMINAL (fixed overlay) -->
-    <div id="terminal-panel" role="dialog" aria-label="Interactive terminal">
-        <div class="flex items-center justify-between px-4 py-2.5 bg-ocean-700/40 border-b border-ocean-500/30">
-            <div class="flex items-center gap-2 font-mono text-[11px] text-ocean-200">
-                <span class="w-2.5 h-2.5 rounded-full bg-ocean-400"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-ocean-300"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-ocean-200"></span>
-                <span class="ml-2">guest@atkari — terminal</span>
-            </div>
-            <button id="terminal-close" type="button" aria-label="Close terminal" class="text-ocean-300 hover:text-white transition-colors">
-                <i class="fa-solid fa-xmark text-xs"></i>
-            </button>
-        </div>
-        <div id="terminal-output"></div>
-        <div class="flex items-center gap-2 px-4 py-3 border-t border-ocean-500/20">
-            <span class="font-mono text-xs text-ocean-400 select-none">guest@atkari:~$</span>
-            <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" placeholder="type 'help' and hit Enter">
-        </div>
-    </div>
-
-    <!-- INTERACTIVE LOGIC -->
-    <script>
-        // ============================================================
-        // 0. Dynamic Favicon (ocean blue)
-        // ============================================================
-        function updateFavicon(isDark) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 64;
-            canvas.height = 64;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            ctx.clearRect(0, 0, 64, 64);
-            ctx.fillStyle = isDark ? '#0B1524' : '#0054A6';
-            ctx.beginPath();
-            if (ctx.roundRect) ctx.roundRect(2, 2, 60, 60, 16);
-            else ctx.rect(2, 2, 60, 60);
-            ctx.fill();
-
-            if (isDark) {
-                ctx.strokeStyle = '#4E8FCF';
-                ctx.lineWidth = 3;
-                ctx.stroke();
-            }
-
-            ctx.fillStyle = isDark ? '#7FB3E3' : '#FFFFFF';
-            ctx.font = 'bold 25px monospace';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('RA', 32, 34);
-
-            const link = document.getElementById('favicon');
-            if (link) link.href = canvas.toDataURL('image/png');
-        }
-
-        // ============================================================
-        // 1. Theme (persisted)
-        // ============================================================
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleMobBtn = document.getElementById('theme-toggle-mobile');
-
-        function applyTheme(isDark) {
-            document.documentElement.classList.toggle('dark', isDark);
-            const icon = document.getElementById('theme-icon');
-            const iconMob = document.querySelector('.theme-icon-mob');
-            if (icon) icon.className = isDark ? 'fa-solid fa-sun text-xs' : 'fa-solid fa-moon text-xs';
-            if (iconMob) iconMob.className = 'theme-icon-mob ' + (isDark ? 'fa-solid fa-sun text-xs' : 'fa-solid fa-moon text-xs');
-            localStorage.setItem('ra_frontend_theme', isDark ? 'dark' : 'light');
-            updateFavicon(isDark);
-        }
-
-        applyTheme(localStorage.getItem('ra_frontend_theme') === 'dark');
-
-        function handleThemeToggle() {
-            applyTheme(!document.documentElement.classList.contains('dark'));
-            sfx('whoosh');
-        }
-        if (themeToggleBtn) themeToggleBtn.addEventListener('click', handleThemeToggle);
-        if (themeToggleMobBtn) themeToggleMobBtn.addEventListener('click', handleThemeToggle);
-
-        // ============================================================
-        // 2. Scroll Reveal
-        // ============================================================
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
-
-        // ============================================================
-        // 3. Typewriter Hero
-        // ============================================================
-        const typewriterEl = document.getElementById('typewriter');
-        if (typewriterEl) {
-            const phrases = [
-                'Front-End Developer.',
-                'UI/UX Enthusiast.',
-                'React & Next.js Builder.',
-                'Pixel-Perfectionist.'
-            ];
-            let phraseIndex = 0, charIndex = 0, deleting = false;
-
-            function typeLoop() {
-                const current = phrases[phraseIndex];
-                if (deleting) {
-                    charIndex--;
-                    typewriterEl.textContent = current.slice(0, charIndex);
-                } else {
-                    charIndex++;
-                    typewriterEl.textContent = current.slice(0, charIndex);
-                    if (charIndex % 3 === 0) sfx('tick');
-                }
-
-                let delay = deleting ? 45 : 85;
-                if (!deleting && charIndex === current.length) {
-                    delay = 2200;
-                    deleting = true;
-                } else if (deleting && charIndex === 0) {
-                    deleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                    delay = 400;
-                }
-                setTimeout(typeLoop, delay);
-            }
-            typeLoop();
-        }
-
-        // ============================================================
-        // 4. Mouse-Reactive Particle Network (hero)
-        // ============================================================
-        const canvas = document.getElementById('hero-particles');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            let mouse = { x: -9999, y: -9999 };
-
-            function resizeCanvas() {
-                canvas.width = canvas.parentElement.clientWidth;
-                canvas.height = 650;
-                initParticles();
-            }
-            window.addEventListener('resize', resizeCanvas);
-
-            canvas.parentElement.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-            });
-            canvas.parentElement.addEventListener('mouseleave', () => {
-                mouse.x = -9999;
-                mouse.y = -9999;
-            });
-
-            function initParticles() {
-                particles = [];
-                const count = Math.floor((canvas.width * canvas.height) / 24000);
-                for (let i = 0; i < count; i++) {
-                    particles.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        vx: (Math.random() - 0.5) * 0.4,
-                        vy: (Math.random() - 0.5) * 0.4,
-                        radius: Math.random() * 1.5 + 1
-                    });
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                const isDark = document.documentElement.classList.contains('dark');
-                const dotColor = isDark ? 'rgba(78, 143, 207, 0.4)' : 'rgba(0, 84, 166, 0.24)';
-                const LINK_DIST = 110;
-                const MOUSE_DIST = 160;
-
-                for (let i = 0; i < particles.length; i++) {
-                    let p = particles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-                    let mdx = p.x - mouse.x, mdy = p.y - mouse.y;
-                    let mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
-                    if (mouseDist < MOUSE_DIST && mouseDist > 0.01) {
-                        const force = (MOUSE_DIST - mouseDist) / MOUSE_DIST;
-                        p.x += (mdx / mouseDist) * force * 1.4;
-                        p.y += (mdy / mouseDist) * force * 1.4;
-                    }
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = dotColor;
-                    ctx.fill();
-
-                    for (let j = i + 1; j < particles.length; j++) {
-                        let p2 = particles[j];
-                        let dx = p.x - p2.x, dy = p.y - p2.y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < LINK_DIST) {
-                            ctx.beginPath();
-                            ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            const alpha = (isDark ? 0.16 : 0.09) * (1 - dist / LINK_DIST);
-                            ctx.strokeStyle = isDark
-                                ? `rgba(78, 143, 207, ${alpha})`
-                                : `rgba(0, 84, 166, ${alpha})`;
-                            ctx.lineWidth = 0.6;
-                            ctx.stroke();
-                        }
-                    }
-
-                    if (mouseDist < MOUSE_DIST) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        const mAlpha = 0.35 * (1 - mouseDist / MOUSE_DIST);
-                        ctx.strokeStyle = isDark
-                            ? `rgba(127, 179, 227, ${mAlpha})`
-                            : `rgba(0, 84, 166, ${mAlpha})`;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
-                    }
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            resizeCanvas();
-            animateParticles();
-        }
-
-        // ============================================================
-        // 5. Glowing Mouse Trail (whole page)
-        // ============================================================
-        const trailCanvas = document.getElementById('trail-canvas');
-        if (trailCanvas) {
-            const tCtx = trailCanvas.getContext('2d');
-            let trail = [];
-
-            function sizeTrail() {
-                trailCanvas.width = window.innerWidth;
-                trailCanvas.height = window.innerHeight;
-            }
-            sizeTrail();
-            window.addEventListener('resize', sizeTrail);
-
-            let lastTrail = 0;
-            document.addEventListener('mousemove', (e) => {
-                const now = performance.now();
-                if (now - lastTrail < 16) return;
-                lastTrail = now;
-                trail.push({
-                    x: e.clientX, y: e.clientY,
-                    life: 1,
-                    r: 2 + Math.random() * 2.5,
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8
-                });
-                if (trail.length > 70) trail.shift();
-            });
-
-            function trailLoop() {
-                tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
-                const isDark = document.documentElement.classList.contains('dark');
-                for (let i = trail.length - 1; i >= 0; i--) {
-                    const t = trail[i];
-                    t.life -= 0.028;
-                    t.x += t.vx;
-                    t.y += t.vy;
-                    if (t.life <= 0) { trail.splice(i, 1); continue; }
-                    tCtx.beginPath();
-                    tCtx.arc(t.x, t.y, t.r * t.life, 0, Math.PI * 2);
-                    tCtx.fillStyle = isDark
-                        ? `rgba(127, 179, 227, ${0.5 * t.life})`
-                        : `rgba(0, 84, 166, ${0.4 * t.life})`;
-                    tCtx.shadowColor = isDark ? 'rgba(78, 143, 207, 0.8)' : 'rgba(0, 84, 166, 0.6)';
-                    tCtx.shadowBlur = 8 * t.life;
-                    tCtx.fill();
-                    tCtx.shadowBlur = 0;
-                }
-                requestAnimationFrame(trailLoop);
-            }
-            trailLoop();
-        }
-
-        // ============================================================
-        // 6. 3D Tilt + Cursor Spotlight Cards
-        // ============================================================
-        document.querySelectorAll('.bento-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const px = x / rect.width;
-                const py = y / rect.height;
-
-                card.style.setProperty('--mx', (px * 100) + '%');
-                card.style.setProperty('--my', (py * 100) + '%');
-
-                const rotY = (px - 0.5) * 6;
-                const rotX = (0.5 - py) * 6;
-                card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-3px)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-                card.style.setProperty('--mx', '50%');
-                card.style.setProperty('--my', '50%');
-            });
-        });
-
-        // ============================================================
-        // 7. Animated Skill Bars + Counters
-        // ============================================================
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            const skillObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    skillsSection.querySelectorAll('.skill-bar-fill').forEach((bar, idx) => {
-                        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, idx * 90);
-                    });
-                    skillsSection.querySelectorAll('[data-counter]').forEach(counterEl => {
-                        const target = parseInt(counterEl.dataset.target, 10) || 0;
-                        let current = 0;
-                        const step = Math.max(1, Math.round(target / 40));
-                        const tick = () => {
-                            current = Math.min(current + step, target);
-                            counterEl.textContent = current + '%';
-                            if (current < target) requestAnimationFrame(tick);
-                        };
-                        tick();
-                    });
-                    observer.unobserve(entry.target);
-                });
-            }, { threshold: 0.15 });
-            skillObserver.observe(skillsSection);
-        }
-
-        // ============================================================
-        // 8. Scroll Progress + Live Clock
-        // ============================================================
-        const scrollProgress = document.getElementById('scroll-progress');
-        function updateScrollProgress() {
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
-            if (scrollProgress) scrollProgress.style.width = progress + '%';
-        }
-        window.addEventListener('scroll', updateScrollProgress, { passive: true });
-        updateScrollProgress();
-
-        const liveClock = document.getElementById('live-clock');
-        function updateClock() {
-            if (!liveClock) return;
-            liveClock.textContent = '— ' + new Date().toLocaleTimeString('en-GB', {
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            });
-        }
-        if (liveClock) {
-            updateClock();
-            setInterval(updateClock, 1000);
-        }
-
-        // ============================================================
-        // 9. Live Device Readout (FPS sampler + sparkline + specs)
-        // ============================================================
-        let fpsSamples = [];
-        let lastFps = 0;
-        let fpsFrames = 0;
-        let fpsLast = performance.now();
-        const tileFps = document.getElementById('tile-fps');
-        const tileSpark = document.getElementById('tile-spark');
-        const tileMeta = document.getElementById('tile-meta');
-
-        function drawSparkline() {
-            if (!tileSpark) return;
-            const dpr = window.devicePixelRatio || 1;
-            const rect = tileSpark.getBoundingClientRect();
-            if (rect.width === 0) return;
-            tileSpark.width = rect.width * dpr;
-            tileSpark.height = rect.height * dpr;
-            const g = tileSpark.getContext('2d');
-            g.setTransform(dpr, 0, 0, dpr, 0, 0);
-            const w = rect.width, h = rect.height;
-            g.clearRect(0, 0, w, h);
-            if (fpsSamples.length < 2) return;
-
-            const max = Math.max(70, ...fpsSamples);
-            const stepX = w / (fpsSamples.length - 1);
-            g.beginPath();
-            g.moveTo(0, h);
-            fpsSamples.forEach((v, i) => g.lineTo(i * stepX, h - (v / max) * (h - 3) - 1.5));
-            g.lineTo(w, h);
-            g.closePath();
-            g.fillStyle = 'rgba(0, 84, 166, 0.12)';
-            g.fill();
-
-            g.beginPath();
-            fpsSamples.forEach((v, i) => {
-                const x = i * stepX, y = h - (v / max) * (h - 3) - 1.5;
-                i === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
-            });
-            g.strokeStyle = '#0054A6';
-            g.lineWidth = 1.6;
-            g.lineJoin = 'round';
-            g.stroke();
-        }
-        window.addEventListener('resize', drawSparkline);
-
-        function fpsLoop(now) {
-            fpsFrames++;
-            if (now - fpsLast >= 500) {
-                lastFps = Math.round(fpsFrames * 1000 / (now - fpsLast));
-                fpsFrames = 0;
-                fpsLast = now;
-                fpsSamples.push(lastFps);
-                if (fpsSamples.length > 36) fpsSamples.shift();
-                if (tileFps) tileFps.textContent = lastFps;
-                drawSparkline();
-            }
-            requestAnimationFrame(fpsLoop);
-        }
-        requestAnimationFrame(fpsLoop);
-
-        function detectOS() {
-            if (navigator.userAgentData && navigator.userAgentData.platform) return navigator.userAgentData.platform;
-            const ua = navigator.userAgent;
-            if (/Windows NT 10/.test(ua)) return 'Win 10/11';
-            if (/Windows/.test(ua)) return 'Windows';
-            if (/Android/.test(ua)) return 'Android';
-            if (/iPhone|iPad|iPod/.test(ua)) return 'iOS';
-            if (/Mac OS X/.test(ua)) return 'macOS';
-            if (/Linux/.test(ua)) return 'Linux';
-            return 'Unknown OS';
-        }
-
-        function detectBrowser() {
-            const ua = navigator.userAgent;
-            let m;
-            if ((m = ua.match(/Edg\/([\d.]+)/))) return 'Edge ' + m[1].split('.')[0];
-            if ((m = ua.match(/OPR\/([\d.]+)/))) return 'Opera ' + m[1].split('.')[0];
-            if ((m = ua.match(/Firefox\/([\d.]+)/))) return 'Firefox ' + m[1].split('.')[0];
-            if ((m = ua.match(/Chrome\/([\d.]+)/))) return 'Chrome ' + m[1].split('.')[0];
-            if ((m = ua.match(/Version\/([\d.]+).*Safari/))) return 'Safari ' + m[1].split('.')[0];
-            return 'Unknown';
-        }
-
-        if (tileMeta) {
-            const updateTileMeta = () => {
-                tileMeta.textContent =
-                    screen.width + '\u00D7' + screen.height + ' \u00B7 ' +
-                    (navigator.hardwareConcurrency || '?') + ' threads \u00B7 ' +
-                    detectBrowser() + ' \u00B7 ' + detectOS();
-            };
-            updateTileMeta();
-            window.addEventListener('resize', updateTileMeta);
-        }
-
-        // ============================================================
-        // 9b. Interactive Ball Pit (vanilla JS physics, header deck)
-        // ============================================================
-        const ballpit = document.getElementById('ballpit');
-        if (ballpit) {
-            const bpCtx = ballpit.getContext('2d');
-            let balls = [];
-            let bpMouse = { x: -9999, y: -9999 };
-            const BP_COLORS = ['#0054A6', '#003B71', '#4E8FCF', '#7FB3E3', '#B5D4EF'];
-            const MAX_BALLS = 70;
-
-            function bpSize() {
-                const dpr = window.devicePixelRatio || 1;
-                const rect = ballpit.getBoundingClientRect();
-                ballpit.width = rect.width * dpr;
-                ballpit.height = rect.height * dpr;
-                bpCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                balls.forEach(b => {
-                    b.x = Math.min(Math.max(b.r, b.x), rect.width - b.r);
-                    b.y = Math.min(Math.max(b.r, b.y), rect.height - b.r);
-                });
-            }
-            window.addEventListener('resize', bpSize);
-
-            function bpAdd(x, y, silent) {
-                if (balls.length >= MAX_BALLS) balls.shift();
-                const r = 6 + Math.random() * 10;
-                balls.push({
-                    x: x, y: y,
-                    vx: (Math.random() - 0.5) * 4,
-                    vy: (Math.random() - 0.5) * 2,
-                    r: r,
-                    color: BP_COLORS[Math.floor(Math.random() * BP_COLORS.length)]
-                });
-                if (!silent) sfx('blip');
-            }
-
-            ballpit.addEventListener('pointerdown', (e) => {
-                const rect = ballpit.getBoundingClientRect();
-                bpAdd(e.clientX - rect.left, e.clientY - rect.top);
-            });
-            ballpit.addEventListener('pointermove', (e) => {
-                const rect = ballpit.getBoundingClientRect();
-                bpMouse.x = e.clientX - rect.left;
-                bpMouse.y = e.clientY - rect.top;
-            });
-            ballpit.addEventListener('pointerleave', () => {
-                bpMouse.x = -9999;
-                bpMouse.y = -9999;
-            });
-
-            const demoResetBtn = document.getElementById('demo-reset');
-            if (demoResetBtn) demoResetBtn.addEventListener('click', () => {
-                balls = [];
-                bpSeed();
-                sfx('whoosh');
-                toast('Ball pit reset', 'fa-rotate-left');
-            });
-
-            function bpSeed() {
-                const rect = ballpit.getBoundingClientRect();
-                for (let i = 0; i < 10; i++) {
-                    bpAdd(rect.width * (0.15 + Math.random() * 0.7), rect.height * (0.1 + Math.random() * 0.3), true);
-                }
-            }
-
-            function bpLoop() {
-                const rect = ballpit.getBoundingClientRect();
-                bpCtx.clearRect(0, 0, rect.width, rect.height);
-                const gravity = 0.32;
-                const damp = 0.72;
-
-                for (const b of balls) {
-                    b.vy += gravity;
-                    b.x += b.vx;
-                    b.y += b.vy;
-
-                    if (b.x < b.r) { b.x = b.r; b.vx = Math.abs(b.vx) * damp; }
-                    if (b.x > rect.width - b.r) { b.x = rect.width - b.r; b.vx = -Math.abs(b.vx) * damp; }
-                    if (b.y < b.r) { b.y = b.r; b.vy = Math.abs(b.vy) * damp; }
-                    if (b.y > rect.height - b.r) { b.y = rect.height - b.r; b.vy = -Math.abs(b.vy) * damp; b.vx *= 0.985; }
-
-                    const dx = b.x - bpMouse.x, dy = b.y - bpMouse.y;
-                    const d = Math.sqrt(dx * dx + dy * dy);
-                    if (d < 90 && d > 0.01) {
-                        const f = (90 - d) / 90 * 1.6;
-                        b.vx += (dx / d) * f;
-                        b.vy += (dy / d) * f;
-                    }
-
-                    bpCtx.beginPath();
-                    bpCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-                    bpCtx.fillStyle = b.color;
-                    bpCtx.fill();
-                }
-                requestAnimationFrame(bpLoop);
-            }
-
-            bpSize();
-            bpSeed();
-            bpLoop();
-        }
-
-        // ============================================================
-        // 10. Synthesized SFX Engine (Web Audio, zero files)
-        // ============================================================
-        let audioCtx = null;
-        let sfxOn = localStorage.getItem('ra_sfx') !== 'off';
-
-        function getAudioCtx() {
-            if (!audioCtx) {
-                const AC = window.AudioContext || window.webkitAudioContext;
-                if (AC) audioCtx = new AC();
-            }
-            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-            return audioCtx;
-        }
-
-        function sfx(name) {
-            if (!sfxOn) return;
-            const ctx = getAudioCtx();
-            if (!ctx) return;
-            const t = ctx.currentTime;
-
-            const tone = (type, freq, start, dur, gain, sweepTo) => {
-                const osc = ctx.createOscillator();
-                const g = ctx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, t + start);
-                if (sweepTo) osc.frequency.exponentialRampToValueAtTime(sweepTo, t + start + dur);
-                g.gain.setValueAtTime(gain, t + start);
-                g.gain.exponentialRampToValueAtTime(0.0001, t + start + dur);
-                osc.connect(g).connect(ctx.destination);
-                osc.start(t + start);
-                osc.stop(t + start + dur + 0.02);
-            };
-
-            switch (name) {
-                case 'tick':  tone('sine', 1400, 0, 0.03, 0.02); break;
-                case 'blip':  tone('sine', 900, 0, 0.06, 0.05, 1400); break;
-                case 'click': tone('square', 320, 0, 0.07, 0.06, 180); break;
-                case 'key':   tone('sine', 700, 0, 0.04, 0.04, 1100); break;
-                case 'chime':
-                    tone('sine', 880, 0, 0.18, 0.07);
-                    tone('sine', 1318, 0.09, 0.22, 0.06);
-                    break;
-                case 'success':
-                    tone('sine', 660, 0, 0.12, 0.06);
-                    tone('sine', 880, 0.1, 0.12, 0.06);
-                    tone('sine', 1320, 0.2, 0.25, 0.07);
-                    break;
-                case 'whoosh': {
-                    const dur = 0.25;
-                    const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-                    const src = ctx.createBufferSource();
-                    src.buffer = buffer;
-                    const filter = ctx.createBiquadFilter();
-                    filter.type = 'bandpass';
-                    filter.frequency.setValueAtTime(300, t);
-                    filter.frequency.exponentialRampToValueAtTime(2400, t + dur);
-                    filter.Q.value = 1.2;
-                    const g = ctx.createGain();
-                    g.gain.setValueAtTime(0.08, t);
-                    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-                    src.connect(filter).connect(g).connect(ctx.destination);
-                    src.start(t);
-                    break;
-                }
-            }
-        }
-
-        const sfxToggle = document.getElementById('sfx-toggle');
-
-        function updateSfxIcons() {
-            const icon = sfxOn ? 'fa-solid fa-volume-high text-xs' : 'fa-solid fa-volume-xmark text-xs';
-            const el = document.getElementById('sfx-icon');
-            if (el) el.className = icon;
-        }
-        updateSfxIcons();
-
-        function handleSfxToggle() {
-            sfxOn = !sfxOn;
-            localStorage.setItem('ra_sfx', sfxOn ? 'on' : 'off');
-            updateSfxIcons();
-            if (sfxOn) {
-                sfx('blip');
-                toast('Sound effects ON — press S to mute', 'fa-volume-high');
-            } else {
-                toast('Sound effects OFF', 'fa-volume-xmark');
-            }
-        }
-        if (sfxToggle) sfxToggle.addEventListener('click', handleSfxToggle);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 's' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                const tag = (e.target.tagName || '').toLowerCase();
-                if (tag !== 'input' && tag !== 'textarea') handleSfxToggle();
-            }
-        });
-
-        // ============================================================
-        // 11. Toast Notification System
-        // ============================================================
-        function toast(message, iconClass) {
-            let zone = document.getElementById('toast-zone');
-            if (!zone) {
-                zone = document.createElement('div');
-                zone.id = 'toast-zone';
-                document.body.appendChild(zone);
-            }
-            const t = document.createElement('div');
-            t.className = 'toast';
-            t.innerHTML = `<i class="fa-solid ${iconClass || 'fa-circle-info'}"></i><span></span>`;
-            t.querySelector('span').textContent = message;
-            zone.appendChild(t);
-            requestAnimationFrame(() => t.classList.add('show'));
-            setTimeout(() => {
-                t.classList.remove('show');
-                setTimeout(() => t.remove(), 350);
-            }, 2400);
-        }
-
-        // ============================================================
-        // 12. Click Ripple + Hover Blips + Magnetic Buttons
-        // ============================================================
-        document.addEventListener('pointerdown', (e) => {
-            const r = document.createElement('span');
-            r.className = 'ripple';
-            r.style.left = e.clientX + 'px';
-            r.style.top = e.clientY + 'px';
-            document.body.appendChild(r);
-            setTimeout(() => r.remove(), 650);
-            sfx('click');
-        });
-
-        document.querySelectorAll('nav a, .magnetic, #theme-toggle, #sfx-toggle, #terminal-toggle, #mobile-menu-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => sfx('blip'));
-        });
-
-        document.querySelectorAll('.magnetic').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const dx = e.clientX - (rect.left + rect.width / 2);
-                const dy = e.clientY - (rect.top + rect.height / 2);
-                btn.style.transform = `translate(${dx * 0.15}px, ${dy * 0.25}px)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = '';
-            });
-        });
-
-        // ============================================================
-        // 13. Konami Code Easter Egg — ocean Blue Rain
-        // ============================================================
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let konamiIndex = 0;
-
-        document.addEventListener('keydown', (e) => {
-            const tag = (e.target.tagName || '').toLowerCase();
-            if (tag === 'input' || tag === 'textarea') return;
-            const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-            if (key === konamiSequence[konamiIndex]) {
-                konamiIndex++;
-                if (konamiIndex === konamiSequence.length) {
-                    konamiIndex = 0;
-                    triggerKonami();
-                }
-            } else {
-                konamiIndex = (key === konamiSequence[0]) ? 1 : 0;
-            }
-        });
-
-        function triggerKonami() {
-            sfx('success');
-            toast('ocean MODE ACTIVATED', 'fa-bolt');
-
-            const c = document.createElement('canvas');
-            c.id = 'konami-canvas';
-            document.body.appendChild(c);
-            c.width = window.innerWidth;
-            c.height = window.innerHeight;
-            const cx = c.getContext('2d');
-
-            const colors = ['#0054A6', '#003B71', '#004A97', '#4E8FCF', '#7FB3E3', '#B5D4EF'];
-            const confetti = [];
-            for (let i = 0; i < 160; i++) {
-                confetti.push({
-                    x: Math.random() * c.width,
-                    y: -20 - Math.random() * c.height * 0.5,
-                    w: 5 + Math.random() * 6,
-                    h: 8 + Math.random() * 8,
-                    vy: 2 + Math.random() * 3.5,
-                    vx: (Math.random() - 0.5) * 2,
-                    rot: Math.random() * Math.PI,
-                    vr: (Math.random() - 0.5) * 0.2,
-                    color: colors[Math.floor(Math.random() * colors.length)]
-                });
-            }
-
-            const start = performance.now();
-            function rain(now) {
-                cx.clearRect(0, 0, c.width, c.height);
-                const elapsed = now - start;
-                for (const p of confetti) {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.02;
-                    p.rot += p.vr;
-                    cx.save();
-                    cx.translate(p.x, p.y);
-                    cx.rotate(p.rot);
-                    cx.fillStyle = p.color;
-                    cx.globalAlpha = Math.max(0, 1 - elapsed / 4200);
-                    cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-                    cx.restore();
-                }
-                if (elapsed < 4400) requestAnimationFrame(rain);
-                else c.remove();
-            }
-            requestAnimationFrame(rain);
-        }
-
-        // ============================================================
-        // 14. Copy Email to Clipboard
-        // ============================================================
-        function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text);
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-
-            const btnText = document.getElementById('copy-btn-text');
-            if (btnText) {
-                const originalText = btnText.textContent;
-                btnText.textContent = 'Copied!';
-                setTimeout(() => {
-                    btnText.textContent = originalText;
-                }, 2000);
-            }
-
-            sfx('chime');
-            toast('Email copied to clipboard', 'fa-check');
-        }
-
-        // ============================================================
-        // 15. Mobile Menu
-        // ============================================================
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileBtn && mobileMenu) {
-            mobileBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            mobileMenu.querySelectorAll('a').forEach(a => {
-                a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-        }
-
-        // ============================================================
-        // 16. In-Page Terminal (press ` or use nav/hero buttons)
-        // ============================================================
-        const terminalPanel = document.getElementById('terminal-panel');
-        const terminalOutput = document.getElementById('terminal-output');
-        const terminalInput = document.getElementById('terminal-input');
-        let terminalOpen = false;
-        let terminalWelcomed = false;
-
-        function tPrint(html, cls) {
-            const line = document.createElement('div');
-            if (cls) line.className = cls;
-            line.innerHTML = html;
-            terminalOutput.appendChild(line);
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }
-
-        function terminalToggle(force) {
-            terminalOpen = (force !== undefined) ? force : !terminalOpen;
-            terminalPanel.classList.toggle('open', terminalOpen);
-            if (terminalOpen) {
-                sfx('blip');
-                if (!terminalWelcomed) {
-                    terminalWelcomed = true;
-                    tPrint('<span class="t-blue">ocean terminal v1.0</span> — type <span class="t-cmd">help</span> for commands', 't-dim');
-                }
-                setTimeout(() => terminalInput.focus(), 120);
-            } else {
-                terminalInput.blur();
-            }
-        }
-
-        const terminalCommands = {
-            help: () => {
-                tPrint('<span class="t-blue">Available commands:</span>');
-                tPrint('  <span class="t-cmd">about</span>    — who I am');
-                tPrint('  <span class="t-cmd">skills</span>   — my stack');
-                tPrint('  <span class="t-cmd">email</span>    — copy my email address');
-                tPrint('  <span class="t-cmd">theme</span>    — toggle light / dark');
-                tPrint('  <span class="t-cmd">fps</span>      — current page framerate');
-                tPrint('  <span class="t-cmd">device</span>   — screen, cores, browser, OS');
-                tPrint('  <span class="t-cmd">konami</span>   — you will see');
-                tPrint('  <span class="t-cmd">clear</span>    — clear the terminal');
-                tPrint('  <span class="t-cmd">exit</span>     — close the terminal');
-            },
-            about: () => {
-                tPrint('Richárd Atkári — <span class="t-blue">IT Administration Technician</span> with front-end development skills.');
-                tPrint('<span class="t-dim">Keeping systems running. Building interfaces that flow.</span>');
-            },
-            skills: () => {
-                tPrint('HTML5 · CSS3 · Tailwind · JavaScript (ES6+) · React · Next.js · TypeScript · Git');
-            },
-            email: () => {
-                copyToClipboard('business@richardatkari.hu');
-                tPrint('<span class="t-ok">✓ business@richardatkari.hu copied to clipboard</span>');
-            },
-            theme: () => {
-                handleThemeToggle();
-                const mode = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-                tPrint('Theme switched to <span class="t-blue">' + mode + '</span>');
-            },
-            fps: () => {
-                tPrint('Current framerate: <span class="t-blue">' + lastFps + ' fps</span> <span class="t-dim">(measured live via requestAnimationFrame)</span>');
-            },
-            device: () => {
-                tPrint('Screen: <span class="t-blue">' + screen.width + '×' + screen.height + '</span> @ DPR ' + (window.devicePixelRatio || 1));
-                tPrint('CPU threads: <span class="t-blue">' + (navigator.hardwareConcurrency || '?') + '</span> · Browser: <span class="t-blue">' + detectBrowser() + '</span>');
-                tPrint('OS: <span class="t-blue">' + detectOS() + '</span> · Language: <span class="t-blue">' + (navigator.language || '?') + '</span>');
-            },
-            konami: () => {
-                tPrint('<span class="t-blue">ocean blue rain incoming…</span>');
-                setTimeout(triggerKonami, 300);
-            },
-            clear: () => { terminalOutput.innerHTML = ''; },
-            exit: () => { terminalToggle(false); tPrint(''); }
-        };
-
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const raw = terminalInput.value.trim();
-                terminalInput.value = '';
-                if (!raw) return;
-                tPrint('<span class="t-dim">guest@atkari:~$</span> <span class="t-cmd">' + raw.replace(/[<>&]/g, '') + '</span>');
-                sfx('key');
-                const cmd = raw.toLowerCase();
-                if (terminalCommands[cmd]) {
-                    terminalCommands[cmd]();
-                } else {
-                    tPrint('<span class="t-dim">command not found: ' + cmd.replace(/[<>&]/g, '') + ' — try \'help\'</span>');
-                }
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            const tag = (e.target.tagName || '').toLowerCase();
-            if (tag === 'input' || tag === 'textarea') return;
-            if (e.key === '`' || e.key === '~') {
-                e.preventDefault();
-                terminalToggle();
-            }
-            if (e.key === 'Escape' && terminalOpen) {
-                terminalToggle(false);
-            }
-        });
-
-        const terminalToggleBtn = document.getElementById('terminal-toggle');
-        if (terminalToggleBtn) terminalToggleBtn.addEventListener('click', () => terminalToggle());
-        const heroTerminalBtn = document.getElementById('hero-terminal-btn');
-        if (heroTerminalBtn) heroTerminalBtn.addEventListener('click', () => terminalToggle(true));
-        const terminalCloseBtn = document.getElementById('terminal-close');
-        if (terminalCloseBtn) terminalCloseBtn.addEventListener('click', () => terminalToggle(false));
-    </script>
+<body>
+<canvas id="ambientCanvas" aria-hidden="true"></canvas>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" aria-label="Main">
+ <a class="brand" href="#top" aria-label="Richard Atkari, home">Richard Atkari</a>
+ <ul class="links" id="links">
+  <li class="ind" id="ind" aria-hidden="true"></li>
+  <li><a href="#top">Home</a></li><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#languages">Languages</a></li><li><a href="#contact">Contact</a></li>
+ </ul>
+ <button class="ib" id="snd" type="button" aria-pressed="false" aria-label="Sound effects"><svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5l5 4v-13l-5 4z"/><path class="wv" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/><path class="off" d="m16 9.5 5 5m0-5-5 5"/></svg></button>
+ <button class="ib lang-toggle" id="languageToggle" type="button" aria-pressed="false" aria-label="Switch language to Hungarian" title="Switch language to Hungarian">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 8 4 4-4 4M4 12h8M13 5h7M16.5 5v2m-2.5 4 3.5 8 3.5-8M15.2 15h5.6"/></svg>
+ </button>
+ <button class="ib" id="th" type="button" aria-label="Toggle light and dark theme"><svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>
+ <button class="ib" id="mb" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+</nav>
+<div class="sheet" id="sheet">
+ <a href="#top">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#languages">Languages</a><a href="#contact">Contact</a>
+</div>
+
+<main>
+<header class="hero" id="top">
+  <div class="hero-scene" id="heroScene" aria-hidden="true"><div class="hero-core-fallback"></div><canvas id="hero3d"></canvas></div>
+ <h1 class="nm" id="nm"><span>Richard</span> <span>Atkari</span></h1>
+ <div class="ph" id="ph"><img src="richardatkari1.png" width="1000" height="1500" alt="Portrait of Richard Atkari in a black suit and navy tie" fetchpriority="high"></div>
+ <div class="hl"><p>Designing the codes. Exploring the possibilities.</p></div>
+ <div class="hr">
+  <p>I’m Richard Atkari — an aspiring frontend developer, creative designer, and technology enthusiast passionate about building digital experiences.</p>
+  <a class="btn mg" href="#contact" data-s="go">Get in touch <svg viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
+ </div>
+ <div class="cue" aria-hidden="true"></div>
+</header>
+
+<section class="sec" id="about" aria-labelledby="ab-h">
+ <div class="w">
+  <h2 class="h2 mk" id="ab-h"><span> Think creatively. Build intelligently.</span></h2>
+  <div class="abt">
+   <div class="pn rv"><img id="ap" src="richardatkari2.png" width="1000" height="1206" loading="lazy" alt="Richard Atkari looking down in profile, wearing a suit"></div>
+   <div>
+    <p class="lead rv">I’m a motivated IT enthusiast with a strong interest in frontend development, digital design, and modern web technologies.</p>
+    <p class="rv" style="--d:.1s">I enjoy experimenting with ideas, building digital experiences, and exploring how technology can be used creatively.</p>
+    <p class="rv" style="--d:.2s">I’m a quick learner with a problem-solving mindset, and I enjoy expanding my knowledge through practical projects.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="skills" aria-labelledby="sk-h">
+ <div class="w">
+  <h2 class="h2 mk" id="sk-h"><span>What I know, and what I keep learning.</span></h2>
+  <div class="grp rv"><h3>Frontend &amp; development</h3><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Lua</span><span class="chip">Python</span></div></div>
+  <div class="grp rv"><h3>IT &amp; infrastructure</h3><div class="chips"><span class="chip">Network administration</span><span class="chip">Server configuration &amp; management</span><span class="chip">IT systems operation</span><span class="chip">Basic databases</span></div></div>
+  <div class="grp rv" style="border-bottom:1px solid var(--line)"><h3>Productivity</h3><div class="chips"><span class="chip">Microsoft Office</span><span class="chip">Microsoft 365</span></div></div>
+  <div class="grp rv" style="border-bottom:1px solid var(--line)"><h3>Creativity</h3><div class="chips"><span class="chip">Adobe After Effects</span><span class="chip">Vegas Pro</span><span class="chip">CapCut</span></div></div>
+  <p class="note rv">These are areas I have working knowledge of and am still developing through practice, not a list of expertise claims.</p>
+ </div>
+</section>
+
+<section class="sec" id="experience" aria-labelledby="ex-h">
+ <div class="w">
+  <h2 class="h2 mk" id="ex-h"><span>Hands-on IT, steady habits.</span></h2>
+  <div class="cols">
+   <div class="rv"><h3>Practical IT background</h3>
+    <div class="row">Network management<small>Setup and upkeep</small></div>
+    <div class="row">Server configuration<small>Install and manage</small></div>
+    <div class="row" style="border-bottom:1px solid var(--line)">IT troubleshooting<small>Finding the cause</small></div></div>
+   <div class="rv" style="--d:.12s"><h3>How I work</h3>
+    <div class="row">Problem-solving</div><div class="row">Independent learning</div><div class="row">Adaptability</div><div class="row">Teamwork</div><div class="row" style="border-bottom:1px solid var(--line)">Responsibility</div></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" id="languages" aria-labelledby="la-h">
+ <div class="w">
+  <h2 class="h2 mk" id="la-h"><span>Languages.</span></h2>
+  <div class="lang rv"><b>Hungarian</b><span>Native</span></div>
+  <div class="lang rv" style="border-bottom:1px solid var(--line)"><div><b>English</b>
+   <div class="sc6" role="img" aria-label="Approximately B2 on the A1 to C2 scale"><i class="f" style="--d:.1s"></i><i class="f" style="--d:.2s"></i><i class="f" style="--d:.3s"></i><i class="f" style="--d:.4s"></i><i></i><i></i></div></div><span>Approximately B2</span></div>
+ </div>
+</section>
+
+<section class="sec" id="contact" aria-labelledby="co-h">
+ <div class="w">
+  <h2 class="h2 mk" id="co-h"><span>Let’s talk.</span></h2>
+  <a class="ctw rv mg" href="mailto:business@richardatkari.hu" data-s="go">business@richardatkari.hu</a>
+  <div class="soc rv">
+   <a class="ct mg" href="https://instagram.com/richardatkari/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>Instagram</a>
+   <a class="ct mg" href="mailto:business@richardatkari.hu"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>Email</a>
+   <span class="ct" aria-disabled="true" title="Coming soon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5m0 2c0-1.5 1-2 2-2s2 .8 2 2.2V16"/></svg>LinkedIn <em>coming soon</em></span>
+   <span class="ct" aria-disabled="true" title="Coming soon"><svg viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H6.5v4H9v8h4v-8h2.5l.5-4H13V6.8c0-.5.3-.8.8-.8H15z"/></svg>Facebook <em>coming soon</em></span>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer><span>© <span id="yr">2026</span> Richard Atkari. All rights reserved.</span><a href="https://richardatkari.hu">richardatkari.hu</a></footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rm=matchMedia('(prefers-reduced-motion:reduce)'),root=document.documentElement;
+$('#yr').textContent=new Date().getFullYear();
+
+/* Sound: tiny synthesized UI blips, muted by default */
+let ac,snd=false;
+function blip(k){if(!snd||!ac)return;const t=ac.currentTime,f={go:[520,780],th:[440,660],nav:[620]}[k]||[600];
+ f.forEach((hz,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=hz;
+  g.gain.setValueAtTime(0,t+i*.07);g.gain.linearRampToValueAtTime(.05,t+i*.07+.01);g.gain.exponentialRampToValueAtTime(.0001,t+i*.07+.16);
+  o.connect(g).connect(ac.destination);o.start(t+i*.07);o.stop(t+i*.07+.2)})}
+$('#snd').onclick=e=>{snd=!snd;e.currentTarget.setAttribute('aria-pressed',snd);
+ if(snd){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();blip('nav')}catch(_){snd=false;e.currentTarget.setAttribute('aria-pressed',false)}}};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-s]');if(a)blip(a.dataset.s);else if(e.target.closest('.links a,.sheet a'))blip('nav')});
+
+/* Theme */
+const setTheme=t=>{root.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(_){}
+ document.querySelector('meta[name=theme-color]').content=t==='dark'?'#050506':'#f7f8fc'};
+setTheme(root.dataset.theme);
+
+$('#th').onclick=()=>{setTheme(root.dataset.theme==='dark'?'light':'dark');blip('th')};
+
+/* Bilingual content layer: mutate text nodes only, preserving icons and all
+   existing scroll/reveal observers. Original English text is restorable in-place. */
+const languageToggle=$('#languageToggle'),originalText=new Map();
+const put=(el,value)=>{
+ if(!el)return;
+ el.setAttribute('data-i18n','');
+ const nodes=[...el.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim());
+ if(nodes.length){nodes.forEach(n=>{if(!originalText.has(n))originalText.set(n,n.textContent)});nodes[0].textContent=value;nodes.slice(1).forEach(n=>n.textContent='')}
+ else if(!el.querySelector('svg')){if(!originalText.has(el))originalText.set(el,el.textContent);el.textContent=value}
+};
+const hu={
+ nav:['Kezdőlap','Rólam','Készségek','Tapasztalat','Nyelvek','Kapcsolat'],
+ hero:'A kódok megtervezése. A lehetőségek felfedezése.',
+ intro:'Atkári Richárd vagyok — feltörekvő frontend fejlesztő, kreatív designer és technológia iránt érdeklődő alkotó, akit a digitális élmények létrehozása motivál.',
+ cta:'Vedd fel velem a kapcsolatot!',
+ aboutTitle:'Gondolkodj kreatívan. Építs tudatosan.',
+ aboutLead:'Az informatika iránt elkötelezett vagyok, érdeklődésem középpontjában a frontend fejlesztés, a digitális design és a modern webes technológiák állnak.',
+ about1:'Szeretek új ötletekkel kísérletezni, digitális élményeket építeni, és felfedezni, hogyan használható fel kreatívan a technológia.',
+ about2:'Gyorsan tanulok, szeretek problémákat megoldani, és gyakorlati projekteken keresztül folyamatosan bővítem a tudásomat.',
+ skillsTitle:'Amit már tudok, és amit folyamatosan tanulok.',
+ groups:['Frontend és fejlesztés','Informatika és infrastruktúra','Produktivitás','Kreativitás'],
+ infra:['Hálózatüzemeltetés','Szerverek konfigurálása és kezelése','Informatikai rendszerek üzemeltetése','Alapvető adatbázis-kezelés'],
+ note:'Ezek olyan területek, amelyekben gyakorlati alapismeretekkel rendelkezem, és amelyeket folyamatosan fejlesztek — nem szakértői kompetenciák felsorolása.',
+ experienceTitle:'Gyakorlati informatika, következetes hozzáállás.',
+ expHeads:['Gyakorlati informatikai tapasztalat','Munkaképességeim'],
+ rowLabels:['Hálózatkezelés','Szerverkonfiguráció','Informatikai hibakeresés'],
+ rowNotes:['Beállítás és karbantartás','Telepítés és kezelés','A hiba okának feltárása'],
+ strengths:['Problémamegoldás','Önálló tanulás','Alkalmazkodóképesség','Csapatmunka','Felelősségtudat'],
+ languagesTitle:'Nyelvek.',hungarian:'Magyar',english:'Angol',native:'Anyanyelv',englishLevel:'Körülbelül B2',
+ contactTitle:'Tetszik amit látsz?',coming:'hamarosan',copyright:'Minden jog fenntartva.'
+};
+function setLanguage(lang,animate=true){
+ const isHu=lang==='hu';
+ if(animate&&!rm.matches)root.classList.add('lang-changing');
+ if(isHu){
+  $$('#links a').forEach((el,i)=>put(el,hu.nav[i]));
+  $$('#sheet a').forEach((el,i)=>put(el,hu.nav[i]));
+  put($('.hl p'),hu.hero);put($('.hr p'),hu.intro);put($('.btn'),hu.cta);
+  put($('#ab-h span'),hu.aboutTitle);put($('.abt .lead'),hu.aboutLead);
+  const about=$$('.abt p:not(.lead)');put(about[0],hu.about1);put(about[1],hu.about2);
+  put($('#sk-h span'),hu.skillsTitle);
+  $$('.grp h3').forEach((el,i)=>put(el,hu.groups[i]));
+  $$('.grp')[1]?.querySelectorAll('.chip').forEach((el,i)=>{if(hu.infra[i])put(el,hu.infra[i])});
+  put($('.note'),hu.note);put($('#ex-h span'),hu.experienceTitle);
+  $$('.cols h3').forEach((el,i)=>put(el,hu.expHeads[i]));
+  const rows=$$('.cols .row');
+  hu.rowLabels.forEach((v,i)=>put(rows[i],v));
+  hu.rowNotes.forEach((v,i)=>put(rows[i]?.querySelector('small'),v));
+  hu.strengths.forEach((v,i)=>put(rows[i+3],v));
+  put($('#la-h span'),hu.languagesTitle);
+  const langs=$$('.lang');put(langs[0]?.querySelector('b'),hu.hungarian);put(langs[0]?.querySelector('span'),hu.native);put(langs[1]?.querySelector('b'),hu.english);put(langs[1]?.querySelector('span'),hu.englishLevel);
+  put($('#co-h span'),hu.contactTitle);$$('.ct em').forEach(el=>put(el,hu.coming));
+  const foot=$('footer span');if(foot){const n=[...foot.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim());if(n.length){if(!originalText.has(n[n.length-1]))originalText.set(n[n.length-1],n[n.length-1].textContent);n[n.length-1].textContent=' '+hu.copyright}}
+  root.lang='hu';
+  $('#nav').setAttribute('aria-label','Fő navigáció');
+  $('#snd').setAttribute('aria-label','Hangeffektek');
+  $('#th').setAttribute('aria-label','Világos és sötét téma váltása');
+  $('#mb').setAttribute('aria-label','Menü');
+  $('.ph img').alt='Richard Atkari portréja fekete öltönyben és sötétkék nyakkendőben';
+  $('#ap').alt='Richard Atkari oldalnézetből, öltönyben';
+  document.title='Richard Atkari — Frontend fejlesztő és kreatív designer';
+  const desc=$('meta[name="description"]');if(desc)desc.content='Richard Atkari — feltörekvő frontend fejlesztő, kreatív designer és technológia iránt érdeklődő alkotó.';
+ }else{
+  originalText.forEach((value,node)=>node.textContent=value);
+  root.lang='en';
+  $('#nav').setAttribute('aria-label','Main navigation');
+  $('#snd').setAttribute('aria-label','Sound effects');
+  $('#th').setAttribute('aria-label','Toggle light and dark theme');
+  $('#mb').setAttribute('aria-label','Menu');
+  $('.ph img').alt='Portrait of Richard Atkari in a black suit and navy tie';
+  $('#ap').alt='Richard Atkari looking down in profile, wearing a suit';
+  document.title='Richard Atkari — Frontend developer & creative designer';
+  const desc=$('meta[name="description"]');if(desc)desc.content='Richard Atkari — an aspiring frontend developer, creative designer and technology enthusiast building digital experiences.';
+ }
+ languageToggle.setAttribute('aria-pressed',String(isHu));
+ languageToggle.setAttribute('aria-label',isHu?'Váltás angolra':'Switch language to Hungarian');
+ languageToggle.title=isHu?'Váltás angolra':'Switch language to Hungarian';
+ try{localStorage.setItem('site-language',lang)}catch(_){}
+ requestAnimationFrame(()=>{place();upd()});
+ if(animate&&!rm.matches){clearTimeout(setLanguage.timer);setLanguage.timer=setTimeout(()=>root.classList.remove('lang-changing'),700)}
+}
+let savedLang='en';try{savedLang=localStorage.getItem('site-language')||'en'}catch(_){}
+if(savedLang==='hu')setLanguage('hu',false);
+languageToggle.onclick=()=>{setLanguage(root.lang==='hu'?'en':'hu');blip('nav')};
+
+
+/* Mobile menu */
+const mb=$('#mb'),sheet=$('#sheet');
+const tog=o=>{sheet.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
+mb.onclick=()=>tog(!sheet.classList.contains('open'));
+sheet.onclick=e=>{if(e.target.closest('a'))tog(false)};
+addEventListener('keydown',e=>{if(e.key==='Escape')tog(false)});
+
+/* Scroll: nav state, active section, parallax */
+const secs=$$('#top,#about,#skills,#experience,#languages,#contact');
+const lk=$$('#links a'),sk=$$('.sheet a'),ind=$('#ind'),nav=$('#nav'),ph=$('#ph'),nm=$('#nm'),ap=$('#ap');
+let act=-1,tick=false;
+const place=()=>{const a=lk[act];if(!a||!a.offsetWidth)return;ind.style.width=a.offsetWidth+'px';ind.style.transform=`translateX(${a.offsetLeft}px)`};
+function upd(){tick=false;const y=scrollY;nav.classList.toggle('sc',y>20);
+ let i=0;secs.forEach((s,n)=>{if(s.getBoundingClientRect().top<innerHeight*.4)i=n});
+ if(i!==act){act=i;[lk,sk].forEach(g=>g.forEach((a,n)=>{a.classList.toggle('on',n===i);n===i?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current')}));place()}
+ if(!rm.matches){const isMobile=innerWidth<=1000;
+  if(y<innerHeight*1.2){ph.style.transform=isMobile?`translate3d(0,${y*.06}px,0)`:`translate3d(0,${y*.12}px,0)`;nm.style.transform=`translate3d(0,${y*-.1}px,0)`}
+  const r=$('.pn').getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)ap.style.transform=`translate3d(0,${(r.top-innerHeight/2)*-.05}px,0)`}}
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+addEventListener('resize',()=>{place();upd()});upd();
+
+/* Reveals */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+$$('.rv,.mk').forEach(el=>io.observe(el));
+
+/* Smooth Universal Pointer & Cursor Engine */
+const dot=$('#cursorDot'),ring=$('#cursorRing');
+const canUseCustomCursor=matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(dot&&ring&&canUseCustomCursor){
+ let mx=-100,my=-100,rx=-100,ry=-100,active=false,rafId=0;
+ const interactiveSel='a:not([aria-disabled="true"]),button,[role="button"],.chip,.row,.pn,.grp,.lang,.ct';
+
+ const tiltTargets=$$('.pn,.chip,.row,.ct,.btn,.grp,.lang');
+ const tiltState=new WeakMap();
+ tiltTargets.forEach(el=>{
+  tiltState.set(el,{tx:0,ty:0,sx:50,sy:50,cx:0,cy:0,csx:50,csy:50,hovering:false,raf:0});
+  const step=elRef=>{
+   const st=tiltState.get(elRef);
+   if(!st)return;
+   st.raf=0;
+   const k=st.hovering?0.13:0.09;
+   st.cx+=(st.tx-st.cx)*k;
+   st.cy+=(st.ty-st.cy)*k;
+   st.csx+=(st.sx-st.csx)*0.16;
+   st.csy+=(st.sy-st.csy)*0.16;
+   if(st.hovering){
+    elRef.style.transform=`perspective(900px) translate3d(0,-2px,6px) rotateX(${st.cy.toFixed(2)}deg) rotateY(${st.cx.toFixed(2)}deg)`;
+    elRef.style.setProperty('--mx',`${st.csx.toFixed(1)}px`);
+    elRef.style.setProperty('--my',`${st.csy.toFixed(1)}px`);
+   }else{
+    elRef.style.transform=`perspective(900px) translate3d(0,0,0) rotateX(${st.cy.toFixed(2)}deg) rotateY(${st.cx.toFixed(2)}deg)`;
+   }
+   const settled=!st.hovering&&Math.abs(st.cx)<0.02&&Math.abs(st.cy)<0.02;
+   if(settled){
+    elRef.style.transform='';
+    elRef.style.removeProperty('--mx');
+    elRef.style.removeProperty('--my');
+   }else if(!rm.matches){
+    st.raf=requestAnimationFrame(()=>step(elRef));
+   }
+  };
+  el.addEventListener('pointermove',e=>{
+   if(e.pointerType!=='mouse'||rm.matches)return;
+   const st=tiltState.get(el),r=el.getBoundingClientRect();
+   const nx=(e.clientX-r.left)/Math.max(1,r.width)-0.5;
+   const ny=(e.clientY-r.top)/Math.max(1,r.height)-0.5;
+   const max=el.matches('.pn,.grp,.lang')?4.2:2.8;
+   st.tx=nx*max;
+   st.ty=-ny*max;
+   st.sx=e.clientX-r.left;
+   st.sy=e.clientY-r.top;
+   st.hovering=true;
+   if(!st.raf)st.raf=requestAnimationFrame(()=>step(el));
+  },{passive:true});
+  el.addEventListener('pointerleave',()=>{
+   const st=tiltState.get(el);
+   if(!st)return;
+   st.tx=0;st.ty=0;st.hovering=false;
+   if(!st.raf)st.raf=requestAnimationFrame(()=>step(el));
+  });
+ });
+
+ $$('.mg').forEach(el=>{
+  let gx=0,gy=0,cgx=0,cgy=0,mRaf=0,inside=false;
+  const tickMag=()=>{
+   mRaf=0;
+   const k=inside?0.16:0.11;
+   cgx+=(gx-cgx)*k;
+   cgy+=(gy-cgy)*k;
+   el.style.translate=`${cgx.toFixed(2)}px ${cgy.toFixed(2)}px`;
+   if(!inside&&Math.abs(cgx)<0.04&&Math.abs(cgy)<0.04){
+    el.style.translate='';
+   }else if(!rm.matches){
+    mRaf=requestAnimationFrame(tickMag);
+   }
+  };
+  el.addEventListener('pointermove',e=>{
+   if(e.pointerType!=='mouse'||rm.matches)return;
+   const r=el.getBoundingClientRect();
+   gx=(e.clientX-r.left-r.width/2)*0.22;
+   gy=(e.clientY-r.top-r.height/2)*0.3;
+   inside=true;
+   if(!mRaf)mRaf=requestAnimationFrame(tickMag);
+  },{passive:true});
+  el.addEventListener('pointerleave',()=>{
+   gx=0;gy=0;inside=false;
+   if(!mRaf)mRaf=requestAnimationFrame(tickMag);
+  });
+ });
+
+ const renderCursor=()=>{
+  rafId=0;
+  rx+=(mx-rx)*0.15;
+  ry+=(my-ry)*0.15;
+  dot.style.transform=`translate3d(${mx.toFixed(1)}px,${my.toFixed(1)}px,0)`;
+  ring.style.transform=`translate3d(${rx.toFixed(2)}px,${ry.toFixed(2)}px,0)`;
+  if(active&&(Math.abs(mx-rx)>0.08||Math.abs(my-ry)>0.08)){
+   rafId=requestAnimationFrame(renderCursor);
+  }
+ };
+ const onMove=e=>{
+  if(e.pointerType!=='mouse')return;
+  mx=e.clientX;my=e.clientY;
+  root.style.setProperty('--pointer-x',mx+'px');
+  root.style.setProperty('--pointer-y',my+'px');
+  if(!active){
+   active=true;
+   rx=mx;ry=my;
+   root.classList.add('has-custom-cursor');
+   document.body.classList.add('cursor-visible');
+  }
+  const hit=e.target instanceof Element&&e.target.closest(interactiveSel);
+  document.body.classList.toggle('cursor-hover',!!hit);
+  if(!rafId)rafId=requestAnimationFrame(renderCursor);
+ };
+ window.addEventListener('pointermove',onMove,{passive:true});
+ window.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')document.body.classList.add('cursor-down')},{passive:true});
+ window.addEventListener('pointerup',()=>document.body.classList.remove('cursor-down'),{passive:true});
+ document.addEventListener('mouseleave',()=>{active=false;document.body.classList.remove('cursor-visible','cursor-hover','cursor-down')});
+ window.addEventListener('blur',()=>{active=false;document.body.classList.remove('cursor-visible','cursor-hover','cursor-down')});
+}
+})();
+</script>
+
+<script type="module">
+(()=>{
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+ const canvas=document.getElementById('ambientCanvas'),ctx=canvas?.getContext('2d',{alpha:true});
+ const root=document.documentElement,hero=document.querySelector('.hero');
+ let W=0,H=0,dpr=1,raf=0,visible=!document.hidden,mouseX=innerWidth*.5,mouseY=innerHeight*.35,smoothX=innerWidth*.5,smoothY=innerHeight*.35;
+ let scrollYNow=window.scrollY||0,scrollMax=1,particles=[],scrollTarget=0,scrollCurrent=0;
+ const mobile=matchMedia('(max-width:760px)').matches;
+ const count=mobile?34:105;
+ const resize=()=>{W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,mobile?1:1.45);if(ctx){canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);canvas.style.width=W+'px';canvas.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);particles=Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:.5+Math.random()*1.65,phase:Math.random()*6.28,alpha:.24+Math.random()*.5}))}scrollMax=Math.max(1,document.documentElement.scrollHeight-H)};
+ const draw=(now)=>{raf=0;if(!ctx||!visible)return;ctx.clearRect(0,0,W,H);
+  smoothX+=(mouseX-smoothX)*0.08;
+  smoothY+=(mouseY-smoothY)*0.08;
+  const isDark=root.dataset.theme==='dark';
+  const t=now*.0001;
+  scrollCurrent+=(scrollTarget-scrollCurrent)*.04;
+  const glow=(x,y,r,color)=>{const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2)};
+
+  if(isDark){
+   const hue=22+scrollCurrent*38;
+   glow(W*(.18+Math.sin(t)*.08)+(smoothX/W-.5)*65,H*(.22+Math.cos(t*.8)*.06),Math.max(W,H)*.62,`hsla(${hue},72%,58%,.15)`);
+   glow(W*(.82+Math.cos(t*.63)*.06),H*(.72+Math.sin(t*.7)*.05),Math.max(W,H)*.56,`hsla(${250+scrollCurrent*22},65%,62%,.12)`);
+   glow(smoothX,smoothY,Math.min(W,H)*.42,'rgba(239,171,126,.085)');
+  }else{
+   glow(W*(.2+Math.sin(t)*.07)+(smoothX/W-.5)*55,H*(.22+Math.cos(t*.75)*.06),Math.max(W,H)*.64,'rgba(244,124,182,.14)');
+   glow(W*(.82+Math.cos(t*.62)*.06),H*(.68+Math.sin(t*.68)*.06),Math.max(W,H)*.6,'rgba(98,176,255,.14)');
+   glow(W*(.5+Math.sin(t*.5)*0.08),H*(.45+Math.cos(t*.55)*.07),Math.max(W,H)*.52,'rgba(143,124,255,.12)');
+   glow(smoothX,smoothY,Math.min(W,H)*.38,'rgba(218,136,235,.09)');
+  }
+
+  for(let i=0;i<particles.length;i++){const p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;
+   const dx=p.x-smoothX,dy=p.y-smoothY,dist=Math.hypot(dx,dy);if(fine&&dist<155&&dist>1){const f=(155-dist)/155*.015;p.x+=dx/dist*f*11;p.y+=dy/dist*f*11}
+   const pulse=.68+.32*Math.sin(now*.001+p.phase);ctx.beginPath();ctx.arc(p.x,p.y,p.r*pulse,0,Math.PI*2);
+   if(isDark){
+    const hue=22+scrollCurrent*38;
+    ctx.fillStyle=`hsla(${hue+Math.sin(p.phase)*14},75%,78%,${p.alpha*pulse})`;
+   }else{
+    const pastelHues=[332,254,210];
+    const h=pastelHues[i%pastelHues.length]+Math.sin(p.phase)*10;
+    ctx.fillStyle=`hsla(${h},78%,68%,${p.alpha*pulse*.78})`;
+   }
+   ctx.fill();
+   if(!mobile)for(let j=i+1;j<particles.length;j++){const q=particles[j],dd=Math.hypot(p.x-q.x,p.y-q.y);if(dd<114){
+    ctx.strokeStyle=isDark?`hsla(${22+scrollCurrent*38},65%,72%,${(1-dd/114)*.12})`:`hsla(265,70%,66%,${(1-dd/114)*.11})`;
+    ctx.lineWidth=.65;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}}
+  }
+  if(!reduce.matches)raf=requestAnimationFrame(draw);
+ };
+ const schedule=()=>{if(!raf&&visible&&!reduce.matches)raf=requestAnimationFrame(draw)};
+ resize();addEventListener('resize',resize,{passive:true});
+ addEventListener('pointermove',e=>{mouseX=e.clientX;mouseY=e.clientY;schedule()},{passive:true});
+ const onScroll=()=>{scrollYNow=scrollY;scrollTarget=Math.min(1,scrollYNow/scrollMax);root.style.setProperty('--scroll-light',scrollTarget);const progress=document.getElementById('scrollProgress');if(progress)progress.style.transform=`scaleX(${scrollTarget})`;
+  if(hero&&!reduce.matches){const r=hero.getBoundingClientRect(),p=Math.max(-1,Math.min(1,-r.top/Math.max(1,H)));hero.style.setProperty('--hero-scroll',p);const portrait=document.getElementById('ph'),name=document.getElementById('nm');if(portrait){portrait.style.translate=innerWidth>1000?`-50% ${(p*42).toFixed(1)}px`:`0 ${(p*24).toFixed(1)}px`}if(name)name.style.translate=`0 ${(p*-20).toFixed(1)}px`;}
+  document.querySelectorAll('.sec').forEach(sec=>{const r=sec.getBoundingClientRect();sec.style.setProperty('--section-shift',Math.round((r.top-H*.5)*-.035))});schedule();};
+ let scrollRaf=0;addEventListener('scroll',()=>{if(!scrollRaf)scrollRaf=requestAnimationFrame(()=>{scrollRaf=0;onScroll()})},{passive:true});onScroll();
+ document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(!visible){cancelAnimationFrame(raf);raf=0}else schedule()});
+ reduce.addEventListener?.('change',()=>{if(reduce.matches){cancelAnimationFrame(raf);raf=0;if(ctx)draw(0)}else schedule()});schedule();
+
+ const revealTargets=document.querySelectorAll('.rv,.mk');
+ if('IntersectionObserver'in window&&!reduce.matches){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -5% 0px'});revealTargets.forEach(el=>io.observe(el))}
+ else revealTargets.forEach(el=>el.classList.add('in'));
+
+ const host=document.getElementById('heroScene'),threeCanvas=document.getElementById('hero3d');if(!host||!threeCanvas||reduce.matches||!('WebGLRenderingContext'in window))return;
+ const lowPower=mobile||(navigator.hardwareConcurrency||8)<=4;let renderer,scene,camera,rig,threeRaf=0,active=false,initialized=false,disposed=false,tx=0,ty=0,px=0,py=0,ro;
+ const stop=()=>{if(threeRaf)cancelAnimationFrame(threeRaf);threeRaf=0};const start=()=>{if(active&&!document.hidden&&!disposed&&renderer&&!threeRaf)threeRaf=requestAnimationFrame(frame)};
+ const observer=new IntersectionObserver(es=>{active=es[0].isIntersecting;if(active&&!initialized){initialized=true;init()}else if(active)start();else stop()},{rootMargin:'120px'});observer.observe(host);
+ if(fine)addEventListener('pointermove',e=>{const r=host.getBoundingClientRect();tx=((e.clientX-r.left)/Math.max(1,r.width)-.5)*.38;ty=((e.clientY-r.top)/Math.max(1,r.height)-.5)*.3},{passive:true});
+ document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+ async function init(){try{const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');if(disposed)return;
+  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(38,1,.1,100);camera.position.z=7.2;renderer=new THREE.WebGLRenderer({canvas:threeCanvas,alpha:true,antialias:!lowPower,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,lowPower?1:1.4));renderer.setSize(host.clientWidth,host.clientHeight,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+  rig=new THREE.Group();scene.add(rig);
+  const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.05,lowPower?2:3),new THREE.MeshPhysicalMaterial({color:0xd99569,metalness:.52,roughness:.18,transparent:true,opacity:.5,transmission:.22,clearcoat:1,emissive:0x632c16,emissiveIntensity:.4}));rig.add(core);
+  const wire=new THREE.Mesh(new THREE.IcosahedronGeometry(1.19,lowPower?1:2),new THREE.MeshBasicMaterial({color:0xffc18d,wireframe:true,transparent:true,opacity:.38}));rig.add(wire);
+  for(let i=0;i<3;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(1.48+i*.16,.009,8,lowPower?80:140),new THREE.MeshBasicMaterial({color:i===1?0x9e91eb:0xf3b27f,transparent:true,opacity:.78}));ring.rotation.set(.65+i*.7,.2+i*.55,.35+i*.58);rig.add(ring)}
+  const n=lowPower?140:360,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const r=1.9+Math.random()*1.35,a=Math.random()*Math.PI*2,b=Math.acos(2*Math.random()-1);pos[i*3]=r*Math.sin(b)*Math.cos(a);pos[i*3+1]=r*Math.cos(b);pos[i*3+2]=r*Math.sin(b)*Math.sin(a)}const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));rig.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0xffd2ad,size:lowPower?.027:.034,transparent:true,opacity:.82})));
+  scene.add(new THREE.AmbientLight(0xffffff,.8));const key=new THREE.PointLight(0xffa66f,24,14);key.position.set(3,2,4);scene.add(key);const fill=new THREE.PointLight(0x8c82e8,17,12);fill.position.set(-3,-2,2);scene.add(fill);
+  ro=new ResizeObserver(()=>{if(!renderer)return;const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)});ro.observe(host);start();
+ }catch(err){threeCanvas.style.display='none';const fallback=host.querySelector('.hero-core-fallback');if(fallback)fallback.style.opacity='.95';console.warn('Three.js fallback active',err)}}
+ function frame(now){threeRaf=0;if(!active||document.hidden||disposed||!renderer)return;const t=now*.00022;px+=(tx-px)*.04;py+=(ty-py)*.04;rig.rotation.y=t*.72+px;rig.rotation.x=Math.sin(t*.8)*.12+py;rig.rotation.z=Math.sin(t*.35)*.07;rig.children[2].rotation.z=t*.19;rig.children[3].rotation.x=t*.16;renderer.render(scene,camera);threeRaf=requestAnimationFrame(frame)}
+ addEventListener('pagehide',()=>{disposed=true;stop();observer.disconnect();ro?.disconnect();renderer?.dispose();renderer?.forceContextLoss()},{once:true});
+})();
+</script>
 </body>
 </html>
